@@ -1,0 +1,9 @@
+node_modules/
+build/
+dist/
+dist-electron/
+release/
+coverage/
+.DS_Store
+*.log
+.env*
