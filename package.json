@@ -7,8 +7,8 @@
   "type": "module",
   "main": "electron/main.cjs",
   "scripts": {
-    "dev": "vite --port=3000 --host=0.0.0.0",
-    "dev:electron": "concurrently \"vite --port=3000\" \"wait-on http://localhost:3000 && NODE_ENV=development electron .\"",
+    "dev": "vite --port=3456 --host=0.0.0.0",
+    "dev:electron": "concurrently \"vite --port=3456\" \"wait-on http://localhost:3456 && NODE_ENV=development electron .\"",
     "build": "vite build",
     "build:electron": "vite build && electron-builder --mac",
     "preview": "vite preview",
