@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react';
-import { Pencil } from 'lucide-react';
+import { Pencil, Download, Upload } from 'lucide-react';
 import type { MidiDevices, MidiMessagePayload, MidiRoute } from '../types/midi-bridge';
 
 type RoutingMap = Record<string, string[]>;
@@ -207,6 +207,50 @@ const LiveIOPanel: React.FC = () => {
 
   const clearAll = () => setRouting({});
 
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  const exportSetup = () => {
+    const payload = {
+      version: 1,
+      kind: 'midibrain-routing',
+      exportedAt: new Date().toISOString(),
+      aliases,
+      routing,
+    };
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `midibrain-routing-${new Date().toISOString().slice(0, 10)}.json`;
+    link.click();
+    URL.revokeObjectURL(link.href);
+  };
+
+  const importSetup = (file: File) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      try {
+        const parsed = JSON.parse(String(reader.result));
+        if (parsed && typeof parsed === 'object') {
+          if (parsed.aliases && typeof parsed.aliases === 'object') {
+            setAliases(parsed.aliases);
+            saveAliases(parsed.aliases);
+          }
+          if (parsed.routing && typeof parsed.routing === 'object') {
+            const next: RoutingMap = {};
+            for (const k of Object.keys(parsed.routing)) {
+              const v = parsed.routing[k];
+              if (Array.isArray(v)) next[k] = v.filter((x: unknown) => typeof x === 'string');
+            }
+            setRouting(next);
+          }
+        }
+      } catch (err) {
+        setError(err instanceof Error ? err.message : String(err));
+      }
+    };
+    reader.readAsText(file);
+  };
+
   const routeCount = Object.keys(routing).reduce((acc, k) => acc + routing[k].length, 0);
   const inputsWithActivity = new Set(recent.slice(0, 3).map((r) => r.inputName));
 
@@ -223,6 +267,32 @@ const LiveIOPanel: React.FC = () => {
       <div className="flex items-center justify-between">
         <h3 className="font-bold uppercase tracking-wide text-zinc-300">Live Routing</h3>
         <div className="flex gap-1">
+          <button
+            onClick={exportSetup}
+            className="p-1.5 bg-zinc-800 hover:bg-zinc-700 rounded text-zinc-300"
+            title="Export routing + device names to JSON"
+          >
+            <Download size={12} />
+          </button>
+          <button
+            onClick={() => fileInputRef.current?.click()}
+            className="p-1.5 bg-zinc-800 hover:bg-zinc-700 rounded text-zinc-300"
+            title="Import routing + device names from JSON"
+          >
+            <Upload size={12} />
+          </button>
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="application/json,.json"
+            className="hidden"
+            onChange={(e) => {
+              if (e.target.files && e.target.files[0]) {
+                importSetup(e.target.files[0]);
+                e.target.value = '';
+              }
+            }}
+          />
           {routeCount > 0 && (
             <button
               onClick={clearAll}
