@@ -1,7 +1,89 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react';
+import { Pencil } from 'lucide-react';
 import type { MidiDevices, MidiMessagePayload, MidiRoute } from '../types/midi-bridge';
 
 type RoutingMap = Record<string, string[]>;
+type AliasMap = Record<string, string>;
+
+const ALIAS_KEY = 'midibrain.portAliases';
+
+function loadAliases(): AliasMap {
+  if (typeof window === 'undefined') return {};
+  try {
+    const raw = window.localStorage.getItem(ALIAS_KEY);
+    if (!raw) return {};
+    const parsed = JSON.parse(raw);
+    return typeof parsed === 'object' && parsed ? parsed : {};
+  } catch {
+    return {};
+  }
+}
+
+function saveAliases(aliases: AliasMap) {
+  if (typeof window === 'undefined') return;
+  window.localStorage.setItem(ALIAS_KEY, JSON.stringify(aliases));
+}
+
+interface EditableNameProps {
+  raw: string;
+  alias: string | undefined;
+  onSave: (next: string) => void;
+  className?: string;
+  subClassName?: string;
+}
+
+const EditableName: React.FC<EditableNameProps> = ({ raw, alias, onSave, className = '', subClassName = '' }) => {
+  const [editing, setEditing] = useState(false);
+  const [value, setValue] = useState(alias ?? '');
+
+  useEffect(() => {
+    setValue(alias ?? '');
+  }, [alias]);
+
+  const commit = () => {
+    onSave(value.trim());
+    setEditing(false);
+  };
+
+  if (editing) {
+    return (
+      <input
+        autoFocus
+        value={value}
+        placeholder={raw}
+        onChange={(e) => setValue(e.target.value)}
+        onBlur={commit}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') commit();
+          if (e.key === 'Escape') {
+            setValue(alias ?? '');
+            setEditing(false);
+          }
+        }}
+        className={`bg-zinc-800 border border-zinc-600 px-1 py-0.5 rounded text-zinc-100 outline-none focus:border-cyan-500 ${className}`}
+      />
+    );
+  }
+
+  const display = alias && alias.length > 0 ? alias : raw;
+  const showRaw = alias && alias.length > 0 && alias !== raw;
+
+  return (
+    <div
+      className="group flex-1 min-w-0 cursor-text"
+      onClick={() => setEditing(true)}
+      title={`Click to rename (raw: ${raw})`}
+    >
+      <div className={`truncate ${className}`}>
+        {display}
+        <Pencil size={10} className="inline-block ml-1 text-zinc-600 opacity-0 group-hover:opacity-100 transition-opacity align-baseline" />
+      </div>
+      {showRaw && (
+        <div className={`truncate text-[9px] text-zinc-600 font-mono uppercase leading-none ${subClassName}`}>{raw}</div>
+      )}
+    </div>
+  );
+};
 
 const LiveIOPanel: React.FC = () => {
   const bridge = typeof window !== 'undefined' ? window.midi : undefined;
@@ -9,9 +91,26 @@ const LiveIOPanel: React.FC = () => {
 
   const [devices, setDevices] = useState<MidiDevices>({ inputs: [], outputs: [] });
   const [routing, setRouting] = useState<RoutingMap>({});
+  const [aliases, setAliases] = useState<AliasMap>(() => loadAliases());
   const [recent, setRecent] = useState<MidiMessagePayload[]>([]);
   const [error, setError] = useState<string | null>(null);
   const recentRef = useRef<MidiMessagePayload[]>([]);
+
+  const setAlias = (raw: string, next: string) => {
+    setAliases((prev) => {
+      const updated = { ...prev };
+      if (next.length === 0 || next === raw) {
+        delete updated[raw];
+      } else {
+        updated[raw] = next;
+      }
+      saveAliases(updated);
+      return updated;
+    });
+  };
+
+  const labelFor = (raw: string) => aliases[raw] ?? raw;
+  const [renameOpen, setRenameOpen] = useState(false);
 
   const refreshDevices = useCallback(async () => {
     if (!bridge) return;
@@ -145,8 +244,56 @@ const LiveIOPanel: React.FC = () => {
       {error && <div className="text-red-400">{error}</div>}
 
       <div className="text-zinc-500 text-[10px] leading-relaxed">
-        For each input, click the outputs it should route to. Chips light up when the route is active.
+        For each input, click the outputs it should route to. Chips light up when the route is active. Click any device name to rename it.
       </div>
+
+      {(devices.inputs.length + devices.outputs.length > 0) && (
+        <div className="rounded border border-zinc-800 bg-zinc-950">
+          <button
+            onClick={() => setRenameOpen((v) => !v)}
+            className="w-full text-left px-2 py-1.5 text-[10px] uppercase tracking-wide text-zinc-400 hover:text-zinc-200 flex items-center justify-between"
+          >
+            <span>Device Names</span>
+            <span className="text-zinc-600">{renameOpen ? '▼' : '▶'}</span>
+          </button>
+          {renameOpen && (
+            <div className="p-2 space-y-2 border-t border-zinc-800">
+              {devices.inputs.length > 0 && (
+                <div>
+                  <div className="text-zinc-600 text-[9px] uppercase mb-1">Inputs</div>
+                  {devices.inputs.map((name) => (
+                    <div key={name} className="flex items-center gap-2 mb-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-700 flex-shrink-0" />
+                      <EditableName
+                        raw={name}
+                        alias={aliases[name]}
+                        onSave={(next) => setAlias(name, next)}
+                        className="text-zinc-300 text-[11px]"
+                      />
+                    </div>
+                  ))}
+                </div>
+              )}
+              {devices.outputs.length > 0 && (
+                <div>
+                  <div className="text-zinc-600 text-[9px] uppercase mb-1">Outputs</div>
+                  {devices.outputs.map((name) => (
+                    <div key={name} className="flex items-center gap-2 mb-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-amber-700 flex-shrink-0" />
+                      <EditableName
+                        raw={name}
+                        alias={aliases[name]}
+                        onSave={(next) => setAlias(name, next)}
+                        className="text-zinc-300 text-[11px]"
+                      />
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      )}
 
       {devices.inputs.length === 0 && (
         <div className="text-zinc-600 italic py-4 text-center">No MIDI inputs detected</div>
@@ -178,11 +325,16 @@ const LiveIOPanel: React.FC = () => {
                         : 'bg-zinc-700'
                   }`}
                 />
-                <span className="flex-1 truncate font-bold text-zinc-200">{inName}</span>
+                <EditableName
+                  raw={inName}
+                  alias={aliases[inName]}
+                  onSave={(next) => setAlias(inName, next)}
+                  className="font-bold text-zinc-200 text-xs"
+                />
                 {isActive && (
                   <button
                     onClick={() => clearInput(inName)}
-                    className="text-zinc-500 hover:text-red-400 text-[10px] px-1"
+                    className="text-zinc-500 hover:text-red-400 text-[10px] px-1 flex-shrink-0"
                     title="Clear this input's routes"
                   >
                     ✕
@@ -204,10 +356,10 @@ const LiveIOPanel: React.FC = () => {
                             ? 'bg-amber-900/50 text-amber-200 border-amber-700/60'
                             : 'bg-zinc-800 text-zinc-400 border-transparent hover:bg-zinc-700 hover:text-zinc-200'
                         }`}
-                        title={outName}
+                        title={outName !== labelFor(outName) ? `${labelFor(outName)} (${outName})` : outName}
                       >
                         {on ? '→ ' : ''}
-                        {outName}
+                        {labelFor(outName)}
                       </button>
                     );
                   })
