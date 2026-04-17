@@ -6,9 +6,8 @@ const LiveIOPanel: React.FC = () => {
   const hasBridge = Boolean(bridge);
 
   const [devices, setDevices] = useState<MidiDevices>({ inputs: [], outputs: [] });
-  const [openInputs, setOpenInputs] = useState<Set<string>>(new Set());
-  const [openOutputs, setOpenOutputs] = useState<Set<string>>(new Set());
-  const [routes, setRoutes] = useState<MidiRoute[]>([]);
+  const [selectedInputs, setSelectedInputs] = useState<Set<string>>(new Set());
+  const [selectedOutputs, setSelectedOutputs] = useState<Set<string>>(new Set());
   const [recent, setRecent] = useState<MidiMessagePayload[]>([]);
   const [error, setError] = useState<string | null>(null);
   const recentRef = useRef<MidiMessagePayload[]>([]);
@@ -18,6 +17,8 @@ const LiveIOPanel: React.FC = () => {
     try {
       const next = await bridge.listDevices();
       setDevices(next);
+      setSelectedInputs((prev) => new Set([...prev].filter((n) => next.inputs.includes(n))));
+      setSelectedOutputs((prev) => new Set([...prev].filter((n) => next.outputs.includes(n))));
     } catch (err) {
       setError(err instanceof Error ? err.message : String(err));
     }
@@ -27,51 +28,65 @@ const LiveIOPanel: React.FC = () => {
     if (!bridge) return;
     refreshDevices();
     const unsubscribe = bridge.onMessage((payload) => {
-      recentRef.current = [payload, ...recentRef.current].slice(0, 20);
+      recentRef.current = [payload, ...recentRef.current].slice(0, 30);
       setRecent([...recentRef.current]);
     });
     return unsubscribe;
   }, [bridge, refreshDevices]);
 
-  const toggleInput = async (name: string) => {
+  const prevInputsRef = useRef<Set<string>>(new Set());
+  const prevOutputsRef = useRef<Set<string>>(new Set());
+
+  useEffect(() => {
     if (!bridge) return;
-    if (openInputs.has(name)) {
-      await bridge.closeInput(name);
-      const next = new Set(openInputs);
-      next.delete(name);
-      setOpenInputs(next);
-    } else {
-      await bridge.openInput(name);
-      setOpenInputs(new Set(openInputs).add(name));
-    }
+    const prevIn = prevInputsRef.current;
+    const prevOut = prevOutputsRef.current;
+
+    const toOpenIn = [...selectedInputs].filter((n) => !prevIn.has(n));
+    const toCloseIn = [...prevIn].filter((n) => !selectedInputs.has(n));
+    const toOpenOut = [...selectedOutputs].filter((n) => !prevOut.has(n));
+    const toCloseOut = [...prevOut].filter((n) => !selectedOutputs.has(n));
+
+    (async () => {
+      try {
+        for (const n of toOpenIn) await bridge.openInput(n);
+        for (const n of toCloseIn) await bridge.closeInput(n);
+        for (const n of toOpenOut) await bridge.openOutput(n);
+        for (const n of toCloseOut) await bridge.closeOutput(n);
+
+        const routes: MidiRoute[] = [];
+        for (const inName of selectedInputs) {
+          for (const outName of selectedOutputs) {
+            routes.push({ inputName: inName, outputName: outName, enabled: true });
+          }
+        }
+        await bridge.setRoutes(routes);
+
+        prevInputsRef.current = new Set(selectedInputs);
+        prevOutputsRef.current = new Set(selectedOutputs);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : String(err));
+      }
+    })();
+  }, [bridge, selectedInputs, selectedOutputs]);
+
+  const toggleInput = (name: string) => {
+    setSelectedInputs((prev) => {
+      const next = new Set(prev);
+      next.has(name) ? next.delete(name) : next.add(name);
+      return next;
+    });
   };
 
-  const toggleOutput = async (name: string) => {
-    if (!bridge) return;
-    if (openOutputs.has(name)) {
-      await bridge.closeOutput(name);
-      const next = new Set(openOutputs);
-      next.delete(name);
-      setOpenOutputs(next);
-    } else {
-      await bridge.openOutput(name);
-      setOpenOutputs(new Set(openOutputs).add(name));
-    }
+  const toggleOutput = (name: string) => {
+    setSelectedOutputs((prev) => {
+      const next = new Set(prev);
+      next.has(name) ? next.delete(name) : next.add(name);
+      return next;
+    });
   };
 
-  const addRoute = async (inputName: string, outputName: string) => {
-    if (!bridge) return;
-    const next: MidiRoute[] = [...routes, { inputName, outputName, enabled: true }];
-    setRoutes(next);
-    await bridge.setRoutes(next);
-  };
-
-  const removeRoute = async (idx: number) => {
-    if (!bridge) return;
-    const next = routes.filter((_, i) => i !== idx);
-    setRoutes(next);
-    await bridge.setRoutes(next);
-  };
+  const routeCount = selectedInputs.size * selectedOutputs.size;
 
   if (!hasBridge) {
     return (
@@ -84,7 +99,7 @@ const LiveIOPanel: React.FC = () => {
   return (
     <div className="p-4 bg-zinc-900 border border-zinc-700 rounded-lg text-zinc-200 text-xs space-y-3">
       <div className="flex items-center justify-between">
-        <h3 className="font-bold uppercase tracking-wide text-zinc-300">Live I/O</h3>
+        <h3 className="font-bold uppercase tracking-wide text-zinc-300">Live Routing</h3>
         <button
           onClick={refreshDevices}
           className="px-2 py-1 bg-zinc-800 hover:bg-zinc-700 rounded text-zinc-300"
@@ -95,84 +110,78 @@ const LiveIOPanel: React.FC = () => {
 
       {error && <div className="text-red-400">{error}</div>}
 
+      <div className="text-zinc-500 text-[10px] leading-relaxed">
+        Click inputs and outputs to route. Every selected input sends to every selected output.
+      </div>
+
       <div className="grid grid-cols-2 gap-3">
         <div>
-          <div className="text-zinc-500 uppercase text-[10px] mb-1">Inputs</div>
+          <div className="text-zinc-500 uppercase text-[10px] mb-1">
+            Inputs {selectedInputs.size > 0 && <span className="text-cyan-400">({selectedInputs.size})</span>}
+          </div>
           {devices.inputs.length === 0 && <div className="text-zinc-600 italic">None detected</div>}
           {devices.inputs.map((name) => (
             <button
               key={name}
               onClick={() => toggleInput(name)}
-              className={`block w-full text-left px-2 py-1 rounded mb-1 truncate ${
-                openInputs.has(name) ? 'bg-cyan-900/40 text-cyan-300' : 'bg-zinc-800 hover:bg-zinc-700'
+              className={`block w-full text-left px-2 py-1.5 rounded mb-1 truncate border transition-colors ${
+                selectedInputs.has(name)
+                  ? 'bg-cyan-900/40 text-cyan-300 border-cyan-700/60'
+                  : 'bg-zinc-800 hover:bg-zinc-700 border-transparent'
               }`}
             >
-              {openInputs.has(name) ? '● ' : '○ '}
+              <span className="inline-block w-2 h-2 rounded-full mr-2 align-middle">
+                <span
+                  className={`block w-2 h-2 rounded-full ${
+                    selectedInputs.has(name) ? 'bg-cyan-400 shadow-[0_0_6px_rgba(6,182,212,0.8)]' : 'bg-zinc-600'
+                  }`}
+                />
+              </span>
               {name}
             </button>
           ))}
         </div>
 
         <div>
-          <div className="text-zinc-500 uppercase text-[10px] mb-1">Outputs</div>
+          <div className="text-zinc-500 uppercase text-[10px] mb-1">
+            Outputs {selectedOutputs.size > 0 && <span className="text-amber-400">({selectedOutputs.size})</span>}
+          </div>
           {devices.outputs.length === 0 && <div className="text-zinc-600 italic">None detected</div>}
           {devices.outputs.map((name) => (
             <button
               key={name}
               onClick={() => toggleOutput(name)}
-              className={`block w-full text-left px-2 py-1 rounded mb-1 truncate ${
-                openOutputs.has(name) ? 'bg-amber-900/40 text-amber-300' : 'bg-zinc-800 hover:bg-zinc-700'
+              className={`block w-full text-left px-2 py-1.5 rounded mb-1 truncate border transition-colors ${
+                selectedOutputs.has(name)
+                  ? 'bg-amber-900/40 text-amber-300 border-amber-700/60'
+                  : 'bg-zinc-800 hover:bg-zinc-700 border-transparent'
               }`}
             >
-              {openOutputs.has(name) ? '● ' : '○ '}
+              <span className="inline-block w-2 h-2 rounded-full mr-2 align-middle">
+                <span
+                  className={`block w-2 h-2 rounded-full ${
+                    selectedOutputs.has(name) ? 'bg-amber-400 shadow-[0_0_6px_rgba(251,191,36,0.8)]' : 'bg-zinc-600'
+                  }`}
+                />
+              </span>
               {name}
             </button>
           ))}
         </div>
       </div>
 
-      <div>
-        <div className="text-zinc-500 uppercase text-[10px] mb-1">Routes</div>
-        {routes.length === 0 && <div className="text-zinc-600 italic">No routes. Open an input + output, then add a route below.</div>}
-        {routes.map((route, idx) => (
-          <div key={idx} className="flex items-center gap-2 mb-1">
-            <span className="flex-1 truncate">{route.inputName} → {route.outputName}</span>
-            <button
-              onClick={() => removeRoute(idx)}
-              className="px-2 py-0.5 bg-red-900/40 hover:bg-red-900/60 rounded text-red-300"
-            >
-              Remove
-            </button>
-          </div>
-        ))}
-        {openInputs.size > 0 && openOutputs.size > 0 && (
-          <div className="mt-2 flex gap-2">
-            <select id="route-in" className="flex-1 bg-zinc-800 px-2 py-1 rounded">
-              {Array.from(openInputs).map((n) => <option key={n} value={n}>{n}</option>)}
-            </select>
-            <select id="route-out" className="flex-1 bg-zinc-800 px-2 py-1 rounded">
-              {Array.from(openOutputs).map((n) => <option key={n} value={n}>{n}</option>)}
-            </select>
-            <button
-              onClick={() => {
-                const inEl = document.getElementById('route-in') as HTMLSelectElement | null;
-                const outEl = document.getElementById('route-out') as HTMLSelectElement | null;
-                if (inEl && outEl) addRoute(inEl.value, outEl.value);
-              }}
-              className="px-2 py-1 bg-emerald-900/40 hover:bg-emerald-900/60 rounded text-emerald-300"
-            >
-              Add
-            </button>
-          </div>
-        )}
+      <div className="text-center text-[10px] text-zinc-500 py-1 border-y border-zinc-800">
+        {routeCount === 0
+          ? 'No active routes'
+          : `${routeCount} active route${routeCount === 1 ? '' : 's'} · ${selectedInputs.size} in → ${selectedOutputs.size} out`}
       </div>
 
       <div>
         <div className="text-zinc-500 uppercase text-[10px] mb-1">Recent Messages</div>
-        <div className="bg-zinc-950 rounded p-2 h-32 overflow-y-auto font-mono text-[10px]">
+        <div className="bg-zinc-950 rounded p-2 h-40 overflow-y-auto font-mono text-[10px]">
           {recent.length === 0 && <div className="text-zinc-600 italic">Waiting for MIDI traffic…</div>}
           {recent.map((m, i) => (
-            <div key={i} className="text-zinc-400">
+            <div key={i} className="text-zinc-400 truncate">
               <span className="text-cyan-400">{m.inputName}</span>{' '}
               <span className="text-amber-400">{m.eventType}</span>{' '}
               <span className="text-zinc-500">{JSON.stringify(m.msg)}</span>
