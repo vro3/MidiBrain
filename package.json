@@ -13,12 +13,14 @@
     "build:electron": "vite build && electron-builder --mac",
     "preview": "vite preview",
     "clean": "rm -rf dist release",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "rebuild": "electron-rebuild -f -w midi"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.14",
     "@vitejs/plugin-react": "^5.0.4",
     "@xyflow/react": "^12.10.1",
+    "easymidi": "^3.2.0",
     "jspdf": "^4.2.0",
     "jspdf-autotable": "^5.0.7",
     "lucide-react": "^0.546.0",
@@ -29,6 +31,7 @@
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
+    "@electron/rebuild": "^4.0.3",
     "@types/node": "^22.14.0",
     "autoprefixer": "^10.4.21",
     "concurrently": "^9.1.2",
@@ -45,7 +48,9 @@
     "productName": "MidiBrain",
     "mac": {
       "category": "public.app-category.music",
-      "target": ["dmg"],
+      "target": [
+        "dmg"
+      ],
       "entitlements": "entitlements.mac.plist",
       "entitlementsInherit": "entitlements.mac.plist"
     },
