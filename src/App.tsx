@@ -12,6 +12,22 @@ const MIN_WIDTH = 280;
 const MAX_WIDTH = 900;
 const DEFAULT_WIDTH = 420;
 const STORAGE_KEY = 'midibrain.sidebarWidth';
+const ALIAS_KEY = 'midibrain.portAliases';
+
+type AliasMap = Record<string, string>;
+type RoutingMap = Record<string, string[]>;
+
+function loadAliases(): AliasMap {
+  if (typeof window === 'undefined') return {};
+  try {
+    const raw = window.localStorage.getItem(ALIAS_KEY);
+    if (!raw) return {};
+    const parsed = JSON.parse(raw);
+    return typeof parsed === 'object' && parsed ? parsed : {};
+  } catch {
+    return {};
+  }
+}
 
 export default function App() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -22,9 +38,28 @@ export default function App() {
   });
   const draggingRef = useRef(false);
 
+  const [aliases, setAliases] = useState<AliasMap>(() => loadAliases());
+  const [routing, setRouting] = useState<RoutingMap>({});
+
+  useEffect(() => {
+    window.localStorage.setItem(ALIAS_KEY, JSON.stringify(aliases));
+  }, [aliases]);
+
   useEffect(() => {
     window.localStorage.setItem(STORAGE_KEY, String(sidebarWidth));
   }, [sidebarWidth]);
+
+  const setAlias = useCallback((raw: string, next: string) => {
+    setAliases((prev) => {
+      const updated = { ...prev };
+      if (next.length === 0 || next === raw) {
+        delete updated[raw];
+      } else {
+        updated[raw] = next;
+      }
+      return updated;
+    });
+  }, []);
 
   const onMouseDown = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
@@ -78,13 +113,19 @@ export default function App() {
 
         {sidebarOpen && (
           <div className="h-full overflow-y-auto p-3">
-            <LiveIOPanel />
+            <LiveIOPanel
+              aliases={aliases}
+              setAlias={setAlias}
+              setAliases={setAliases}
+              routing={routing}
+              setRouting={setRouting}
+            />
           </div>
         )}
       </div>
 
       <div className="flex-1 min-w-0 relative">
-        <MidiRouter />
+        <MidiRouter aliases={aliases} routing={routing} />
       </div>
     </div>
   );

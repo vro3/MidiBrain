@@ -5,23 +5,12 @@ import type { MidiDevices, MidiMessagePayload, MidiRoute } from '../types/midi-b
 type RoutingMap = Record<string, string[]>;
 type AliasMap = Record<string, string>;
 
-const ALIAS_KEY = 'midibrain.portAliases';
-
-function loadAliases(): AliasMap {
-  if (typeof window === 'undefined') return {};
-  try {
-    const raw = window.localStorage.getItem(ALIAS_KEY);
-    if (!raw) return {};
-    const parsed = JSON.parse(raw);
-    return typeof parsed === 'object' && parsed ? parsed : {};
-  } catch {
-    return {};
-  }
-}
-
-function saveAliases(aliases: AliasMap) {
-  if (typeof window === 'undefined') return;
-  window.localStorage.setItem(ALIAS_KEY, JSON.stringify(aliases));
+interface LiveIOPanelProps {
+  aliases: AliasMap;
+  setAlias: (raw: string, next: string) => void;
+  setAliases: React.Dispatch<React.SetStateAction<AliasMap>>;
+  routing: RoutingMap;
+  setRouting: React.Dispatch<React.SetStateAction<RoutingMap>>;
 }
 
 interface EditableNameProps {
@@ -85,29 +74,14 @@ const EditableName: React.FC<EditableNameProps> = ({ raw, alias, onSave, classNa
   );
 };
 
-const LiveIOPanel: React.FC = () => {
+const LiveIOPanel: React.FC<LiveIOPanelProps> = ({ aliases, setAlias, setAliases, routing, setRouting }) => {
   const bridge = typeof window !== 'undefined' ? window.midi : undefined;
   const hasBridge = Boolean(bridge);
 
   const [devices, setDevices] = useState<MidiDevices>({ inputs: [], outputs: [] });
-  const [routing, setRouting] = useState<RoutingMap>({});
-  const [aliases, setAliases] = useState<AliasMap>(() => loadAliases());
   const [recent, setRecent] = useState<MidiMessagePayload[]>([]);
   const [error, setError] = useState<string | null>(null);
   const recentRef = useRef<MidiMessagePayload[]>([]);
-
-  const setAlias = (raw: string, next: string) => {
-    setAliases((prev) => {
-      const updated = { ...prev };
-      if (next.length === 0 || next === raw) {
-        delete updated[raw];
-      } else {
-        updated[raw] = next;
-      }
-      saveAliases(updated);
-      return updated;
-    });
-  };
 
   const labelFor = (raw: string) => aliases[raw] ?? raw;
   const [renameOpen, setRenameOpen] = useState(false);
@@ -233,7 +207,6 @@ const LiveIOPanel: React.FC = () => {
         if (parsed && typeof parsed === 'object') {
           if (parsed.aliases && typeof parsed.aliases === 'object') {
             setAliases(parsed.aliases);
-            saveAliases(parsed.aliases);
           }
           if (parsed.routing && typeof parsed.routing === 'object') {
             const next: RoutingMap = {};

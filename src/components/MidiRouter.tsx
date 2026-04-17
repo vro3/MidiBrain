@@ -259,7 +259,15 @@ const getChannelRgba = (ch: number, alpha: number) => {
   return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 };
 
-export default function MidiRouter() {
+type AliasMap = Record<string, string>;
+type RoutingMap = Record<string, string[]>;
+
+interface MidiRouterProps {
+  aliases?: AliasMap;
+  routing?: RoutingMap;
+}
+
+export default function MidiRouter({ aliases: aliasesProp, routing: routingProp }: MidiRouterProps = {}) {
   const [midiAccess, setMidiAccess] = useState<MIDIAccess | null>(null);
   const [inputs, setInputs] = useState<MIDIInput[]>([]);
   const [selectedInputs, setSelectedInputs] = useState<Set<string>>(new Set());
@@ -333,14 +341,25 @@ export default function MidiRouter() {
     return saved ? JSON.parse(saved) : [];
   });
 
-  const [aliases, setAliases] = useState<{ [id: string]: string }>(() => {
-    const saved = localStorage.getItem('midibrain_aliases');
-    return saved ? JSON.parse(saved) : {};
-  });
+  // Aliases are now sourced from App (shared with LiveIOPanel, keyed by port name).
+  // Keep a local fallback so the component still works standalone (tests, legacy).
+  const aliases = aliasesProp ?? {};
 
+  // Live Routing (LiveIOPanel) is the source of truth for which devices are "in play".
+  // Mirror its input→outputs map into our selection sets so Topography / Matrix show the
+  // same devices that the user routed.
   useEffect(() => {
-    localStorage.setItem('midibrain_aliases', JSON.stringify(aliases));
-  }, [aliases]);
+    if (!routingProp) return;
+    const routedInputNames = new Set<string>();
+    const routedOutputNames = new Set<string>();
+    for (const k of Object.keys(routingProp)) {
+      const outs = routingProp[k];
+      if (outs.length > 0) routedInputNames.add(k);
+      for (const o of outs) routedOutputNames.add(o);
+    }
+    setSelectedInputs(new Set(inputs.filter((i) => routedInputNames.has(i.name)).map((i) => i.id)));
+    setSelectedOutputs(new Set(outputs.filter((o) => routedOutputNames.has(o.name)).map((o) => o.id)));
+  }, [routingProp, inputs, outputs]);
 
   useEffect(() => {
     localStorage.setItem('midibrain_routings', JSON.stringify(matrixRoutings));
@@ -804,7 +823,7 @@ export default function MidiRouter() {
         id: `in:${input.id}`,
         type: 'inputNode',
         data: { 
-          label: aliases[input.id] || input.name, 
+          label: aliases[input.name] || input.name, 
           originalName: input.name,
           active: inputActivity.has(input.id) 
         },
@@ -817,7 +836,7 @@ export default function MidiRouter() {
         id: `out:${output.id}`,
         type: 'outputNode',
         data: { 
-          label: aliases[output.id] || output.name, 
+          label: aliases[output.name] || output.name, 
           originalName: output.name,
           active: outputActivity.has(output.id) 
         },
@@ -1295,9 +1314,9 @@ export default function MidiRouter() {
                         <div className="flex flex-col items-center gap-2 group/header">
                           <div className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${outputActivity.has(out.id) ? 'bg-[#fbbf24] shadow-[0_0_8px_rgba(251,191,36,0.8)] scale-125' : 'bg-zinc-800'}`}></div>
                           <div className="w-full bg-[#272a35] py-1.5 px-3 rounded text-[10px] tracking-tight border border-zinc-700/50 group-hover/header:border-zinc-500 transition-colors whitespace-nowrap" title={out.name}>
-                            {aliases[out.id] || out.name}
+                            {aliases[out.name] || out.name}
                           </div>
-                          {(aliases[out.id] && aliases[out.id] !== out.name) && (
+                          {(aliases[out.name] && aliases[out.name] !== out.name) && (
                             <div className="text-[8px] opacity-40 font-mono uppercase">{out.name}</div>
                           )}
                         </div>
@@ -1312,8 +1331,8 @@ export default function MidiRouter() {
                         <div className="flex items-center gap-3">
                           <div className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${inputActivity.has(input.id) ? 'bg-[#06b6d4] shadow-[0_0_8px_rgba(6,182,212,0.8)] scale-125' : 'bg-zinc-800'}`}></div>
                           <div className="flex flex-col">
-                            <span className="text-zinc-200 whitespace-nowrap">{aliases[input.id] || input.name}</span>
-                            {(aliases[input.id] && aliases[input.id] !== input.name) && (
+                            <span className="text-zinc-200 whitespace-nowrap">{aliases[input.name] || input.name}</span>
+                            {(aliases[input.name] && aliases[input.name] !== input.name) && (
                               <span className="text-[8px] opacity-40 font-mono whitespace-nowrap">{input.name}</span>
                             )}
                           </div>
@@ -1395,7 +1414,7 @@ export default function MidiRouter() {
                             }}
                           >
                             {inputs.map(i => (
-                              <option key={i.id} value={i.id}>{aliases[i.id] || i.name} {inputActivity.has(i.id) ? '●' : ''}</option>
+                              <option key={i.id} value={i.id}>{aliases[i.name] || i.name} {inputActivity.has(i.id) ? '●' : ''}</option>
                             ))}
                           </select>
                         </div>
@@ -1415,7 +1434,7 @@ export default function MidiRouter() {
                             }}
                           >
                             {outputs.map(o => (
-                              <option key={o.id} value={o.id}>{aliases[o.id] || o.name} {outputActivity.has(o.id) ? '●' : ''}</option>
+                              <option key={o.id} value={o.id}>{aliases[o.name] || o.name} {outputActivity.has(o.id) ? '●' : ''}</option>
                             ))}
                           </select>
                         </div>
