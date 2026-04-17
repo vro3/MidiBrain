@@ -306,7 +306,7 @@ export default function MidiRouter() {
   const [midiLog, setMidiLog] = useState<Array<{ time: string, source: string, message: string, channel: number, data: string }>>([]);
   const [isMonitorOpen, setIsMonitorOpen] = useState(false);
 
-  const [activeTab, setActiveTab] = useState<'router' | 'io' | 'remap' | 'matrix' | 'learning'>('io');
+  const [activeTab, setActiveTab] = useState<'router' | 'remap' | 'matrix' | 'learning'>('router');
   const [matrixView, setMatrixView] = useState<'crosspoint' | 'topography' | 'list'>('crosspoint');
   const [columnWidths, setColumnWidths] = useState<{ [key: string]: number }>({
     'note': 80,
@@ -894,15 +894,8 @@ export default function MidiRouter() {
   return (
     <div className="p-8 bg-zinc-950 text-zinc-100 min-h-screen font-sans">
       <header className="flex items-center justify-between mb-8 pb-6 border-b border-zinc-800">
-        {/* Left: I/O */}
-        <div className="flex gap-2 bg-zinc-900 p-1 rounded-md">
-          <button
-            className={`px-4 py-1.5 rounded-sm text-sm font-medium transition-colors ${activeTab === 'io' ? 'bg-zinc-800 text-white' : 'text-zinc-500 hover:text-zinc-300'}`}
-            onClick={() => setActiveTab('io')}
-          >
-            I/O
-          </button>
-        </div>
+        {/* Left: spacer (I/O tab removed — Live Routing sidebar handles device selection) */}
+        <div />
 
         {/* Center: MIDI Map, Router, Remap, Matrix */}
         <div className="flex gap-4 items-center">
@@ -1567,116 +1560,6 @@ export default function MidiRouter() {
 
       {/* Removed Topography tab content from here */}
 
-      {activeTab === 'io' && (
-        <div className="grid grid-cols-2 gap-12 w-full max-w-6xl mx-auto py-8">
-          <div className="bg-[#1a1c23] border border-zinc-800 rounded-xl p-8 shadow-2xl relative overflow-hidden group">
-            <div className="absolute top-0 left-0 w-1 h-full bg-[#06b6d4]/40"></div>
-            <div className="flex items-center justify-between mb-8">
-              <div>
-                <h2 className="text-xl font-bold font-sans tracking-tight text-white mb-1">Inputs</h2>
-                <div className="text-zinc-500 text-[10px] uppercase tracking-widest font-display font-bold">Physical Audio Sources</div>
-              </div>
-              <div className="flex items-center gap-3">
-                 <button 
-                  onClick={refreshMidiDevices} 
-                  className="p-2 bg-[#272a35] hover:bg-[#343846] transition-all rounded-lg border border-zinc-700 text-zinc-400 hover:text-cyan-400 group/refresh"
-                  title="Refresh Hardware"
-                >
-                   <RefreshCw size={14} className="group-active/refresh:rotate-180 transition-transform duration-500" />
-                 </button>
-                <button
-                  className="px-4 py-2 bg-[#06b6d4] hover:bg-[#0891b2] transition-colors rounded-lg text-xs font-semibold text-white shadow-[0_0_15px_rgba(6,182,212,0.3)]"
-                  onClick={() => setSelectedInputs(new Set(inputs.map(i => i.id)))}
-                >
-                  ENABLE ALL
-                </button>
-              </div>
-            </div>
-            <div className="space-y-3 max-h-[500px] overflow-y-auto pr-2 custom-scrollbar">
-              {inputs.map(i => (
-                <div
-                  key={i.id}
-                  className={`p-4 rounded-xl border font-sans text-sm cursor-pointer transition-all duration-300 flex items-center justify-between group/item ${selectedInputs.has(i.id) ? 'bg-[#06b6d4]/5 border-[#06b6d4]/30 text-white' : 'bg-[#0f1115] border-zinc-800/50 text-zinc-500 hover:border-zinc-700 hover:bg-zinc-800/30'}`}
-                  onClick={() => {
-                    const newInputs = new Set(selectedInputs);
-                    if (newInputs.has(i.id)) {
-                      newInputs.delete(i.id);
-                    } else {
-                      newInputs.add(i.id);
-                    }
-                    setSelectedInputs(newInputs);
-                  }}
-                >
-                  <div className="flex items-center gap-4 flex-1">
-                     <div className={`w-3 h-3 rounded-full border-2 transition-all duration-300 ${selectedInputs.has(i.id) ? 'border-[#06b6d4] bg-[#06b6d4] shadow-[0_0_8px_rgba(6,182,212,0.6)]' : 'border-zinc-700 bg-transparent'}`}></div>
-                     <EditableLabel 
-                       value={aliases[i.id] || ""} 
-                       originalName={i.name} 
-                       onSave={(val) => setAliases(prev => ({ ...prev, [i.id]: val }))}
-                       className="font-bold tracking-tight text-sm"
-                     />
-                  </div>
-                  <div className={`w-2 h-2 rounded-full transition-all duration-300 ${inputActivity.has(i.id) ? 'bg-cyan-400 shadow-[0_0_10px_rgba(34,211,238,1)] scale-125' : 'bg-zinc-800'}`} />
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="bg-[#1a1c23] border border-zinc-800 rounded-xl p-8 shadow-2xl relative overflow-hidden group">
-            <div className="absolute top-0 left-0 w-1 h-full bg-[#fbbf24]/40"></div>
-            <div className="flex items-center justify-between mb-8">
-              <div>
-                <h2 className="text-xl font-bold font-sans tracking-tight text-white mb-1">Outputs</h2>
-                <div className="text-zinc-500 text-[10px] uppercase tracking-widest font-display font-bold">Physical Destination Ports</div>
-              </div>
-              <div className="flex items-center gap-3">
-                <button 
-                  onClick={refreshMidiDevices} 
-                  className="p-2 bg-[#272a35] hover:bg-[#343846] transition-all rounded-lg border border-zinc-700 text-zinc-400 hover:text-amber-400 group/refresh"
-                  title="Refresh Hardware"
-                >
-                   <RefreshCw size={14} className="group-active/refresh:rotate-180 transition-transform duration-500" />
-                 </button>
-                <button
-                  onClick={() => setSelectedOutputs(new Set())}
-                  className="px-4 py-2 bg-[#272a35] hover:bg-[#343846] transition-colors rounded-lg text-xs font-semibold text-zinc-400 border border-zinc-700"
-                >
-                  CLEAR
-                </button>
-                <button
-                  className="px-4 py-2 bg-[#fbbf24] hover:bg-[#f59e0b] transition-colors rounded-lg text-xs font-semibold text-zinc-950 shadow-[0_0_15px_rgba(251,191,36,0.3)]"
-                  onClick={() => setSelectedOutputs(new Set(outputs.map(o => o.id)))}
-                >
-                  ENABLE ALL
-                </button>
-              </div>
-            </div>
-            <div className="space-y-3 max-h-[500px] overflow-y-auto pr-2 custom-scrollbar">
-              {outputs.map(o => (
-                <div
-                  key={o.id}
-                  className={`p-4 rounded-xl border font-sans text-sm cursor-pointer transition-all duration-300 flex items-center justify-between group/item ${selectedOutputs.has(o.id) ? 'bg-[#fbbf24]/5 border-[#fbbf24]/30 text-white' : 'bg-[#0f1115] border-zinc-800/50 text-zinc-500 hover:border-zinc-700 hover:bg-zinc-800/30'}`}
-                  onClick={() => {
-                    const newOutputs = new Set(selectedOutputs);
-                    if (newOutputs.has(o.id)) {
-                      newOutputs.delete(o.id);
-                    } else {
-                      newOutputs.add(o.id);
-                    }
-                    setSelectedOutputs(newOutputs);
-                  }}
-                >
-                  <div className="flex items-center gap-4">
-                     <div className={`w-3 h-3 rounded-full border-2 transition-all duration-300 ${selectedOutputs.has(o.id) ? 'border-[#fbbf24] bg-[#fbbf24] shadow-[0_0_8px_rgba(251,191,36,0.6)]' : 'border-zinc-700 bg-transparent'}`}></div>
-                     <span className="font-medium tracking-tight truncate max-w-[200px]">{o.name}</span>
-                  </div>
-                  <div className={`w-2 h-2 rounded-full transition-all duration-300 ${outputActivity.has(o.id) ? 'bg-amber-400 shadow-[0_0_10px_rgba(251,191,36,1)] scale-125' : 'bg-zinc-800'}`} />
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
 
 
 

@@ -36,8 +36,7 @@ export default function App() {
   useEffect(() => {
     const onMove = (e: MouseEvent) => {
       if (!draggingRef.current) return;
-      const next = window.innerWidth - e.clientX;
-      setSidebarWidth(Math.max(MIN_WIDTH, Math.min(MAX_WIDTH, next)));
+      setSidebarWidth(Math.max(MIN_WIDTH, Math.min(MAX_WIDTH, e.clientX)));
     };
     const onUp = () => {
       if (!draggingRef.current) return;
@@ -55,18 +54,14 @@ export default function App() {
 
   return (
     <div className="flex w-screen h-screen overflow-hidden">
-      <div className="flex-1 min-w-0 relative">
-        <MidiRouter />
-      </div>
-
       <div
-        className="relative flex-shrink-0 h-full bg-zinc-950 border-l border-zinc-800"
+        className="relative flex-shrink-0 h-full bg-zinc-950 border-r border-zinc-800"
         style={{ width: sidebarOpen ? sidebarWidth : 0 }}
       >
         {sidebarOpen && (
           <div
             onMouseDown={onMouseDown}
-            className="absolute top-0 -left-1 w-2 h-full cursor-col-resize z-40 group"
+            className="absolute top-0 -right-1 w-2 h-full cursor-col-resize z-40 group"
             title="Drag to resize"
           >
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-full bg-zinc-800 group-hover:bg-cyan-500 transition-colors" />
@@ -75,10 +70,10 @@ export default function App() {
 
         <button
           onClick={() => setSidebarOpen((v) => !v)}
-          className="absolute top-4 -left-8 z-50 w-8 h-16 bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 border-r-0 rounded-l flex items-center justify-center text-zinc-300"
-          title={sidebarOpen ? 'Hide Live I/O' : 'Show Live I/O'}
+          className="absolute top-4 -right-8 z-50 w-8 h-16 bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 border-l-0 rounded-r flex items-center justify-center text-zinc-300"
+          title={sidebarOpen ? 'Hide Live Routing' : 'Show Live Routing'}
         >
-          {sidebarOpen ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
+          {sidebarOpen ? <ChevronLeft size={16} /> : <ChevronRight size={16} />}
         </button>
 
         {sidebarOpen && (
@@ -86,6 +81,10 @@ export default function App() {
             <LiveIOPanel />
           </div>
         )}
+      </div>
+
+      <div className="flex-1 min-w-0 relative">
+        <MidiRouter />
       </div>
     </div>
   );
