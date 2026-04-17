@@ -2,6 +2,15 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const midiEngine = require('./midi-engine.cjs');
 
+// Main-process crash logging. Replace console with Sentry init for commercial
+// builds — see src/telemetry.ts for the mirrored renderer-side hook.
+process.on('uncaughtException', (err) => {
+  console.error('[main] uncaughtException', err);
+});
+process.on('unhandledRejection', (reason) => {
+  console.error('[main] unhandledRejection', reason);
+});
+
 const isDev = process.env.NODE_ENV === 'development';
 
 let mainWindow = null;
@@ -43,6 +52,12 @@ ipcMain.handle('midi:close-input', (_e, name) => midiEngine.closeInput(name));
 ipcMain.handle('midi:open-output', (_e, name) => midiEngine.openOutput(name));
 ipcMain.handle('midi:close-output', (_e, name) => midiEngine.closeOutput(name));
 ipcMain.handle('midi:set-routes', (_e, routes) => midiEngine.setRoutes(routes));
+ipcMain.handle('midi:send-raw', (_e, outputName, bytes) => midiEngine.sendRaw(outputName, bytes));
+ipcMain.handle('midi:list-virtual', () => midiEngine.listVirtualPorts());
+ipcMain.handle('midi:create-virtual-input', (_e, name) => midiEngine.createVirtualInput(name));
+ipcMain.handle('midi:create-virtual-output', (_e, name) => midiEngine.createVirtualOutput(name));
+ipcMain.handle('midi:destroy-virtual-input', (_e, name) => midiEngine.destroyVirtualInput(name));
+ipcMain.handle('midi:destroy-virtual-output', (_e, name) => midiEngine.destroyVirtualOutput(name));
 
 app.whenReady().then(createWindow);
 

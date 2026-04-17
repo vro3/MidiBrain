@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Pencil, Download, Upload } from 'lucide-react';
 import type { MidiDevices, MidiMessagePayload, MidiRoute } from '../types/midi-bridge';
 
@@ -11,6 +11,14 @@ interface LiveIOPanelProps {
   setAliases: React.Dispatch<React.SetStateAction<AliasMap>>;
   routing: RoutingMap;
   setRouting: React.Dispatch<React.SetStateAction<RoutingMap>>;
+  devices: MidiDevices;
+  refreshDevices: () => Promise<void> | void;
+  deviceError: string | null;
+  onBackup: () => void;
+  onRestore: (file: File) => void;
+  virtualPorts: string[];
+  onCreateVirtualPort: (name: string) => Promise<void> | void;
+  onDestroyVirtualPort: (name: string) => Promise<void> | void;
 }
 
 interface EditableNameProps {
@@ -74,86 +82,61 @@ const EditableName: React.FC<EditableNameProps> = ({ raw, alias, onSave, classNa
   );
 };
 
-const LiveIOPanel: React.FC<LiveIOPanelProps> = ({ aliases, setAlias, setAliases, routing, setRouting }) => {
+const LiveIOPanel: React.FC<LiveIOPanelProps> = ({ aliases, setAlias, setAliases, routing, setRouting, devices, refreshDevices, deviceError, onBackup, onRestore, virtualPorts, onCreateVirtualPort, onDestroyVirtualPort }) => {
   const bridge = typeof window !== 'undefined' ? window.midi : undefined;
   const hasBridge = Boolean(bridge);
 
-  const [devices, setDevices] = useState<MidiDevices>({ inputs: [], outputs: [] });
   const [recent, setRecent] = useState<MidiMessagePayload[]>([]);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(deviceError);
   const recentRef = useRef<MidiMessagePayload[]>([]);
+
+  useEffect(() => {
+    setError(deviceError);
+  }, [deviceError]);
 
   const labelFor = (raw: string) => aliases[raw] ?? raw;
   const [renameOpen, setRenameOpen] = useState(false);
+  const [virtualOpen, setVirtualOpen] = useState(false);
+  const [newVirtualName, setNewVirtualName] = useState('');
 
-  const refreshDevices = useCallback(async () => {
-    if (!bridge) return;
-    try {
-      const next = await bridge.listDevices();
-      setDevices(next);
-      setRouting((prev) => {
-        const cleaned: RoutingMap = {};
-        for (const inName of Object.keys(prev)) {
-          if (!next.inputs.includes(inName)) continue;
-          const keptOuts = prev[inName].filter((o) => next.outputs.includes(o));
-          if (keptOuts.length > 0) cleaned[inName] = keptOuts;
-        }
-        return cleaned;
-      });
-    } catch (err) {
-      setError(err instanceof Error ? err.message : String(err));
-    }
-  }, [bridge]);
+  useEffect(() => {
+    setRouting((prev) => {
+      const cleaned: RoutingMap = {};
+      for (const inName of Object.keys(prev)) {
+        if (!devices.inputs.includes(inName)) continue;
+        const keptOuts = prev[inName].filter((o) => devices.outputs.includes(o));
+        if (keptOuts.length > 0) cleaned[inName] = keptOuts;
+      }
+      const prevKeys = Object.keys(prev);
+      const cleanedKeys = Object.keys(cleaned);
+      const sameShape = prevKeys.length === cleanedKeys.length
+        && prevKeys.every((k) => cleaned[k] && cleaned[k].length === prev[k].length && cleaned[k].every((o, i) => o === prev[k][i]));
+      return sameShape ? prev : cleaned;
+    });
+  }, [devices, setRouting]);
 
   useEffect(() => {
     if (!bridge) return;
-    refreshDevices();
     const unsubscribe = bridge.onMessage((payload) => {
       recentRef.current = [payload, ...recentRef.current].slice(0, 30);
       setRecent([...recentRef.current]);
     });
     return unsubscribe;
-  }, [bridge, refreshDevices]);
+  }, [bridge]);
 
-  const prevInputsRef = useRef<Set<string>>(new Set());
-  const prevOutputsRef = useRef<Set<string>>(new Set());
-
+  // App owns device-open lifecycle. This effect just publishes the current
+  // user-defined pass-through routes to the engine.
   useEffect(() => {
     if (!bridge) return;
-    const neededInputs = new Set(Object.keys(routing).filter((k) => routing[k].length > 0));
-    const neededOutputs = new Set<string>();
+    const routes: MidiRoute[] = [];
     for (const inName of Object.keys(routing)) {
-      for (const o of routing[inName]) neededOutputs.add(o);
-    }
-
-    const prevIn = prevInputsRef.current;
-    const prevOut = prevOutputsRef.current;
-    const toOpenIn = [...neededInputs].filter((n) => !prevIn.has(n));
-    const toCloseIn = [...prevIn].filter((n) => !neededInputs.has(n));
-    const toOpenOut = [...neededOutputs].filter((n) => !prevOut.has(n));
-    const toCloseOut = [...prevOut].filter((n) => !neededOutputs.has(n));
-
-    (async () => {
-      try {
-        for (const n of toOpenIn) await bridge.openInput(n);
-        for (const n of toCloseIn) await bridge.closeInput(n);
-        for (const n of toOpenOut) await bridge.openOutput(n);
-        for (const n of toCloseOut) await bridge.closeOutput(n);
-
-        const routes: MidiRoute[] = [];
-        for (const inName of Object.keys(routing)) {
-          for (const outName of routing[inName]) {
-            routes.push({ inputName: inName, outputName: outName, enabled: true });
-          }
-        }
-        await bridge.setRoutes(routes);
-
-        prevInputsRef.current = neededInputs;
-        prevOutputsRef.current = neededOutputs;
-      } catch (err) {
-        setError(err instanceof Error ? err.message : String(err));
+      for (const outName of routing[inName]) {
+        routes.push({ inputName: inName, outputName: outName, enabled: true });
       }
-    })();
+    }
+    bridge.setRoutes(routes).catch((err: unknown) => {
+      setError(err instanceof Error ? err.message : String(err));
+    });
   }, [bridge, routing]);
 
   const toggleRoute = (inputName: string, outputName: string) => {
@@ -183,45 +166,11 @@ const LiveIOPanel: React.FC<LiveIOPanelProps> = ({ aliases, setAlias, setAliases
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  const exportSetup = () => {
-    const payload = {
-      version: 1,
-      kind: 'midibrain-routing',
-      exportedAt: new Date().toISOString(),
-      aliases,
-      routing,
-    };
-    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = `midibrain-routing-${new Date().toISOString().slice(0, 10)}.json`;
-    link.click();
-    URL.revokeObjectURL(link.href);
-  };
-
-  const importSetup = (file: File) => {
-    const reader = new FileReader();
-    reader.onload = () => {
-      try {
-        const parsed = JSON.parse(String(reader.result));
-        if (parsed && typeof parsed === 'object') {
-          if (parsed.aliases && typeof parsed.aliases === 'object') {
-            setAliases(parsed.aliases);
-          }
-          if (parsed.routing && typeof parsed.routing === 'object') {
-            const next: RoutingMap = {};
-            for (const k of Object.keys(parsed.routing)) {
-              const v = parsed.routing[k];
-              if (Array.isArray(v)) next[k] = v.filter((x: unknown) => typeof x === 'string');
-            }
-            setRouting(next);
-          }
-        }
-      } catch (err) {
-        setError(err instanceof Error ? err.message : String(err));
-      }
-    };
-    reader.readAsText(file);
+  const confirmRestore = (file: File) => {
+    const ok = window.confirm(
+      'Restore from this backup?\n\nYour current routing, aliases, transforms, and presets will be replaced. The app will reload.',
+    );
+    if (ok) onRestore(file);
   };
 
   const routeCount = Object.keys(routing).reduce((acc, k) => acc + routing[k].length, 0);
@@ -241,27 +190,27 @@ const LiveIOPanel: React.FC<LiveIOPanelProps> = ({ aliases, setAlias, setAliases
         <h3 className="font-bold uppercase tracking-wide text-zinc-300">Live Routing</h3>
         <div className="flex gap-1">
           <button
-            onClick={exportSetup}
+            onClick={onBackup}
             className="p-1.5 bg-zinc-800 hover:bg-zinc-700 rounded text-zinc-300"
-            title="Export routing + device names to JSON"
+            title="Backup everything (routing, aliases, transforms, presets) to a .midibrain file"
           >
             <Download size={12} />
           </button>
           <button
             onClick={() => fileInputRef.current?.click()}
             className="p-1.5 bg-zinc-800 hover:bg-zinc-700 rounded text-zinc-300"
-            title="Import routing + device names from JSON"
+            title="Restore from a .midibrain backup file"
           >
             <Upload size={12} />
           </button>
           <input
             ref={fileInputRef}
             type="file"
-            accept="application/json,.json"
+            accept=".midibrain,application/json,.json"
             className="hidden"
             onChange={(e) => {
               if (e.target.files && e.target.files[0]) {
-                importSetup(e.target.files[0]);
+                confirmRestore(e.target.files[0]);
                 e.target.value = '';
               }
             }}
@@ -288,6 +237,69 @@ const LiveIOPanel: React.FC<LiveIOPanelProps> = ({ aliases, setAlias, setAliases
 
       <div className="text-zinc-500 text-[10px] leading-relaxed">
         For each input, click the outputs it should route to. Chips light up when the route is active. Click any device name to rename it.
+      </div>
+
+      <div className="rounded border border-zinc-800 bg-zinc-950">
+        <button
+          onClick={() => setVirtualOpen((v) => !v)}
+          className="w-full text-left px-2 py-1.5 text-[10px] uppercase tracking-wide text-zinc-400 hover:text-zinc-200 flex items-center justify-between"
+        >
+          <span>Virtual Ports{virtualPorts.length > 0 ? ` (${virtualPorts.length})` : ''}</span>
+          <span className="text-zinc-600">{virtualOpen ? '▼' : '▶'}</span>
+        </button>
+        {virtualOpen && (
+          <div className="p-2 space-y-2 border-t border-zinc-800">
+            <div className="text-zinc-500 text-[10px] leading-relaxed">
+              Create a virtual MIDI device that other apps (Logic, Ableton, MainStage) will see as a real port. Each virtual port is bidirectional — other apps can send to it and receive from it.
+            </div>
+            {virtualPorts.length > 0 && (
+              <div className="space-y-1">
+                {virtualPorts.map((name) => (
+                  <div key={name} className="flex items-center justify-between gap-2 px-2 py-1 bg-zinc-900 rounded">
+                    <div className="flex items-center gap-2 min-w-0">
+                      <span className="w-1.5 h-1.5 rounded-full bg-violet-500 flex-shrink-0" />
+                      <span className="text-zinc-300 text-[11px] truncate">{name}</span>
+                    </div>
+                    <button
+                      onClick={() => onDestroyVirtualPort(name)}
+                      className="text-zinc-600 hover:text-red-400 text-[10px] px-1"
+                      title="Remove virtual port"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
+            <div className="flex gap-1">
+              <input
+                type="text"
+                placeholder="e.g. MidiBrain Hub"
+                value={newVirtualName}
+                onChange={(e) => setNewVirtualName(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && newVirtualName.trim()) {
+                    onCreateVirtualPort(newVirtualName.trim());
+                    setNewVirtualName('');
+                  }
+                }}
+                className="flex-1 bg-zinc-900 border border-zinc-700 rounded px-2 py-1 text-[11px] text-zinc-200 outline-none focus:border-cyan-500"
+              />
+              <button
+                disabled={!newVirtualName.trim() || virtualPorts.includes(newVirtualName.trim())}
+                onClick={() => {
+                  if (newVirtualName.trim()) {
+                    onCreateVirtualPort(newVirtualName.trim());
+                    setNewVirtualName('');
+                  }
+                }}
+                className="px-2 py-1 bg-violet-900/40 hover:bg-violet-800/60 disabled:opacity-30 disabled:cursor-not-allowed text-violet-200 rounded text-[10px] font-bold"
+              >
+                + ADD
+              </button>
+            </div>
+          </div>
+        )}
       </div>
 
       {(devices.inputs.length + devices.outputs.length > 0) && (

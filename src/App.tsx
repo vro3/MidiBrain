@@ -7,26 +7,53 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { ChevronRight, ChevronLeft } from 'lucide-react';
 import MidiRouter from './components/MidiRouter';
 import LiveIOPanel from './components/LiveIOPanel';
+import type { MidiDevices } from './types/midi-bridge';
 
 const MIN_WIDTH = 280;
 const MAX_WIDTH = 900;
 const DEFAULT_WIDTH = 420;
 const STORAGE_KEY = 'midibrain.sidebarWidth';
 const ALIAS_KEY = 'midibrain.portAliases';
+const ROUTING_KEY = 'midibrain.liveRouting';
+const VIRTUAL_PORTS_KEY = 'midibrain.virtualPorts';
+
+// Keys persisted by MidiRouter. Listed here so backup/restore can round-trip
+// them without needing to lift all that state into App.
+const MIDIROUTER_STORAGE_KEYS = [
+  'midibrain_matrix',
+  'midibrain_routings',
+  'midibrain_remappings',
+  'midibrain_presets',
+  'midibrain_channelNames',
+  'midibrain_rowHeights',
+];
+
+const BACKUP_KIND = 'midibrain-backup';
+const BACKUP_VERSION = 2;
 
 type AliasMap = Record<string, string>;
 type RoutingMap = Record<string, string[]>;
 
-function loadAliases(): AliasMap {
-  if (typeof window === 'undefined') return {};
+function loadJSON<T>(key: string, fallback: T): T {
+  if (typeof window === 'undefined') return fallback;
   try {
-    const raw = window.localStorage.getItem(ALIAS_KEY);
-    if (!raw) return {};
+    const raw = window.localStorage.getItem(key);
+    if (!raw) return fallback;
     const parsed = JSON.parse(raw);
-    return typeof parsed === 'object' && parsed ? parsed : {};
+    return (parsed ?? fallback) as T;
   } catch {
-    return {};
+    return fallback;
   }
+}
+
+function loadAliases(): AliasMap {
+  const obj = loadJSON<AliasMap>(ALIAS_KEY, {});
+  return typeof obj === 'object' && obj ? obj : {};
+}
+
+function loadRouting(): RoutingMap {
+  const obj = loadJSON<RoutingMap>(ROUTING_KEY, {});
+  return typeof obj === 'object' && obj ? obj : {};
 }
 
 export default function App() {
@@ -39,15 +66,169 @@ export default function App() {
   const draggingRef = useRef(false);
 
   const [aliases, setAliases] = useState<AliasMap>(() => loadAliases());
-  const [routing, setRouting] = useState<RoutingMap>({});
+  const [routing, setRouting] = useState<RoutingMap>(() => loadRouting());
+  const [devices, setDevices] = useState<MidiDevices>({ inputs: [], outputs: [] });
+  const [deviceError, setDeviceError] = useState<string | null>(null);
+  const [virtualPorts, setVirtualPorts] = useState<string[]>(() =>
+    loadJSON<string[]>(VIRTUAL_PORTS_KEY, []),
+  );
+
+  useEffect(() => {
+    window.localStorage.setItem(VIRTUAL_PORTS_KEY, JSON.stringify(virtualPorts));
+  }, [virtualPorts]);
+
+  const refreshDevices = useCallback(async () => {
+    const bridge = typeof window !== 'undefined' ? window.midi : undefined;
+    if (!bridge) return;
+    try {
+      const next = await bridge.listDevices();
+      setDevices(next);
+      setDeviceError(null);
+    } catch (err) {
+      setDeviceError(err instanceof Error ? err.message : String(err));
+    }
+  }, []);
+
+  useEffect(() => {
+    refreshDevices();
+  }, [refreshDevices]);
+
+  // Recreate persisted virtual ports on mount. Each name corresponds to both
+  // a virtual input and virtual output with that name (a "device" to the user).
+  useEffect(() => {
+    const bridge = typeof window !== 'undefined' ? window.midi : undefined;
+    if (!bridge) return;
+    let cancelled = false;
+    (async () => {
+      for (const name of virtualPorts) {
+        if (cancelled) return;
+        try {
+          await bridge.createVirtualInput(name);
+          await bridge.createVirtualOutput(name);
+        } catch { /* noop */ }
+      }
+      await refreshDevices();
+    })();
+    return () => { cancelled = true; };
+    // Intentionally only on mount — later additions are handled inline.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const createVirtualPort = useCallback(async (name: string) => {
+    const trimmed = name.trim();
+    if (!trimmed) return;
+    const bridge = typeof window !== 'undefined' ? window.midi : undefined;
+    if (!bridge) return;
+    if (virtualPorts.includes(trimmed)) return;
+    const inOk = await bridge.createVirtualInput(trimmed);
+    const outOk = await bridge.createVirtualOutput(trimmed);
+    if (inOk && outOk) {
+      setVirtualPorts((prev) => [...prev, trimmed]);
+      await refreshDevices();
+    }
+  }, [virtualPorts, refreshDevices]);
+
+  const destroyVirtualPort = useCallback(async (name: string) => {
+    const bridge = typeof window !== 'undefined' ? window.midi : undefined;
+    if (!bridge) return;
+    await bridge.destroyVirtualInput(name);
+    await bridge.destroyVirtualOutput(name);
+    setVirtualPorts((prev) => prev.filter((n) => n !== name));
+    await refreshDevices();
+  }, [refreshDevices]);
+
+  // App owns device lifecycle: open every detected input/output eagerly so both
+  // panels can subscribe and send without coordinating opens/closes. Engine's
+  // openInput/openOutput are idempotent; failures (port in use) are silent.
+  useEffect(() => {
+    const bridge = typeof window !== 'undefined' ? window.midi : undefined;
+    if (!bridge) return;
+    let cancelled = false;
+    (async () => {
+      for (const name of devices.inputs) {
+        if (cancelled) return;
+        try { await bridge.openInput(name); } catch { /* noop */ }
+      }
+      for (const name of devices.outputs) {
+        if (cancelled) return;
+        try { await bridge.openOutput(name); } catch { /* noop */ }
+      }
+    })();
+    return () => { cancelled = true; };
+  }, [devices]);
 
   useEffect(() => {
     window.localStorage.setItem(ALIAS_KEY, JSON.stringify(aliases));
   }, [aliases]);
 
   useEffect(() => {
+    window.localStorage.setItem(ROUTING_KEY, JSON.stringify(routing));
+  }, [routing]);
+
+  useEffect(() => {
     window.localStorage.setItem(STORAGE_KEY, String(sidebarWidth));
   }, [sidebarWidth]);
+
+  const exportBackup = useCallback(() => {
+    const router: Record<string, unknown> = {};
+    for (const key of MIDIROUTER_STORAGE_KEYS) {
+      const raw = window.localStorage.getItem(key);
+      if (raw != null) {
+        try { router[key] = JSON.parse(raw); } catch { router[key] = raw; }
+      }
+    }
+    const payload = {
+      kind: BACKUP_KIND,
+      version: BACKUP_VERSION,
+      exportedAt: new Date().toISOString(),
+      aliases,
+      liveRouting: routing,
+      router,
+    };
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    const stamp = new Date().toISOString().slice(0, 10);
+    link.download = `midibrain-backup-${stamp}.midibrain`;
+    link.click();
+    URL.revokeObjectURL(link.href);
+  }, [aliases, routing]);
+
+  const importBackup = useCallback((file: File) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      try {
+        const parsed = JSON.parse(String(reader.result));
+        if (!parsed || typeof parsed !== 'object') throw new Error('Invalid backup file');
+
+        // Write MidiRouter localStorage keys first so a reload picks them up.
+        const router = (parsed.router && typeof parsed.router === 'object') ? parsed.router : null;
+        if (router) {
+          for (const key of MIDIROUTER_STORAGE_KEYS) {
+            if (key in router) {
+              window.localStorage.setItem(key, JSON.stringify(router[key]));
+            }
+          }
+        }
+
+        // Legacy v1 format had { aliases, routing } at the top level.
+        if (parsed.aliases && typeof parsed.aliases === 'object') {
+          window.localStorage.setItem(ALIAS_KEY, JSON.stringify(parsed.aliases));
+        }
+        const live = parsed.liveRouting ?? parsed.routing;
+        if (live && typeof live === 'object') {
+          window.localStorage.setItem(ROUTING_KEY, JSON.stringify(live));
+        }
+
+        // Reload so every useState initializer re-reads from localStorage
+        // and the engine's route set gets rebuilt from the restored routing.
+        window.location.reload();
+      } catch (err) {
+        alert(`Could not restore backup: ${err instanceof Error ? err.message : String(err)}`);
+      }
+    };
+    reader.readAsText(file);
+  }, []);
 
   const setAlias = useCallback((raw: string, next: string) => {
     setAliases((prev) => {
@@ -119,13 +300,27 @@ export default function App() {
               setAliases={setAliases}
               routing={routing}
               setRouting={setRouting}
+              devices={devices}
+              refreshDevices={refreshDevices}
+              deviceError={deviceError}
+              onBackup={exportBackup}
+              onRestore={importBackup}
+              virtualPorts={virtualPorts}
+              onCreateVirtualPort={createVirtualPort}
+              onDestroyVirtualPort={destroyVirtualPort}
             />
           </div>
         )}
       </div>
 
       <div className="flex-1 min-w-0 relative">
-        <MidiRouter aliases={aliases} routing={routing} />
+        <MidiRouter
+          aliases={aliases}
+          setAliases={setAliases}
+          routing={routing}
+          setRouting={setRouting}
+          devices={devices}
+        />
       </div>
     </div>
   );

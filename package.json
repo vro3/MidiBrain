@@ -33,6 +33,8 @@
   "devDependencies": {
     "@electron/rebuild": "^4.0.3",
     "@types/node": "^22.14.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
     "autoprefixer": "^10.4.21",
     "concurrently": "^9.1.2",
     "electron": "^33.4.0",
@@ -46,17 +48,28 @@
   "build": {
     "appId": "com.midibrain.app",
     "productName": "MidiBrain",
+    "copyright": "Copyright © 2026 Vince Romanelli",
     "mac": {
       "category": "public.app-category.music",
       "target": [
-        "dmg"
+        {
+          "target": "dmg",
+          "arch": [
+            "universal"
+          ]
+        }
       ],
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false,
       "entitlements": "entitlements.mac.plist",
-      "entitlementsInherit": "entitlements.mac.plist"
+      "entitlementsInherit": "entitlements.mac.plist",
+      "notarize": false
     },
     "dmg": {
-      "title": "MidiBrain"
+      "title": "MidiBrain",
+      "sign": false
     },
+    "afterSign": "scripts/notarize.cjs",
     "directories": {
       "output": "release"
     },

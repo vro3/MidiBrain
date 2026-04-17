@@ -2,9 +2,16 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+  <!-- Required for Electron's V8 engine under hardened runtime -->
   <key>com.apple.security.cs.allow-unsigned-executable-memory</key>
   <true/>
+  <key>com.apple.security.cs.allow-jit</key>
+  <true/>
+  <!-- CoreMIDI sits under audio-input; without this, MIDI devices won't enumerate -->
   <key>com.apple.security.device.audio-input</key>
+  <true/>
+  <!-- Allow loading the native easymidi module -->
+  <key>com.apple.security.cs.disable-library-validation</key>
   <true/>
 </dict>
 </plist>

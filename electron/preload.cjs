@@ -7,6 +7,12 @@ contextBridge.exposeInMainWorld('midi', {
   openOutput: (name) => ipcRenderer.invoke('midi:open-output', name),
   closeOutput: (name) => ipcRenderer.invoke('midi:close-output', name),
   setRoutes: (routes) => ipcRenderer.invoke('midi:set-routes', routes),
+  sendRaw: (outputName, bytes) => ipcRenderer.invoke('midi:send-raw', outputName, bytes),
+  listVirtualPorts: () => ipcRenderer.invoke('midi:list-virtual'),
+  createVirtualInput: (name) => ipcRenderer.invoke('midi:create-virtual-input', name),
+  createVirtualOutput: (name) => ipcRenderer.invoke('midi:create-virtual-output', name),
+  destroyVirtualInput: (name) => ipcRenderer.invoke('midi:destroy-virtual-input', name),
+  destroyVirtualOutput: (name) => ipcRenderer.invoke('midi:destroy-virtual-output', name),
   onMessage: (callback) => {
     const listener = (_event, payload) => callback(payload);
     ipcRenderer.on('midi:message', listener);

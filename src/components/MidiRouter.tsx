@@ -6,6 +6,7 @@ import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { ReactFlow, Background, Controls, MiniMap, Node, Edge, MarkerType, useNodesState, useEdgesState, addEdge, OnNodesChange, OnEdgesChange, OnConnect, Handle, Position, BackgroundVariant, Panel, ConnectionLineType, applyNodeChanges, applyEdgeChanges, BaseEdge, getSmoothStepPath, EdgeProps, EdgeLabelRenderer } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
+import type { MidiDevices, MidiDevice, MidiMessagePayload } from '../types/midi-bridge';
 
 const InputNode = ({ data }: { data: { label: string, originalName?: string, active?: boolean } }) => (
   <div className={`relative flex items-center w-[220px] h-[44px] bg-[#1a1c23] border ${data.active ? 'border-cyan-500/50 shadow-[0_0_15px_rgba(6,182,212,0.2)]' : 'border-zinc-700'} rounded-lg px-3 py-2 text-zinc-300 text-[11px] font-display tracking-tight shadow-md hover:border-zinc-500 transition-all duration-200`}>
@@ -187,6 +188,10 @@ interface MatrixRouting {
   inputId: string;
   outputId: string;
   enabled: boolean;
+  // Optional filters. Undefined / empty = pass everything.
+  channels?: number[];          // 1-16; only these MIDI channels forward
+  noteMin?: number;             // 0-127; applies to note on/off only
+  noteMax?: number;             // 0-127; applies to note on/off only
 }
 
 interface Preset {
@@ -195,7 +200,8 @@ interface Preset {
   matrix: RouteMatrix;
   matrixRoutings: MatrixRouting[];
   remappings: { [sourceKey: string]: Remapping };
-  aliases?: { [id: string]: string };
+  aliases?: { [portName: string]: string };
+  liveRouting?: { [inputName: string]: string[] };
   timestamp: number;
 }
 
@@ -264,12 +270,33 @@ type RoutingMap = Record<string, string[]>;
 
 interface MidiRouterProps {
   aliases?: AliasMap;
+  setAliases?: React.Dispatch<React.SetStateAction<AliasMap>>;
   routing?: RoutingMap;
+  setRouting?: React.Dispatch<React.SetStateAction<RoutingMap>>;
+  devices?: MidiDevices;
 }
 
-export default function MidiRouter({ aliases: aliasesProp, routing: routingProp }: MidiRouterProps = {}) {
-  const [midiAccess, setMidiAccess] = useState<MIDIAccess | null>(null);
-  const [inputs, setInputs] = useState<MIDIInput[]>([]);
+export default function MidiRouter({
+  aliases: aliasesProp,
+  setAliases: setAliasesProp,
+  routing: routingProp,
+  setRouting: setRoutingProp,
+  devices,
+}: MidiRouterProps = {}) {
+  const bridge = typeof window !== 'undefined' ? window.midi : undefined;
+
+  // Device lists come from App via the Electron bridge. id === name (port names
+  // are stable identifiers). Wrapping as {id, name} keeps the existing JSX
+  // working unchanged since it reads input.id / input.name.
+  const inputs = useMemo<MidiDevice[]>(
+    () => (devices?.inputs ?? []).map((n) => ({ id: n, name: n })),
+    [devices?.inputs],
+  );
+  const outputs = useMemo<MidiDevice[]>(
+    () => (devices?.outputs ?? []).map((n) => ({ id: n, name: n })),
+    [devices?.outputs],
+  );
+
   const [selectedInputs, setSelectedInputs] = useState<Set<string>>(new Set());
   const [inputActivity, setInputActivity] = useState<Set<string>>(new Set());
   const [outputActivity, setOutputActivity] = useState<Set<string>>(new Set());
@@ -278,7 +305,6 @@ export default function MidiRouter({ aliases: aliasesProp, routing: routingProp 
     const saved = localStorage.getItem('midibrain_channelNames');
     return saved ? JSON.parse(saved) : {};
   });
-  const [outputs, setOutputs] = useState<MIDIOutput[]>([]);
   const [isRunning, setIsRunning] = useState(false);
   const [matrix, setMatrix] = useState<RouteMatrix>(() => {
     const saved = localStorage.getItem('midibrain_matrix');
@@ -313,8 +339,19 @@ export default function MidiRouter({ aliases: aliasesProp, routing: routingProp 
 
   const [midiLog, setMidiLog] = useState<Array<{ time: string, source: string, message: string, channel: number, data: string }>>([]);
   const [isMonitorOpen, setIsMonitorOpen] = useState(false);
+  const [isPresetManagerOpen, setIsPresetManagerOpen] = useState(false);
+  const [renamingPresetId, setRenamingPresetId] = useState<string | null>(null);
+  const [renameDraft, setRenameDraft] = useState('');
+  const [expandedFilters, setExpandedFilters] = useState<Set<string>>(new Set());
 
-  const [activeTab, setActiveTab] = useState<'router' | 'remap' | 'matrix' | 'learning'>('router');
+  const updateRoutingFilter = (id: string, patch: Partial<MatrixRouting>) => {
+    setMatrixRoutings((prev) => prev.map((r) => (r.id === id ? { ...r, ...patch } : r)));
+  };
+
+  const routingHasFilters = (r: MatrixRouting) =>
+    (r.channels && r.channels.length > 0) || r.noteMin != null || r.noteMax != null;
+
+  const [activeTab, setActiveTab] = useState<'router' | 'remap' | 'matrix' | 'learning'>('matrix');
   const [matrixView, setMatrixView] = useState<'crosspoint' | 'topography' | 'list'>('crosspoint');
   const [columnWidths, setColumnWidths] = useState<{ [key: string]: number }>({
     'note': 80,
@@ -379,26 +416,29 @@ export default function MidiRouter({ aliases: aliasesProp, routing: routingProp 
   const saveCurrentAsPreset = () => {
     if (!newPresetName.trim()) return;
 
-    const newPreset = {
+    const newPreset: Preset = {
       id: Date.now().toString(),
       name: newPresetName.trim(),
       matrix,
       matrixRoutings,
       remappings,
-      timestamp: Date.now()
+      aliases: aliasesProp ?? {},
+      liveRouting: routingProp ?? {},
+      timestamp: Date.now(),
     };
 
-    setPresets(prev => [...prev, newPreset]);
+    setPresets((prev) => [...prev, newPreset]);
     setNewPresetName('');
     setIsNamingPreset(false);
   };
 
   const loadPreset = (preset: Preset) => {
-    if (confirm(`Load preset "${preset.name}"? This will overwrite your current configuration.`)) {
-      setMatrix(preset.matrix);
-      setMatrixRoutings(preset.matrixRoutings);
-      setRemappings(preset.remappings);
-    }
+    if (!confirm(`Load preset "${preset.name}"? This will overwrite your current configuration.`)) return;
+    setMatrix(preset.matrix);
+    setMatrixRoutings(preset.matrixRoutings);
+    setRemappings(preset.remappings);
+    if (preset.aliases && setAliasesProp) setAliasesProp(preset.aliases);
+    if (preset.liveRouting && setRoutingProp) setRoutingProp(preset.liveRouting);
   };
 
   const deletePreset = (id: string, e: React.MouseEvent) => {
@@ -408,6 +448,62 @@ export default function MidiRouter({ aliases: aliasesProp, routing: routingProp 
     }
   };
 
+  const renamePreset = (id: string, nextName: string) => {
+    const trimmed = nextName.trim();
+    if (!trimmed) return;
+    setPresets((prev) => prev.map((p) => (p.id === id ? { ...p, name: trimmed } : p)));
+  };
+
+  const duplicatePreset = (preset: Preset) => {
+    const copy: Preset = {
+      ...preset,
+      id: Date.now().toString(),
+      name: `${preset.name} (copy)`,
+      timestamp: Date.now(),
+    };
+    setPresets((prev) => [...prev, copy]);
+  };
+
+  const exportSinglePreset = (preset: Preset) => {
+    const payload = {
+      kind: 'midibrain-preset',
+      version: 1,
+      exportedAt: new Date().toISOString(),
+      preset,
+    };
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    const safeName = preset.name.replace(/[^a-z0-9-_]/gi, '_');
+    link.download = `${safeName}.preset`;
+    link.click();
+    URL.revokeObjectURL(link.href);
+  };
+
+  const presetImportRef = useRef<HTMLInputElement>(null);
+
+  const importSinglePreset = (file: File) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      try {
+        const parsed = JSON.parse(String(reader.result));
+        const candidate = parsed?.preset ?? parsed;
+        if (!candidate || typeof candidate !== 'object' || !candidate.name) {
+          throw new Error('Not a valid preset file');
+        }
+        const imported: Preset = {
+          ...candidate,
+          id: Date.now().toString(),
+          timestamp: Date.now(),
+        };
+        setPresets((prev) => [...prev, imported]);
+      } catch (err) {
+        alert(`Could not import preset: ${err instanceof Error ? err.message : String(err)}`);
+      }
+    };
+    reader.readAsText(file);
+  };
+
   const nodeTypes = useMemo(() => initialNodeTypes, []);
   const edgeTypes = useMemo(() => initialEdgeTypes, []);
 
@@ -415,53 +511,88 @@ export default function MidiRouter({ aliases: aliasesProp, routing: routingProp 
   const inputRefs = useRef<{ [key: string]: HTMLTextAreaElement | null }>({});
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  // Keep latest state accessible to the single persistent message subscription
+  // without re-subscribing every render (which would drop in-flight events).
+  const stateRef = useRef({
+    selectedInputs,
+    selectedOutputs,
+    isRunning,
+    isLearning,
+    activeTab,
+    matrix,
+    matrixRoutings,
+    remappings,
+  });
   useEffect(() => {
-    navigator.requestMIDIAccess().then((access) => {
-      setMidiAccess(access);
-      setInputs(Array.from(access.inputs.values()));
-      setOutputs(Array.from(access.outputs.values()));
-    });
-  }, []);
+    stateRef.current = {
+      selectedInputs,
+      selectedOutputs,
+      isRunning,
+      isLearning,
+      activeTab,
+      matrix,
+      matrixRoutings,
+      remappings,
+    };
+  }, [selectedInputs, selectedOutputs, isRunning, isLearning, activeTab, matrix, matrixRoutings, remappings]);
 
-  useEffect(() => {
-    navigator.requestMIDIAccess().then((access) => {
-      setMidiAccess(access);
-      setInputs(Array.from(access.inputs.values()));
-      setOutputs(Array.from(access.outputs.values()));
-      
-      access.onstatechange = (e) => {
-        setInputs(Array.from(access.inputs.values()));
-        setOutputs(Array.from(access.outputs.values()));
-      };
-    });
-  }, []);
+  const bumpInputActivity = (name: string) => {
+    setInputActivity((prev) => new Set(prev).add(name));
+    setTimeout(() => setInputActivity((prev) => {
+      const next = new Set(prev);
+      next.delete(name);
+      return next;
+    }), 100);
+  };
 
-  const refreshMidiDevices = async () => {
-    try {
-      const access = await navigator.requestMIDIAccess();
-      setMidiAccess(access);
-      setInputs(Array.from(access.inputs.values()));
-      setOutputs(Array.from(access.outputs.values()));
-      
-      access.onstatechange = (e) => {
-        setInputs(Array.from(access.inputs.values()));
-        setOutputs(Array.from(access.outputs.values()));
-      };
-    } catch (err) {
-      console.error('Failed to refresh MIDI access:', err);
+  const bumpOutputActivity = (name: string) => {
+    setOutputActivity((prev) => new Set(prev).add(name));
+    setTimeout(() => setOutputActivity((prev) => {
+      const next = new Set(prev);
+      next.delete(name);
+      return next;
+    }), 100);
+  };
+
+  const sendToOutput = (outputName: string, bytes: number[]) => {
+    if (!bridge) return;
+    bridge.sendRaw(outputName, bytes);
+    bumpOutputActivity(outputName);
+  };
+
+  // MIDI Panic: silence every output immediately. Sends All Sound Off (CC 120),
+  // All Notes Off (CC 123), and Reset All Controllers (CC 121) on all 16
+  // channels to every open output. Standard pro-audio rescue from stuck notes.
+  const panic = () => {
+    if (!bridge) return;
+    const outputNames = devices?.outputs ?? [];
+    for (const outName of outputNames) {
+      for (let ch = 0; ch < 16; ch++) {
+        const status = 0xB0 | ch;
+        bridge.sendRaw(outName, [status, 120, 0]); // All Sound Off
+        bridge.sendRaw(outName, [status, 123, 0]); // All Notes Off
+        bridge.sendRaw(outName, [status, 121, 0]); // Reset All Controllers
+      }
+      bumpOutputActivity(outName);
     }
   };
 
-  const handleMidiMessage = (event: MIDIMessageEvent) => {
-    const input = event.target as MIDIInput;
-    const [status, data1, data2] = event.data!;
+  const handleMidiPayload = (payload: MidiMessagePayload) => {
+    const bytes = payload.rawBytes;
+    if (!bytes || bytes.length === 0) return;
+    const status = bytes[0];
+    const data1 = bytes[1] ?? 0;
+    const data2 = bytes[2] ?? 0;
     const channel = (status & 0x0F) + 1;
     const type = status & 0xF0;
+    const inputName = payload.inputName;
 
-    // 1. Global Activity Tracking & Logging
+    const s = stateRef.current;
+
+    // 1. Activity + log
     const now = new Date();
     const timeString = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}.${now.getMilliseconds().toString().padStart(3, '0')}`;
-    
+
     let messageType = 'Unknown';
     if (type === 0x90 && data2 > 0) messageType = 'Note On';
     else if (type === 0x80 || (type === 0x90 && data2 === 0)) messageType = 'Note Off';
@@ -472,181 +603,141 @@ export default function MidiRouter({ aliases: aliasesProp, routing: routingProp 
     else if (type === 0xA0) messageType = 'Poly Aftertouch';
 
     let dataString = '';
-    if (data1 !== undefined) {
+    if (bytes.length > 1) {
       if (messageType.includes('Note')) dataString = `${getNoteName(data1)}  Vel: ${data2}`;
       else dataString = `${data1}  ${data2 || ''}`;
     }
 
-    // ALWAYS show activity light for diagnosis regardless of selection
-    setInputActivity((prev: Set<string>) => new Set(prev).add(input.id));
-    setTimeout(() => setInputActivity((prev: Set<string>) => {
-      const next = new Set(prev);
-      next.delete(input.id);
-      return next;
-    }), 100);
+    bumpInputActivity(inputName);
 
-    // STOP HERE if the port isn't "selected" (master enable)
-    if (!selectedInputs.has(input.id)) return;
+    // Master enable: only process selected inputs beyond the activity LED
+    if (!s.selectedInputs.has(inputName)) return;
 
-    setMidiLog((prev: any[]) => {
+    setMidiLog((prev) => {
       const newLog = [{
         time: timeString,
-        source: input.name || input.id || 'Unknown',
+        source: inputName,
         message: messageType,
         channel: channel,
-        data: dataString
+        data: dataString,
       }, ...prev];
       if (newLog.length > 300) newLog.length = 300;
       return newLog;
     });
 
-    // 2. Direct Matrix Routing (Transparent Pass-through of all messages)
-    if (isRunning) {
-      matrixRoutings.forEach((routing: MatrixRouting) => {
-        if (routing.enabled && routing.inputId === input.id) {
-          const output = midiAccess?.outputs.get(routing.outputId);
-          if (output) {
-            output.send(event.data!); // Forward exact raw data
-            setOutputActivity((prev: Set<string>) => new Set(prev).add(output.id));
-            setTimeout(() => setOutputActivity((prev: Set<string>) => {
-              const next = new Set(prev);
-              next.delete(output.id);
-              return next;
-            }), 100);
-          }
+    // 2. Direct matrix routing — transparent pass-through with optional filters
+    if (s.isRunning) {
+      const isNoteMsg = type === 0x90 || type === 0x80;
+      for (const routing of s.matrixRoutings) {
+        if (!routing.enabled) continue;
+        if (routing.inputId !== inputName) continue;
+        if (routing.channels && routing.channels.length > 0 && !routing.channels.includes(channel)) continue;
+        if (isNoteMsg) {
+          if (routing.noteMin != null && data1 < routing.noteMin) continue;
+          if (routing.noteMax != null && data1 > routing.noteMax) continue;
         }
-      });
+        sendToOutput(routing.outputId, bytes);
+      }
     }
 
-    // 3. Process Remapping & Router
+    // 3. Remap + grid router
     const isNoteOn = type === 0x90 && data2 > 0;
     const isNoteOff = type === 0x80 || (type === 0x90 && data2 === 0);
     const isCC = type === 0xB0;
 
-    // --- REMAP LEARNING ---
-    if (isLearning && activeTab === 'remap') {
+    if (s.isLearning && s.activeTab === 'remap') {
       if (isNoteOn || isCC) {
         const sourceKey = isNoteOn ? `note:${channel}:${data1}` : `cc:${channel}:${data1}`;
-        if (!remappings[sourceKey]) {
-          setRemappings(prev => ({
+        if (!s.remappings[sourceKey]) {
+          setRemappings((prev) => ({
             ...prev,
             [sourceKey]: {
               type: isNoteOn ? 'note' : 'cc',
               value: data1,
-              channel: channel
-            }
+              channel: channel,
+            },
           }));
         }
         setHighlighted({ type: isNoteOn ? 'note' : 'cc', num: data1, channel });
-        return; // Don't process further if learning in this tab
+        return;
       }
     }
 
-    // --- MIDI TRANSFORMATION ---
     let outputNote = data1;
     let outputChannel = channel;
     let outputType = type;
     let skipRouter = false;
 
     const sourceKey = isNoteOn || isNoteOff ? `note:${channel}:${data1}` : isCC ? `cc:${channel}:${data1}` : null;
-    if (sourceKey && remappings[sourceKey]) {
-      const mapping = remappings[sourceKey];
+    if (sourceKey && s.remappings[sourceKey]) {
+      const mapping = s.remappings[sourceKey];
       outputNote = mapping.value;
       outputChannel = mapping.channel;
-      
+
       if (mapping.type === 'note') outputType = isNoteOff ? 0x80 : 0x90;
       else if (mapping.type === 'cc') outputType = 0xB0;
       else if (mapping.type === 'pc') outputType = 0xC0;
-      
-      // If we transformed a CC into a Note, treat it as a Note for the router
+
       if (isCC && mapping.type === 'note') {
-        // We'll proceed to the router logic below
+        // fall through to router
       } else if (isNoteOn && (mapping.type === 'cc' || mapping.type === 'pc')) {
-        skipRouter = true; // Remapped to special command, non-router
+        skipRouter = true;
       }
     }
 
-    if ((isNoteOn || isNoteOff || (isCC && sourceKey && remappings[sourceKey]?.type === 'note')) && !skipRouter) {
+    if ((isNoteOn || isNoteOff || (isCC && sourceKey && s.remappings[sourceKey]?.type === 'note')) && !skipRouter) {
       const note = outputNote;
       const velocity = data2;
-      const effectiveType = (isCC && remappings[sourceKey]?.type === 'note') ? 0x90 : outputType;
+      const effectiveType = (isCC && s.remappings[sourceKey!]?.type === 'note') ? 0x90 : outputType;
 
       if (effectiveType === 0x90) {
         setLastMidiMessage({ note, channel: outputChannel, velocity });
 
-        if (isLearning && activeTab !== 'remap') {
+        if (s.isLearning && s.activeTab !== 'remap') {
           setHighlighted({ type: 'note', num: note, channel: outputChannel });
           scrollRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
           setTimeout(() => {
             inputRefs.current[`note-${note}-${outputChannel}`]?.focus();
           }, 100);
-        } else if (isRunning) {
-          const action = matrix.note[note]?.[outputChannel];
+        } else if (s.isRunning) {
+          const action = s.matrix.note[note]?.[outputChannel];
           if (action) {
-            selectedOutputs.forEach(outputId => {
-              const output = midiAccess?.outputs.get(outputId);
-              if (output) {
-                const outputStatus = effectiveType | (outputChannel - 1);
-                output.send([outputStatus, note, velocity]);
-                setOutputActivity(prev => new Set(prev).add(output.id));
-                setTimeout(() => setOutputActivity(prev => {
-                  const next = new Set(prev);
-                  next.delete(output.id);
-                  return next;
-                }), 100);
-              }
+            const outputStatus = effectiveType | (outputChannel - 1);
+            s.selectedOutputs.forEach((outName) => {
+              sendToOutput(outName, [outputStatus, note, velocity]);
             });
           }
         }
       } else if (effectiveType === 0x80) {
-        if (isRunning) {
-          const action = matrix.note[note]?.[outputChannel];
+        if (s.isRunning) {
+          const action = s.matrix.note[note]?.[outputChannel];
           if (action) {
-            selectedOutputs.forEach((outputId: string) => {
-              const output = midiAccess?.outputs.get(outputId);
-              if (output) {
-                const outputStatus = effectiveType | (outputChannel - 1);
-                output.send([outputStatus, note, velocity]);
-              }
+            const outputStatus = effectiveType | (outputChannel - 1);
+            s.selectedOutputs.forEach((outName) => {
+              sendToOutput(outName, [outputStatus, note, velocity]);
             });
           }
         }
       }
-    } else if (isRunning && sourceKey && remappings[sourceKey] && skipRouter) {
-      // Execute the transformed non-note message
-      selectedOutputs.forEach(outputId => {
-        const output = midiAccess?.outputs.get(outputId);
-        if (output) {
-          const finalStatus = outputType | (outputChannel - 1);
-          output.send([finalStatus, outputNote, data2]);
-          setOutputActivity(prev => new Set(prev).add(output.id));
-          setTimeout(() => setOutputActivity(prev => {
-            const next = new Set(prev);
-            next.delete(output.id);
-            return next;
-          }), 100);
-        }
+    } else if (s.isRunning && sourceKey && s.remappings[sourceKey] && skipRouter) {
+      const finalStatus = outputType | (outputChannel - 1);
+      s.selectedOutputs.forEach((outName) => {
+        sendToOutput(outName, [finalStatus, outputNote, data2]);
       });
     }
 
-    // CC & PC Direct Routing (Logic for the Grid)
-    if (isRunning && !skipRouter) {
-      if (type === 0xB0) { // CC
-        const action = matrix.cc[data1]?.[channel];
+    // CC + PC direct routing (matrix grid)
+    if (s.isRunning && !skipRouter) {
+      if (type === 0xB0) {
+        const action = s.matrix.cc[data1]?.[channel];
         if (action) {
-          selectedOutputs.forEach(id => {
-            const output = midiAccess?.outputs.get(id);
-            if (output) output.send(event.data!);
-          });
+          s.selectedOutputs.forEach((outName) => sendToOutput(outName, bytes));
         }
         setHighlighted({ type: 'cc', num: data1, channel });
-      } else if (type === 0xC0) { // PC
-        const action = matrix.pc[data1]?.[channel];
+      } else if (type === 0xC0) {
+        const action = s.matrix.pc[data1]?.[channel];
         if (action) {
-          selectedOutputs.forEach(id => {
-            const output = midiAccess?.outputs.get(id);
-            if (output) output.send(event.data!);
-          });
+          s.selectedOutputs.forEach((outName) => sendToOutput(outName, bytes));
         }
         setHighlighted({ type: 'pc', num: data1, channel });
       }
@@ -654,28 +745,12 @@ export default function MidiRouter({ aliases: aliasesProp, routing: routingProp 
   };
 
   useEffect(() => {
-    // Add listeners to ALL available inputs for diagnosis LEDs
-    midiAccess?.inputs.forEach(input => {
-      input.removeEventListener('midimessage', handleMidiMessage);
-      input.addEventListener('midimessage', handleMidiMessage);
-    });
-
-    return () => {
-      midiAccess?.inputs.forEach(input => {
-        input.removeEventListener('midimessage', handleMidiMessage);
-      });
-    };
-  }, [
-    midiAccess,
-    inputs, // Re-run when devices are refreshed
-    selectedInputs, 
-    isRunning, 
-    matrix, 
-    isLearning, 
-    matrixRoutings, 
-    selectedOutputs, 
-    remappings
-  ]);
+    if (!bridge) return;
+    const unsubscribe = bridge.onMessage(handleMidiPayload);
+    return unsubscribe;
+    // Subscribe once per bridge; handler reads current state via stateRef.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [bridge]);
 
   const toggleMatrixRouting = (inputId: string, outputId: string) => {
     setMatrixRoutings(prev => {
@@ -738,6 +813,24 @@ export default function MidiRouter({ aliases: aliasesProp, routing: routingProp 
     link.href = URL.createObjectURL(blob);
     link.download = 'midi-map.csv';
     link.click();
+  };
+
+  const downloadMonitorCSV = () => {
+    if (midiLog.length === 0) return;
+    const rows = midiLog.slice().reverse().map((l) => ({
+      time: l.time,
+      source: l.source,
+      message: l.message,
+      channel: l.channel,
+      data: l.data,
+    }));
+    const csv = Papa.unparse(rows);
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `midibrain-monitor-${new Date().toISOString().slice(0, 19).replace(/[:T]/g, '-')}.csv`;
+    link.click();
+    URL.revokeObjectURL(link.href);
   };
 
   const importCSV = (file: File) => {
@@ -957,11 +1050,22 @@ export default function MidiRouter({ aliases: aliasesProp, routing: routingProp 
             Monitor: {lastMidiMessage ? `Note ${lastMidiMessage.note}, Ch ${lastMidiMessage.channel}, Vel ${lastMidiMessage.velocity}` : 'Waiting...'}
           </button>
           <button
-            className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-colors ${isRunning ? 'bg-red-900/50 text-red-200 hover:bg-red-900/70' : 'bg-emerald-900/50 text-emerald-200 hover:bg-emerald-900/70'}`}
+            onClick={panic}
+            className="flex items-center gap-2 px-4 py-2 rounded-md text-sm font-bold bg-red-900/40 hover:bg-red-900/70 text-red-200 border border-red-700/40 transition-colors"
+            title="Silence all outputs: All Sound Off + All Notes Off + Reset Controllers on every channel"
+          >
+            <Zap size={16} />
+            PANIC
+          </button>
+          <button
+            className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-colors ${isRunning ? 'bg-emerald-900/50 text-emerald-200 hover:bg-emerald-900/70' : 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700'}`}
             onClick={() => setIsRunning(!isRunning)}
+            title={isRunning
+              ? 'Transforms on — Matrix/Remap/Router are processing. Live Routing (sidebar) always passes through regardless.'
+              : 'Transforms off — only Live Routing (sidebar) is forwarding MIDI. Click to enable Matrix/Remap/Router.'}
           >
             {isRunning ? <Square size={16} /> : <Play size={16} />}
-            {isRunning ? 'Stop' : 'Start'}
+            Transforms: {isRunning ? 'On' : 'Off'}
           </button>
           <div className="relative group">
             <button className="flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium bg-zinc-800 hover:bg-zinc-700 transition-colors">
@@ -1004,7 +1108,29 @@ export default function MidiRouter({ aliases: aliasesProp, routing: routingProp 
         </div>
       </header>
 
-      {activeTab === 'router' && (
+      {inputs.length === 0 && outputs.length === 0 && (
+        <div className="max-w-2xl mx-auto py-16 px-8">
+          <div className="bg-[#1a1c23] border border-zinc-800 rounded-2xl p-10 text-center">
+            <div className="w-16 h-16 bg-cyan-900/20 border border-cyan-700/40 rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <Zap size={28} className="text-cyan-400" />
+            </div>
+            <h2 className="text-xl font-bold text-zinc-100 mb-2">Welcome to MidiBrain</h2>
+            <p className="text-zinc-400 text-sm mb-6 leading-relaxed">
+              No MIDI devices detected yet. Connect a MIDI controller, interface, or synth — or create a virtual port from the Live Routing sidebar to route between apps on this Mac.
+            </p>
+            <div className="text-left bg-zinc-950 border border-zinc-800 rounded-lg p-4 text-[11px] text-zinc-500 leading-relaxed space-y-2">
+              <div><span className="text-cyan-400 font-bold">1.</span> Plug in your MIDI gear (USB or MIDI interface).</div>
+              <div><span className="text-cyan-400 font-bold">2.</span> Open the Live Routing sidebar on the left.</div>
+              <div><span className="text-cyan-400 font-bold">3.</span> Click output chips next to each input to start routing.</div>
+              <div className="pt-2 border-t border-zinc-800/80">
+                <span className="text-violet-400 font-bold">Tip:</span> Virtual Ports let other apps (Logic, Ableton, MainStage) see MidiBrain as a MIDI device. Expand "Virtual Ports" in the sidebar to create one.
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {inputs.length + outputs.length > 0 && activeTab === 'router' && (
         <div className="space-y-8">
           <div className="flex items-center justify-between px-2 mb-4">
              <div className="flex items-center gap-6">
@@ -1110,8 +1236,8 @@ export default function MidiRouter({ aliases: aliasesProp, routing: routingProp 
                                 >
                                   <div className={`w-full h-full p-2 matrix-input-cell border-l transition-all ${isActive ? 'border-l-2' : 'border-transparent group-hover:bg-white/5'}`} 
                                        style={{ minHeight: h, borderColor: isActive ? chColor : 'transparent', backgroundColor: isActive ? activeGlow : 'transparent' }}>
-                                    <textarea 
-                                      ref={(el) => inputRefs.current[`${type}-${num}-${channel}`] = el}
+                                    <textarea
+                                      ref={(el) => { inputRefs.current[`${type}-${num}-${channel}`] = el; }}
                                       className="w-full bg-transparent outline-none text-xs resize-none whitespace-normal font-mono leading-tight tracking-tight overflow-hidden"
                                       style={{ height: h - 16, color: isActive ? chColor : '#52525b' }}
                                       value={matrix[type][num]?.[channel] || ''}
@@ -1136,7 +1262,7 @@ export default function MidiRouter({ aliases: aliasesProp, routing: routingProp 
         </div>
       )}
 
-      {activeTab === 'remap' && (
+      {inputs.length + outputs.length > 0 && activeTab === 'remap' && (
         <div className="max-w-6xl mx-auto py-8 px-4">
           <div className="flex items-center justify-between mb-8">
             <div>
@@ -1266,7 +1392,7 @@ export default function MidiRouter({ aliases: aliasesProp, routing: routingProp 
         </div>
       )}
 
-      {activeTab === 'matrix' && (
+      {inputs.length + outputs.length > 0 && activeTab === 'matrix' && (
         <div className="bg-[#111116] rounded-xl border border-zinc-800 p-8 shadow-2xl">
             <div className="flex items-center justify-between mb-8">
             <div>
@@ -1395,17 +1521,21 @@ export default function MidiRouter({ aliases: aliasesProp, routing: routingProp 
                     <p className="text-[9px] uppercase tracking-widest mt-2 text-zinc-800">Add a route above or use the Crosspoint Matrix</p>
                   </div>
                 ) : (
-                  matrixRoutings.map((routing, idx) => (
-                    <div key={routing.id} className="flex items-center gap-4 bg-[#1a1c23]/60 p-4 rounded-2xl border border-zinc-800/80 group hover:border-cyan-500/30 transition-all shadow-lg animate-in fade-in slide-in-from-bottom-2 duration-300">
+                  matrixRoutings.map((routing, idx) => {
+                    const filterOpen = expandedFilters.has(routing.id);
+                    const hasFilters = routingHasFilters(routing);
+                    return (
+                    <div key={routing.id} className="bg-[#1a1c23]/60 p-4 rounded-2xl border border-zinc-800/80 group hover:border-cyan-500/30 transition-all shadow-lg animate-in fade-in slide-in-from-bottom-2 duration-300">
+                      <div className="flex items-center gap-4">
                       <div className="w-10 h-10 rounded-xl bg-zinc-900 border border-zinc-800 flex flex-col items-center justify-center">
                         <span className="text-[8px] text-zinc-600 font-bold uppercase tracking-tighter leading-none mb-0.5">Pt</span>
                         <span className="text-xs font-black text-cyan-500/60 leading-none">{idx + 1}</span>
                       </div>
-                      
+
                       <div className="flex-1 flex items-center gap-4">
                         <div className="flex-1 relative">
                           <label className="absolute -top-2 left-3 bg-[#1a1c23] px-1.5 text-[8px] font-black text-zinc-600 uppercase tracking-widest z-10">Source</label>
-                          <select 
+                          <select
                             className="w-full bg-zinc-950 text-xs px-4 py-3 rounded-xl border border-zinc-800 outline-none text-zinc-100 focus:border-cyan-500/50 transition-all cursor-pointer appearance-none shadow-inner"
                             value={routing.inputId}
                             onChange={(e) => {
@@ -1425,7 +1555,7 @@ export default function MidiRouter({ aliases: aliasesProp, routing: routingProp 
 
                         <div className="flex-1 relative">
                           <label className="absolute -top-2 left-3 bg-[#1a1c23] px-1.5 text-[8px] font-black text-zinc-600 uppercase tracking-widest z-10">Destination</label>
-                          <select 
+                          <select
                             className="w-full bg-zinc-950 text-xs px-4 py-3 rounded-xl border border-zinc-800 outline-none text-zinc-100 focus:border-cyan-500/50 transition-all cursor-pointer appearance-none shadow-inner"
                             value={routing.outputId}
                             onChange={(e) => {
@@ -1440,16 +1570,119 @@ export default function MidiRouter({ aliases: aliasesProp, routing: routingProp 
                         </div>
                       </div>
 
-                      <button 
+                      <button
+                        onClick={() => setExpandedFilters((prev) => {
+                          const next = new Set(prev);
+                          if (next.has(routing.id)) next.delete(routing.id);
+                          else next.add(routing.id);
+                          return next;
+                        })}
+                        className={`px-3 py-2 rounded-lg text-[10px] font-bold border transition-colors ${hasFilters ? 'bg-violet-900/30 text-violet-300 border-violet-700/50' : 'bg-zinc-900 text-zinc-500 border-zinc-800 hover:text-zinc-300'}`}
+                        title="Filters: limit which MIDI passes this route"
+                      >
+                        {hasFilters ? 'FILTERED' : 'FILTERS'}
+                      </button>
+
+                      <button
                         onClick={() => {
                           setMatrixRoutings(prev => prev.filter(r => r.id !== routing.id));
+                          setExpandedFilters((prev) => {
+                            const next = new Set(prev);
+                            next.delete(routing.id);
+                            return next;
+                          });
                         }}
                         className="w-12 h-12 flex items-center justify-center rounded-xl bg-red-950/10 text-red-500/40 hover:bg-red-500 hover:text-white transition-all opacity-0 group-hover:opacity-100 border border-transparent hover:border-red-400 shadow-lg"
                       >
                         <X size={20} />
                       </button>
+                      </div>
+
+                      {filterOpen && (
+                        <div className="mt-4 pt-4 border-t border-zinc-800/60 space-y-3">
+                          <div>
+                            <div className="text-[9px] font-bold text-zinc-500 uppercase tracking-widest mb-2">Channels</div>
+                            <div className="flex flex-wrap gap-1">
+                              {CHANNELS.map((ch) => {
+                                const active = !routing.channels || routing.channels.length === 0 || routing.channels.includes(ch);
+                                return (
+                                  <button
+                                    key={ch}
+                                    onClick={() => {
+                                      const current = routing.channels && routing.channels.length > 0 ? routing.channels : [...CHANNELS];
+                                      const next = current.includes(ch)
+                                        ? current.filter((c) => c !== ch)
+                                        : [...current, ch].sort((a, b) => a - b);
+                                      updateRoutingFilter(routing.id, {
+                                        channels: next.length === 0 || next.length === 16 ? undefined : next,
+                                      });
+                                    }}
+                                    className={`w-8 h-7 rounded text-[10px] font-bold border transition-colors ${active ? 'bg-cyan-900/40 text-cyan-200 border-cyan-700/60' : 'bg-zinc-900 text-zinc-600 border-zinc-800'}`}
+                                    style={active ? { borderColor: CHANNEL_COLORS[ch], color: CHANNEL_COLORS[ch] } : undefined}
+                                  >
+                                    {ch}
+                                  </button>
+                                );
+                              })}
+                              <button
+                                onClick={() => updateRoutingFilter(routing.id, { channels: undefined })}
+                                className="px-2 h-7 rounded text-[10px] text-zinc-500 hover:text-zinc-200 border border-zinc-800 ml-2"
+                              >
+                                ALL
+                              </button>
+                            </div>
+                          </div>
+
+                          <div className="flex items-center gap-4">
+                            <div className="text-[9px] font-bold text-zinc-500 uppercase tracking-widest">Note Range</div>
+                            <div className="flex items-center gap-2">
+                              <input
+                                type="number"
+                                min={0}
+                                max={127}
+                                placeholder="0"
+                                value={routing.noteMin ?? ''}
+                                onChange={(e) => {
+                                  const v = e.target.value === '' ? undefined : Math.max(0, Math.min(127, parseInt(e.target.value) || 0));
+                                  updateRoutingFilter(routing.id, { noteMin: v });
+                                }}
+                                className="w-16 bg-zinc-950 border border-zinc-800 rounded px-2 py-1 text-[11px] text-zinc-200 text-center outline-none focus:border-cyan-500"
+                              />
+                              <span className="text-zinc-600 text-[10px]">
+                                {routing.noteMin != null ? getNoteName(routing.noteMin) : 'min'}
+                              </span>
+                              <span className="text-zinc-700">—</span>
+                              <input
+                                type="number"
+                                min={0}
+                                max={127}
+                                placeholder="127"
+                                value={routing.noteMax ?? ''}
+                                onChange={(e) => {
+                                  const v = e.target.value === '' ? undefined : Math.max(0, Math.min(127, parseInt(e.target.value) || 0));
+                                  updateRoutingFilter(routing.id, { noteMax: v });
+                                }}
+                                className="w-16 bg-zinc-950 border border-zinc-800 rounded px-2 py-1 text-[11px] text-zinc-200 text-center outline-none focus:border-cyan-500"
+                              />
+                              <span className="text-zinc-600 text-[10px]">
+                                {routing.noteMax != null ? getNoteName(routing.noteMax) : 'max'}
+                              </span>
+                              {(routing.noteMin != null || routing.noteMax != null) && (
+                                <button
+                                  onClick={() => updateRoutingFilter(routing.id, { noteMin: undefined, noteMax: undefined })}
+                                  className="text-zinc-600 hover:text-zinc-300 text-[10px] ml-2"
+                                >
+                                  clear
+                                </button>
+                              )}
+                            </div>
+                            <div className="text-[9px] text-zinc-700 ml-2">Applies to note on/off only</div>
+                          </div>
+                        </div>
+                      )}
                     </div>
-                  ))
+                    );
+                  })
                 )}
               </div>
             </div>
@@ -1532,13 +1765,18 @@ export default function MidiRouter({ aliases: aliasesProp, routing: routingProp 
                   </div>
                 )}
               </div>
-              <button className="px-3 py-1.5 bg-[#272a35] hover:bg-[#343846] transition-colors rounded text-xs text-zinc-300 font-display border border-zinc-700">MANAGE PRESETS</button>
+              <button
+                onClick={() => setIsPresetManagerOpen(true)}
+                className="px-3 py-1.5 bg-[#272a35] hover:bg-[#343846] transition-colors rounded text-xs text-zinc-300 font-display border border-zinc-700"
+              >
+                MANAGE PRESETS
+              </button>
             </div>
-            <div className="space-y-1 mb-4 grid grid-cols-1 md:grid-cols-2 gap-2">
+            <div className="space-y-1 mb-4 grid grid-cols-1 md:grid-cols-2 gap-2 max-h-60 overflow-y-auto custom-scrollbar">
               {presets.length === 0 ? (
                 <div className="px-4 py-2 text-zinc-600 text-[11px] italic">No presets saved yet. Click 'ADD NEW PRESET' below...</div>
               ) : (
-                presets.slice(-4).map((preset) => (
+                presets.slice().reverse().map((preset) => (
                   <div 
                     key={preset.id}
                     onClick={() => loadPreset(preset)}
@@ -1583,6 +1821,133 @@ export default function MidiRouter({ aliases: aliasesProp, routing: routingProp 
 
 
       {/* MIDI Monitor Overlay - Image Inspired */}
+      {isPresetManagerOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-8 bg-black/40 backdrop-blur-sm">
+          <div className="w-full max-w-2xl max-h-[80vh] bg-[#1a1c23] border border-zinc-800 rounded-2xl shadow-2xl flex flex-col overflow-hidden">
+            <div className="px-6 py-4 border-b border-zinc-800 flex justify-between items-center bg-[#13151a]">
+              <div className="flex items-center gap-3">
+                <Settings size={16} className="text-zinc-400" />
+                <h3 className="text-zinc-300 font-display font-semibold tracking-wider text-sm">PRESET MANAGER</h3>
+                <span className="text-zinc-600 text-[10px] font-mono">{presets.length} saved</span>
+              </div>
+              <button
+                onClick={() => { setIsPresetManagerOpen(false); setRenamingPresetId(null); }}
+                className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-zinc-800 text-zinc-500 hover:text-white transition-colors"
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            <div className="flex-1 overflow-y-auto px-4 py-4 space-y-2">
+              {presets.length === 0 && (
+                <div className="py-16 text-center text-zinc-600 text-xs">
+                  No presets yet. Close this window and click "SAVE NEW" to create one.
+                </div>
+              )}
+              {presets.slice().reverse().map((preset) => {
+                const isRenaming = renamingPresetId === preset.id;
+                return (
+                  <div key={preset.id} className="flex items-center gap-3 px-3 py-2 bg-[#0f1115] border border-zinc-800 rounded-lg hover:border-zinc-700 transition-colors">
+                    <div className="flex-1 min-w-0">
+                      {isRenaming ? (
+                        <input
+                          autoFocus
+                          value={renameDraft}
+                          onChange={(e) => setRenameDraft(e.target.value)}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                              renamePreset(preset.id, renameDraft);
+                              setRenamingPresetId(null);
+                            }
+                            if (e.key === 'Escape') setRenamingPresetId(null);
+                          }}
+                          onBlur={() => {
+                            renamePreset(preset.id, renameDraft);
+                            setRenamingPresetId(null);
+                          }}
+                          className="w-full bg-zinc-900 border border-cyan-500/50 rounded px-2 py-1 text-xs text-white outline-none"
+                        />
+                      ) : (
+                        <>
+                          <div className="text-zinc-200 text-sm font-medium truncate">{preset.name}</div>
+                          <div className="text-zinc-600 text-[10px] font-mono">
+                            {new Date(preset.timestamp).toLocaleString()}
+                          </div>
+                        </>
+                      )}
+                    </div>
+                    <div className="flex items-center gap-1 flex-shrink-0">
+                      <button
+                        onClick={() => { loadPreset(preset); setIsPresetManagerOpen(false); }}
+                        className="px-2 py-1 bg-cyan-600/20 hover:bg-cyan-600/40 text-cyan-300 rounded text-[10px] font-bold transition-colors"
+                        title="Load this preset"
+                      >
+                        LOAD
+                      </button>
+                      <button
+                        onClick={() => { setRenamingPresetId(preset.id); setRenameDraft(preset.name); }}
+                        className="px-2 py-1 bg-zinc-800 hover:bg-zinc-700 text-zinc-400 rounded text-[10px] transition-colors"
+                        title="Rename"
+                      >
+                        <Edit2 size={10} />
+                      </button>
+                      <button
+                        onClick={() => duplicatePreset(preset)}
+                        className="px-2 py-1 bg-zinc-800 hover:bg-zinc-700 text-zinc-400 rounded text-[10px] transition-colors"
+                        title="Duplicate"
+                      >
+                        <Plus size={10} />
+                      </button>
+                      <button
+                        onClick={() => exportSinglePreset(preset)}
+                        className="px-2 py-1 bg-zinc-800 hover:bg-zinc-700 text-zinc-400 rounded text-[10px] transition-colors"
+                        title="Export as .preset file"
+                      >
+                        <Download size={10} />
+                      </button>
+                      <button
+                        onClick={(e) => deletePreset(preset.id, e)}
+                        className="px-2 py-1 bg-zinc-800 hover:bg-red-900/40 text-zinc-500 hover:text-red-300 rounded text-[10px] transition-colors"
+                        title="Delete"
+                      >
+                        <X size={10} />
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="px-6 py-3 border-t border-zinc-800 bg-[#13151a] flex items-center justify-between">
+              <div className="text-[10px] text-zinc-600">
+                LOAD applies a preset. Presets include routing, aliases, and transforms.
+              </div>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => presetImportRef.current?.click()}
+                  className="px-3 py-1.5 bg-zinc-800 hover:bg-zinc-700 text-zinc-300 rounded text-[10px] font-bold transition-colors flex items-center gap-1"
+                  title="Import a single .preset file"
+                >
+                  <Plus size={10} /> IMPORT PRESET
+                </button>
+                <input
+                  ref={presetImportRef}
+                  type="file"
+                  accept=".preset,application/json,.json"
+                  className="hidden"
+                  onChange={(e) => {
+                    if (e.target.files && e.target.files[0]) {
+                      importSinglePreset(e.target.files[0]);
+                      e.target.value = '';
+                    }
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {isMonitorOpen && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-8 bg-black/40 backdrop-blur-sm">
           <div className="w-full max-w-4xl h-[600px] bg-[#1a1c23] border border-zinc-800 rounded-2xl shadow-2xl flex flex-col overflow-hidden">
@@ -1638,9 +2003,13 @@ export default function MidiRouter({ aliases: aliasesProp, routing: routingProp 
               <div className="flex items-center gap-4">
                 <div className="flex items-center gap-2">
                    <div className="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)]"></div>
-                   <span className="text-zinc-500 text-[10px]">LSP ACTIVE</span>
+                   <span className="text-zinc-500 text-[10px]">{midiLog.length} EVENTS</span>
                 </div>
-                <button className="px-4 py-1.5 bg-[#06b6d4] hover:bg-[#0891b2] transition-colors rounded text-[10px] text-white font-display font-semibold shadow-[0_0_15px_rgba(6,182,212,0.3)]">
+                <button
+                  onClick={downloadMonitorCSV}
+                  disabled={midiLog.length === 0}
+                  className="px-4 py-1.5 bg-[#06b6d4] hover:bg-[#0891b2] disabled:opacity-40 disabled:cursor-not-allowed transition-colors rounded text-[10px] text-white font-display font-semibold shadow-[0_0_15px_rgba(6,182,212,0.3)]"
+                >
                   DOWNLOAD CSV
                 </button>
               </div>
