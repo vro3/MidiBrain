@@ -37,7 +37,7 @@ The `TEAMID123` part at the end is your **Team ID** — keep it, you'll need it 
 - Go to [appleid.apple.com](https://appleid.apple.com) → sign in.
 - **Sign-In and Security** → **App-Specific Passwords** → **Generate Password**.
 - Label it `MidiBrain Notarization` (or anything).
-- Copy the generated `xxxx-xxxx-xxxx-xxxx` password — Apple shows it once.
+- Copy the generated password (format: 4 groups of 4 lowercase chars separated by dashes) — Apple shows it once.
 
 **Never use your real Apple ID password for notarization.**
 
@@ -56,7 +56,7 @@ Either add to your shell profile (`~/.zshrc`) for permanent use:
 
 ```bash
 export APPLE_ID='vince@vinceromanelli.com'
-export APPLE_APP_SPECIFIC_PASSWORD='xxxx-xxxx-xxxx-xxxx'
+export APPLE_APP_SPECIFIC_PASSWORD='REPLACE_WITH_APP_SPECIFIC_PASSWORD'
 export APPLE_TEAM_ID='TEAMID123'
 ```
 
@@ -64,7 +64,7 @@ export APPLE_TEAM_ID='TEAMID123'
 
 ```bash
 APPLE_ID='vince@example.com' \
-APPLE_APP_SPECIFIC_PASSWORD='xxxx-xxxx-xxxx-xxxx' \
+APPLE_APP_SPECIFIC_PASSWORD='REPLACE_WITH_APP_SPECIFIC_PASSWORD' \
 APPLE_TEAM_ID='TEAMID123' \
 npm run build:electron
 ```

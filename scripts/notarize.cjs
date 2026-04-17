@@ -3,7 +3,7 @@
 // still work. To enable:
 //
 //   export APPLE_ID='your.appleid@example.com'
-//   export APPLE_APP_SPECIFIC_PASSWORD='xxxx-xxxx-xxxx-xxxx'
+//   export APPLE_APP_SPECIFIC_PASSWORD='REPLACE_WITH_APP_SPECIFIC_PASSWORD'
 //   export APPLE_TEAM_ID='YOURTEAMID'
 //
 // Then run: npm run build:electron
