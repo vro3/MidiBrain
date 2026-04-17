@@ -1,13 +1,14 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react';
 import type { MidiDevices, MidiMessagePayload, MidiRoute } from '../types/midi-bridge';
 
+type RoutingMap = Record<string, string[]>;
+
 const LiveIOPanel: React.FC = () => {
   const bridge = typeof window !== 'undefined' ? window.midi : undefined;
   const hasBridge = Boolean(bridge);
 
   const [devices, setDevices] = useState<MidiDevices>({ inputs: [], outputs: [] });
-  const [selectedInputs, setSelectedInputs] = useState<Set<string>>(new Set());
-  const [selectedOutputs, setSelectedOutputs] = useState<Set<string>>(new Set());
+  const [routing, setRouting] = useState<RoutingMap>({});
   const [recent, setRecent] = useState<MidiMessagePayload[]>([]);
   const [error, setError] = useState<string | null>(null);
   const recentRef = useRef<MidiMessagePayload[]>([]);
@@ -17,8 +18,15 @@ const LiveIOPanel: React.FC = () => {
     try {
       const next = await bridge.listDevices();
       setDevices(next);
-      setSelectedInputs((prev) => new Set([...prev].filter((n) => next.inputs.includes(n))));
-      setSelectedOutputs((prev) => new Set([...prev].filter((n) => next.outputs.includes(n))));
+      setRouting((prev) => {
+        const cleaned: RoutingMap = {};
+        for (const inName of Object.keys(prev)) {
+          if (!next.inputs.includes(inName)) continue;
+          const keptOuts = prev[inName].filter((o) => next.outputs.includes(o));
+          if (keptOuts.length > 0) cleaned[inName] = keptOuts;
+        }
+        return cleaned;
+      });
     } catch (err) {
       setError(err instanceof Error ? err.message : String(err));
     }
@@ -39,13 +47,18 @@ const LiveIOPanel: React.FC = () => {
 
   useEffect(() => {
     if (!bridge) return;
+    const neededInputs = new Set(Object.keys(routing).filter((k) => routing[k].length > 0));
+    const neededOutputs = new Set<string>();
+    for (const inName of Object.keys(routing)) {
+      for (const o of routing[inName]) neededOutputs.add(o);
+    }
+
     const prevIn = prevInputsRef.current;
     const prevOut = prevOutputsRef.current;
-
-    const toOpenIn = [...selectedInputs].filter((n) => !prevIn.has(n));
-    const toCloseIn = [...prevIn].filter((n) => !selectedInputs.has(n));
-    const toOpenOut = [...selectedOutputs].filter((n) => !prevOut.has(n));
-    const toCloseOut = [...prevOut].filter((n) => !selectedOutputs.has(n));
+    const toOpenIn = [...neededInputs].filter((n) => !prevIn.has(n));
+    const toCloseIn = [...prevIn].filter((n) => !neededInputs.has(n));
+    const toOpenOut = [...neededOutputs].filter((n) => !prevOut.has(n));
+    const toCloseOut = [...prevOut].filter((n) => !neededOutputs.has(n));
 
     (async () => {
       try {
@@ -55,38 +68,48 @@ const LiveIOPanel: React.FC = () => {
         for (const n of toCloseOut) await bridge.closeOutput(n);
 
         const routes: MidiRoute[] = [];
-        for (const inName of selectedInputs) {
-          for (const outName of selectedOutputs) {
+        for (const inName of Object.keys(routing)) {
+          for (const outName of routing[inName]) {
             routes.push({ inputName: inName, outputName: outName, enabled: true });
           }
         }
         await bridge.setRoutes(routes);
 
-        prevInputsRef.current = new Set(selectedInputs);
-        prevOutputsRef.current = new Set(selectedOutputs);
+        prevInputsRef.current = neededInputs;
+        prevOutputsRef.current = neededOutputs;
       } catch (err) {
         setError(err instanceof Error ? err.message : String(err));
       }
     })();
-  }, [bridge, selectedInputs, selectedOutputs]);
+  }, [bridge, routing]);
 
-  const toggleInput = (name: string) => {
-    setSelectedInputs((prev) => {
-      const next = new Set(prev);
-      next.has(name) ? next.delete(name) : next.add(name);
+  const toggleRoute = (inputName: string, outputName: string) => {
+    setRouting((prev) => {
+      const current = prev[inputName] ?? [];
+      const next = { ...prev };
+      if (current.includes(outputName)) {
+        const filtered = current.filter((o) => o !== outputName);
+        if (filtered.length === 0) delete next[inputName];
+        else next[inputName] = filtered;
+      } else {
+        next[inputName] = [...current, outputName];
+      }
       return next;
     });
   };
 
-  const toggleOutput = (name: string) => {
-    setSelectedOutputs((prev) => {
-      const next = new Set(prev);
-      next.has(name) ? next.delete(name) : next.add(name);
+  const clearInput = (inputName: string) => {
+    setRouting((prev) => {
+      const next = { ...prev };
+      delete next[inputName];
       return next;
     });
   };
 
-  const routeCount = selectedInputs.size * selectedOutputs.size;
+  const clearAll = () => setRouting({});
+
+  const routeCount = Object.keys(routing).reduce((acc, k) => acc + routing[k].length, 0);
+  const inputsWithActivity = new Set(recent.slice(0, 3).map((r) => r.inputName));
 
   if (!hasBridge) {
     return (
@@ -100,80 +123,105 @@ const LiveIOPanel: React.FC = () => {
     <div className="p-4 bg-zinc-900 border border-zinc-700 rounded-lg text-zinc-200 text-xs space-y-3">
       <div className="flex items-center justify-between">
         <h3 className="font-bold uppercase tracking-wide text-zinc-300">Live Routing</h3>
-        <button
-          onClick={refreshDevices}
-          className="px-2 py-1 bg-zinc-800 hover:bg-zinc-700 rounded text-zinc-300"
-        >
-          Refresh
-        </button>
+        <div className="flex gap-1">
+          {routeCount > 0 && (
+            <button
+              onClick={clearAll}
+              className="px-2 py-1 bg-zinc-800 hover:bg-zinc-700 rounded text-zinc-400"
+              title="Clear all routes"
+            >
+              Clear
+            </button>
+          )}
+          <button
+            onClick={refreshDevices}
+            className="px-2 py-1 bg-zinc-800 hover:bg-zinc-700 rounded text-zinc-300"
+          >
+            Refresh
+          </button>
+        </div>
       </div>
 
       {error && <div className="text-red-400">{error}</div>}
 
       <div className="text-zinc-500 text-[10px] leading-relaxed">
-        Click inputs and outputs to route. Every selected input sends to every selected output.
+        For each input, click the outputs it should route to. Chips light up when the route is active.
       </div>
 
-      <div className="grid grid-cols-2 gap-3">
-        <div>
-          <div className="text-zinc-500 uppercase text-[10px] mb-1">
-            Inputs {selectedInputs.size > 0 && <span className="text-cyan-400">({selectedInputs.size})</span>}
-          </div>
-          {devices.inputs.length === 0 && <div className="text-zinc-600 italic">None detected</div>}
-          {devices.inputs.map((name) => (
-            <button
-              key={name}
-              onClick={() => toggleInput(name)}
-              className={`block w-full text-left px-2 py-1.5 rounded mb-1 truncate border transition-colors ${
-                selectedInputs.has(name)
-                  ? 'bg-cyan-900/40 text-cyan-300 border-cyan-700/60'
-                  : 'bg-zinc-800 hover:bg-zinc-700 border-transparent'
-              }`}
-            >
-              <span className="inline-block w-2 h-2 rounded-full mr-2 align-middle">
-                <span
-                  className={`block w-2 h-2 rounded-full ${
-                    selectedInputs.has(name) ? 'bg-cyan-400 shadow-[0_0_6px_rgba(6,182,212,0.8)]' : 'bg-zinc-600'
-                  }`}
-                />
-              </span>
-              {name}
-            </button>
-          ))}
-        </div>
+      {devices.inputs.length === 0 && (
+        <div className="text-zinc-600 italic py-4 text-center">No MIDI inputs detected</div>
+      )}
 
-        <div>
-          <div className="text-zinc-500 uppercase text-[10px] mb-1">
-            Outputs {selectedOutputs.size > 0 && <span className="text-amber-400">({selectedOutputs.size})</span>}
-          </div>
-          {devices.outputs.length === 0 && <div className="text-zinc-600 italic">None detected</div>}
-          {devices.outputs.map((name) => (
-            <button
-              key={name}
-              onClick={() => toggleOutput(name)}
-              className={`block w-full text-left px-2 py-1.5 rounded mb-1 truncate border transition-colors ${
-                selectedOutputs.has(name)
-                  ? 'bg-amber-900/40 text-amber-300 border-amber-700/60'
-                  : 'bg-zinc-800 hover:bg-zinc-700 border-transparent'
+      {devices.inputs.length > 0 && devices.outputs.length === 0 && (
+        <div className="text-zinc-600 italic py-4 text-center">No MIDI outputs detected</div>
+      )}
+
+      <div className="space-y-3">
+        {devices.inputs.map((inName) => {
+          const selectedOuts = routing[inName] ?? [];
+          const isActive = selectedOuts.length > 0;
+          const isReceiving = inputsWithActivity.has(inName);
+          return (
+            <div
+              key={inName}
+              className={`rounded-lg border p-2 transition-colors ${
+                isActive ? 'bg-cyan-950/30 border-cyan-900/60' : 'bg-zinc-950 border-zinc-800'
               }`}
             >
-              <span className="inline-block w-2 h-2 rounded-full mr-2 align-middle">
+              <div className="flex items-center gap-2 mb-1.5">
                 <span
-                  className={`block w-2 h-2 rounded-full ${
-                    selectedOutputs.has(name) ? 'bg-amber-400 shadow-[0_0_6px_rgba(251,191,36,0.8)]' : 'bg-zinc-600'
+                  className={`w-2 h-2 rounded-full flex-shrink-0 ${
+                    isReceiving
+                      ? 'bg-cyan-400 shadow-[0_0_6px_rgba(6,182,212,0.9)]'
+                      : isActive
+                        ? 'bg-cyan-700'
+                        : 'bg-zinc-700'
                   }`}
                 />
-              </span>
-              {name}
-            </button>
-          ))}
-        </div>
+                <span className="flex-1 truncate font-bold text-zinc-200">{inName}</span>
+                {isActive && (
+                  <button
+                    onClick={() => clearInput(inName)}
+                    className="text-zinc-500 hover:text-red-400 text-[10px] px-1"
+                    title="Clear this input's routes"
+                  >
+                    ✕
+                  </button>
+                )}
+              </div>
+              <div className="flex flex-wrap gap-1 pl-4">
+                {devices.outputs.length === 0 ? (
+                  <span className="text-zinc-600 italic text-[10px]">(no outputs available)</span>
+                ) : (
+                  devices.outputs.map((outName) => {
+                    const on = selectedOuts.includes(outName);
+                    return (
+                      <button
+                        key={outName}
+                        onClick={() => toggleRoute(inName, outName)}
+                        className={`px-2 py-1 rounded border text-[10px] truncate max-w-[180px] transition-colors ${
+                          on
+                            ? 'bg-amber-900/50 text-amber-200 border-amber-700/60'
+                            : 'bg-zinc-800 text-zinc-400 border-transparent hover:bg-zinc-700 hover:text-zinc-200'
+                        }`}
+                        title={outName}
+                      >
+                        {on ? '→ ' : ''}
+                        {outName}
+                      </button>
+                    );
+                  })
+                )}
+              </div>
+            </div>
+          );
+        })}
       </div>
 
       <div className="text-center text-[10px] text-zinc-500 py-1 border-y border-zinc-800">
         {routeCount === 0
           ? 'No active routes'
-          : `${routeCount} active route${routeCount === 1 ? '' : 's'} · ${selectedInputs.size} in → ${selectedOutputs.size} out`}
+          : `${routeCount} active route${routeCount === 1 ? '' : 's'}`}
       </div>
 
       <div>
