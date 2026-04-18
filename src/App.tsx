@@ -82,7 +82,15 @@ export default function App() {
     if (!bridge) return;
     try {
       const next = await bridge.listDevices();
-      setDevices(next);
+      setDevices((prev) => {
+        // Shallow-compare by stringified sorted arrays — avoids re-triggering
+        // the port-open effect every poll tick when nothing changed.
+        const sameInputs = prev.inputs.length === next.inputs.length
+          && prev.inputs.every((n, i) => n === next.inputs[i]);
+        const sameOutputs = prev.outputs.length === next.outputs.length
+          && prev.outputs.every((n, i) => n === next.outputs[i]);
+        return sameInputs && sameOutputs ? prev : next;
+      });
       setDeviceError(null);
     } catch (err) {
       setDeviceError(err instanceof Error ? err.message : String(err));
@@ -91,6 +99,23 @@ export default function App() {
 
   useEffect(() => {
     refreshDevices();
+    // Poll every 3s to pick up hotplug (node-midi has no native event for
+    // device changes cross-platform, so polling is the portable answer).
+    const interval = window.setInterval(refreshDevices, 3000);
+    // Refresh immediately when the app regains focus — faster than waiting
+    // for the next poll tick when the user plugged something in while the
+    // window was backgrounded.
+    const onFocus = () => refreshDevices();
+    const onVisible = () => {
+      if (document.visibilityState === 'visible') refreshDevices();
+    };
+    window.addEventListener('focus', onFocus);
+    document.addEventListener('visibilitychange', onVisible);
+    return () => {
+      window.clearInterval(interval);
+      window.removeEventListener('focus', onFocus);
+      document.removeEventListener('visibilitychange', onVisible);
+    };
   }, [refreshDevices]);
 
   // Recreate persisted virtual ports on mount. Each name corresponds to both
