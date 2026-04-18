@@ -8,6 +8,7 @@ import { ChevronRight, ChevronLeft } from 'lucide-react';
 import MidiRouter from './components/MidiRouter';
 import LiveIOPanel from './components/LiveIOPanel';
 import type { MidiDevices } from './types/midi-bridge';
+import { migrateBackupRouterKeys } from './migrations';
 
 const MIN_WIDTH = 280;
 const MAX_WIDTH = 900;
@@ -20,12 +21,12 @@ const VIRTUAL_PORTS_KEY = 'midibrain.virtualPorts';
 // Keys persisted by MidiRouter. Listed here so backup/restore can round-trip
 // them without needing to lift all that state into App.
 const MIDIROUTER_STORAGE_KEYS = [
-  'midibrain_matrix',
-  'midibrain_routings',
-  'midibrain_remappings',
-  'midibrain_presets',
-  'midibrain_channelNames',
-  'midibrain_rowHeights',
+  'midibrain.matrix',
+  'midibrain.matrixRoutings',
+  'midibrain.remappings',
+  'midibrain.presets',
+  'midibrain.channelNames',
+  'midibrain.rowHeights',
 ];
 
 const BACKUP_KIND = 'midibrain-backup';
@@ -227,7 +228,10 @@ export default function App() {
         if (!parsed || typeof parsed !== 'object') throw new Error('Invalid backup file');
 
         // Write MidiRouter localStorage keys first so a reload picks them up.
-        const router = (parsed.router && typeof parsed.router === 'object') ? parsed.router : null;
+        // Rewrite any old-format (underscore) keys to the current dot-notation
+        // form so imported backups from older builds still load.
+        const rawRouter = (parsed.router && typeof parsed.router === 'object') ? parsed.router : null;
+        const router = rawRouter ? migrateBackupRouterKeys(rawRouter as Record<string, unknown>) : null;
         if (router) {
           for (const key of MIDIROUTER_STORAGE_KEYS) {
             if (key in router) {

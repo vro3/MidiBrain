@@ -302,12 +302,12 @@ export default function MidiRouter({
   const [outputActivity, setOutputActivity] = useState<Set<string>>(new Set());
   const [selectedOutputs, setSelectedOutputs] = useState<Set<string>>(new Set());
   const [channelNames, setChannelNames] = useState<{ [channel: number]: string }>(() => {
-    const saved = localStorage.getItem('midibrain_channelNames');
+    const saved = localStorage.getItem('midibrain.channelNames');
     return saved ? JSON.parse(saved) : {};
   });
   const [isRunning, setIsRunning] = useState(false);
   const [matrix, setMatrix] = useState<RouteMatrix>(() => {
-    const saved = localStorage.getItem('midibrain_matrix');
+    const saved = localStorage.getItem('midibrain.matrix');
     if (!saved) return { note: {}, cc: {}, pc: {} };
     
     try {
@@ -326,11 +326,11 @@ export default function MidiRouter({
   const [collapsedSections, setCollapsedSections] = useState<Set<string>>(new Set());
 
   useEffect(() => {
-    localStorage.setItem('midibrain_matrix', JSON.stringify(matrix));
+    localStorage.setItem('midibrain.matrix', JSON.stringify(matrix));
   }, [matrix]);
 
   useEffect(() => {
-    localStorage.setItem('midibrain_channelNames', JSON.stringify(channelNames));
+    localStorage.setItem('midibrain.channelNames', JSON.stringify(channelNames));
   }, [channelNames]);
 
   const [lastMidiMessage, setLastMidiMessage] = useState<{ note: number, channel: number, velocity: number } | null>(null);
@@ -358,23 +358,23 @@ export default function MidiRouter({
     ...CHANNELS.reduce((acc, ch) => ({ ...acc, [ch]: 150 }), {})
   });
   const [rowHeights, setRowHeights] = useState<{ [key: number]: number }>(() => {
-    const saved = localStorage.getItem('midibrain_rowHeights');
+    const saved = localStorage.getItem('midibrain.rowHeights');
     return saved ? JSON.parse(saved) : {};
   });
 
   useEffect(() => {
-    localStorage.setItem('midibrain_rowHeights', JSON.stringify(rowHeights));
+    localStorage.setItem('midibrain.rowHeights', JSON.stringify(rowHeights));
   }, [rowHeights]);
   const [remappings, setRemappings] = useState<{ [sourceKey: string]: Remapping }>(() => {
-    const saved = localStorage.getItem('midibrain_remappings');
+    const saved = localStorage.getItem('midibrain.remappings');
     return saved ? JSON.parse(saved) : {};
   });
   const [matrixRoutings, setMatrixRoutings] = useState<MatrixRouting[]>(() => {
-    const saved = localStorage.getItem('midibrain_routings');
+    const saved = localStorage.getItem('midibrain.matrixRoutings');
     return saved ? JSON.parse(saved) : [];
   });
   const [presets, setPresets] = useState<Preset[]>(() => {
-    const saved = localStorage.getItem('midibrain_presets');
+    const saved = localStorage.getItem('midibrain.presets');
     return saved ? JSON.parse(saved) : [];
   });
 
@@ -399,15 +399,15 @@ export default function MidiRouter({
   }, [routingProp, inputs, outputs]);
 
   useEffect(() => {
-    localStorage.setItem('midibrain_routings', JSON.stringify(matrixRoutings));
+    localStorage.setItem('midibrain.matrixRoutings', JSON.stringify(matrixRoutings));
   }, [matrixRoutings]);
 
   useEffect(() => {
-    localStorage.setItem('midibrain_remappings', JSON.stringify(remappings));
+    localStorage.setItem('midibrain.remappings', JSON.stringify(remappings));
   }, [remappings]);
 
   useEffect(() => {
-    localStorage.setItem('midibrain_presets', JSON.stringify(presets));
+    localStorage.setItem('midibrain.presets', JSON.stringify(presets));
   }, [presets]);
 
   const [isNamingPreset, setIsNamingPreset] = useState(false);
