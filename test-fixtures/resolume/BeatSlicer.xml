@@ -1,0 +1,1025 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MidiShortcutPreset name="BeatSlicer" presetId="718529617">
+	<versionInfo name="Resolume Arena" majorVersion="7" minorVersion="22" microVersion="5" revision="45669"/>
+	<ShortcutManager name="MIDIShortcutManagerShortcuts">
+		<Shortcut name="Shortcut" uniqueId="1684257049088" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673399897670/video/effects/beatslicerch10/effect/trigger5" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673399897670/video/effects/beatslicerch10/effect/trigger5" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037944473" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684095808297" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="DIN 3" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/selectedclip/video/effects/beatslicerx16/effect/trigger7" translationType="4" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedclip/video/effects/beatslicerx16/effect/trigger7" translationType="4" allowedTranslationTypes="7"/>
+			<RawInputMessage key="91978043886681242" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684257049079" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673399897670/video/effects/beatslicerch10/effect/trigger4" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673399897670/video/effects/beatslicerch10/effect/trigger4" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037944217" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657672911548" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/tempocontroller/tempotap" translationType="1" allowedTranslationTypes="1"/>
+			<ShortcutPath name="OutputPath" path="/composition/tempocontroller/tempotap" translationType="1" allowedTranslationTypes="1"/>
+			<RawInputMessage key="126464440722796432" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673934967" paramNodeName="ParamChoice[Color]" behaviour="4" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/colorize/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/colorize/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<Subtarget type="4" optionIndex="8" numChoices="9" name="White"/>
+			<RawInputMessage key="126464440722790289" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657672911599" paramNodeName="ParamRange" behaviour="4">
+			<ShortcutPath name="InputPath" path="/composition/video/effects/crop/opacity" translationType="1" allowedTranslationTypes="1"/>
+			<ShortcutPath name="OutputPath" path="/composition/video/effects/crop/opacity" translationType="1" allowedTranslationTypes="1"/>
+			<Subtarget type="5" optionIndex="-1"/>
+			<RawInputMessage key="72057594037940112" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684257049131" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673399897670/video/effects/beatslicerch10/effect/trigger8" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673399897670/video/effects/beatslicerch10/effect/trigger8" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037943705" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673935005" paramNodeName="RangedParam[bool]" behaviour="4" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/mirror/bypassed" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/mirror/bypassed" translationType="8" allowedTranslationTypes="11"/>
+			<RawInputMessage key="126464440722794640" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1673404832579" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="MPD218" outputDeviceName="MPD218">
+			<ShortcutPath name="InputPath" path="/composition/layers/11/clips/2/video/source/beatsaber/trigger" translationType="1" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/11/clips/2/video/source/beatsaber/trigger" translationType="1" allowedTranslationTypes="7"/>
+			<RawInputMessage key="140410871443629977" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684257049147" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673399897670/video/effects/beatslicerch10/effect/trigger9" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673399897670/video/effects/beatslicerch10/effect/trigger9" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037943961" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1682624367214" paramNodeName="ParamEvent" behaviour="1028">
+			<ShortcutPath name="InputPath" path="/composition/objects/1682624365923/video/source/beatsaber/trigger" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1682624365923/video/source/beatsaber/trigger" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037945497" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673940069" paramNodeName="RangedParam[bool]" behaviour="4" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/edgedetection/bypassed" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/edgedetection/bypassed" translationType="8" allowedTranslationTypes="11"/>
+			<RawInputMessage key="126464440722792337" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1673745223055" paramNodeName="ParamEvent" behaviour="1028">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673745220566/video/source/beatsaber/trigger" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673745220566/video/source/beatsaber/trigger" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037944985" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684095808281" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="APC40 mkII" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/selectedclip/video/effects/beatslicerx16/effect/trigger3" translationType="4" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedclip/video/effects/beatslicerx16/effect/trigger3" translationType="4" allowedTranslationTypes="7"/>
+			<RawInputMessage key="95627863071395984" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684095808286" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="APC40 mkII" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/selectedclip/video/effects/beatslicerx16/effect/trigger4" translationType="4" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedclip/video/effects/beatslicerx16/effect/trigger4" translationType="4" allowedTranslationTypes="7"/>
+			<RawInputMessage key="95627863071400336" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673934963" paramNodeName="ParamChoice[Color]" behaviour="4" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/colorize/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/colorize/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<Subtarget type="4" optionIndex="7" numChoices="9" name="Cyan"/>
+			<RawInputMessage key="126464440722790033" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673939665" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/backwards" translationType="1" allowedTranslationTypes="1"/>
+			<ShortcutPath name="OutputPath" path="/composition/backwards" translationType="1" allowedTranslationTypes="1"/>
+			<RawInputMessage key="126464440722791313" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673940010" paramNodeName="ParamChoice[Color]" behaviour="4" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/edgedetection/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/edgedetection/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<Subtarget type="4" optionIndex="5" numChoices="9" name="Blue"/>
+			<RawInputMessage key="126464440722789521" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657672911463" paramNodeName="ParamRange" behaviour="8" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/2/video/opacity" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/2/video/opacity" translationType="1" allowedTranslationTypes="11"/>
+			<Subtarget type="5" optionIndex="-1"/>
+			<RawInputMessage key="198522034760714162" value="0.13385826771653544509" numSteps="128"/>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684095808289" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="APC40 mkII" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/selectedclip/video/effects/beatslicerx16/effect/trigger5" translationType="4" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedclip/video/effects/beatslicerx16/effect/trigger5" translationType="4" allowedTranslationTypes="7"/>
+			<RawInputMessage key="95627863071398288" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684095806774" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673399908133/video/effects/beatslicerx16/effect/trigger7" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673399908133/video/effects/beatslicerx16/effect/trigger7" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037943449" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684095806794" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673399908133/video/effects/beatslicerx16/effect/trigger9" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673399908133/video/effects/beatslicerx16/effect/trigger9" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037943961" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657672911551" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/tempocontroller/resync" translationType="1" allowedTranslationTypes="1"/>
+			<ShortcutPath name="OutputPath" path="/composition/tempocontroller/resync" translationType="1" allowedTranslationTypes="1"/>
+			<RawInputMessage key="126464440722795920" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684257049108" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673399897670/video/effects/beatslicerch10/effect/trigger7" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673399897670/video/effects/beatslicerch10/effect/trigger7" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037943449" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684257049023" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673399897670/video/effects/beatslicerch10/effect/trigger1" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673399897670/video/effects/beatslicerch10/effect/trigger1" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037944985" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673935012" paramNodeName="RangedParam[bool]" behaviour="4" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/mirror/effect/flipy" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/mirror/effect/flipy" translationType="8" allowedTranslationTypes="11"/>
+			<RawInputMessage key="126464440722792849" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673939663" paramNodeName="ParamRange" behaviour="8" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/4/transition/duration" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/4/transition/duration" translationType="1" allowedTranslationTypes="11"/>
+			<Subtarget type="5" optionIndex="-1"/>
+			<RawInputMessage key="198522034760717744" value="0" numSteps="128"/>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673934995" paramNodeName="RangedParam[bool]" behaviour="4" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/brightnesscontrast/bypassed" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/brightnesscontrast/bypassed" translationType="8" allowedTranslationTypes="11"/>
+			<RawInputMessage key="126464440722794128" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="1"/>
+				<Value first="On" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1673404834654" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="MPD218" outputDeviceName="MPD218">
+			<ShortcutPath name="InputPath" path="/composition/layers/9/clips/2/video/source/beatsaber/trigger" translationType="1" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/9/clips/2/video/source/beatsaber/trigger" translationType="1" allowedTranslationTypes="7"/>
+			<RawInputMessage key="140410871443629465" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673940022" paramNodeName="ParamChoice[Color]" behaviour="4" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/edgedetection/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/edgedetection/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<Subtarget type="4" optionIndex="8" numChoices="9" name="White"/>
+			<RawInputMessage key="126464440722790289" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673934947" paramNodeName="ParamChoice[Color]" behaviour="4" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/colorize/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/colorize/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<Subtarget type="4" optionIndex="2" numChoices="9" name="Green"/>
+			<RawInputMessage key="126464440722789009" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684257049032" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673399897670/video/effects/beatslicerch10/effect/trigger2" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673399897670/video/effects/beatslicerch10/effect/trigger2" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037945241" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673939659" paramNodeName="ParamRange" behaviour="8" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/2/transition/duration" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/2/transition/duration" translationType="1" allowedTranslationTypes="11"/>
+			<Subtarget type="5" optionIndex="-1"/>
+			<RawInputMessage key="198522034760717744" value="0" numSteps="128"/>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673934912" paramNodeName="ParamChoice[Color]" behaviour="4" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/threshold/effect/color1/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/threshold/effect/color1/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<Subtarget type="4" optionIndex="1" numChoices="9" name="Red"/>
+			<RawInputMessage key="126464440722788753" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657672911467" paramNodeName="ParamRange" behaviour="8" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/4/video/opacity" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/4/video/opacity" translationType="1" allowedTranslationTypes="11"/>
+			<Subtarget type="5" optionIndex="-1"/>
+			<RawInputMessage key="198522034760714160" value="0" numSteps="128"/>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673934931" paramNodeName="ParamChoice[Color]" behaviour="4" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/threshold/effect/color1/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/threshold/effect/color1/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<Subtarget type="4" optionIndex="6" numChoices="9" name="Magenta"/>
+			<RawInputMessage key="126464440722789777" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673939648" paramNodeName="ParamRange" behaviour="8" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/application/ui/clipsscrollhorizontal" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/application/ui/clipsscrollhorizontal" translationType="1" allowedTranslationTypes="11"/>
+			<Subtarget type="5" optionIndex="-1"/>
+			<RawInputMessage key="198522034760718256" value="0.031496062992125983815" numSteps="128"/>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657672911465" paramNodeName="ParamRange" behaviour="8" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/3/video/opacity" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/3/video/opacity" translationType="1" allowedTranslationTypes="11"/>
+			<Subtarget type="5" optionIndex="-1"/>
+			<RawInputMessage key="198522034760714161" value="0" numSteps="128"/>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673939669" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/forwards" translationType="1" allowedTranslationTypes="1"/>
+			<ShortcutPath name="OutputPath" path="/composition/forwards" translationType="1" allowedTranslationTypes="1"/>
+			<RawInputMessage key="126464440722791569" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673934927" paramNodeName="ParamChoice[Color]" behaviour="4" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/threshold/effect/color1/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/threshold/effect/color1/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<Subtarget type="4" optionIndex="5" numChoices="9" name="Blue"/>
+			<RawInputMessage key="126464440722789521" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657672911555" paramNodeName="ParamRange" behaviour="8" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/tempocontroller/tempo" translationType="1" allowedTranslationTypes="1"/>
+			<ShortcutPath name="OutputPath" path="/composition/tempocontroller/tempo" translationType="1" allowedTranslationTypes="1"/>
+			<Subtarget type="5" optionIndex="-1"/>
+			<RawInputMessage key="198522034760714933" value="0" numSteps="128"/>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657672911543" paramNodeName="ParamRange" behaviour="8" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/video/effects/strobe/effect/frequency" translationType="1" allowedTranslationTypes="1"/>
+			<ShortcutPath name="OutputPath" path="/composition/video/effects/strobe/effect/frequency" translationType="1" allowedTranslationTypes="1"/>
+			<Subtarget type="5" optionIndex="-1"/>
+			<ValueRange min="0.69999999999999995559" max="0.99899999999999999911"/>
+			<RawInputMessage key="198522034760716208" value="0" numSteps="128"/>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657672911461" paramNodeName="ParamRange" behaviour="8" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/1/video/opacity" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/1/video/opacity" translationType="1" allowedTranslationTypes="11"/>
+			<Subtarget type="5" optionIndex="-1"/>
+			<RawInputMessage key="198522034760714163" value="0" numSteps="128"/>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657672911453" paramNodeName="ParamTrigger" behaviour="4" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/4/select" translationType="1" allowedTranslationTypes="3"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/4/select" translationType="1" allowedTranslationTypes="3"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/layers/4/selected" translationType="1" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/layers/4/selected" translationType="1" allowedTranslationTypes="-1"/>
+			<RawInputMessage key="126464440722795664" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657672911449" paramNodeName="ParamTrigger" behaviour="4" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/3/select" translationType="1" allowedTranslationTypes="3"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/3/select" translationType="1" allowedTranslationTypes="3"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/layers/3/selected" translationType="1" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/layers/3/selected" translationType="1" allowedTranslationTypes="-1"/>
+			<RawInputMessage key="126464440722795408" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673940018" paramNodeName="ParamChoice[Color]" behaviour="4" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/edgedetection/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/edgedetection/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<Subtarget type="4" optionIndex="7" numChoices="9" name="Cyan"/>
+			<RawInputMessage key="126464440722790033" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673934935" paramNodeName="ParamChoice[Color]" behaviour="4" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/threshold/effect/color1/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/threshold/effect/color1/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<Subtarget type="4" optionIndex="7" numChoices="9" name="Cyan"/>
+			<RawInputMessage key="126464440722790033" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1673404835809" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="MPD218" outputDeviceName="MPD218">
+			<ShortcutPath name="InputPath" path="/composition/layers/10/clips/2/video/source/beatsaber/trigger" translationType="1" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/10/clips/2/video/source/beatsaber/trigger" translationType="1" allowedTranslationTypes="7"/>
+			<RawInputMessage key="140410871443629721" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1673404832653" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="MPD218" outputDeviceName="MPD218">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673404830149/video/source/beatsaber/trigger" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673404830149/video/source/beatsaber/trigger" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="140410871443629721" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673934955" paramNodeName="ParamChoice[Color]" behaviour="4" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/colorize/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/colorize/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<Subtarget type="4" optionIndex="5" numChoices="9" name="Blue"/>
+			<RawInputMessage key="126464440722789521" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1669184243079" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="MPD218" outputDeviceName="MPD218">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673404829001/video/source/beatsaber/trigger" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673404829001/video/source/beatsaber/trigger" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="140410871443629465" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673940006" paramNodeName="ParamChoice[Color]" behaviour="4" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/edgedetection/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/edgedetection/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<Subtarget type="4" optionIndex="3" numChoices="9" name="Yellow"/>
+			<RawInputMessage key="126464440722789265" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673934951" paramNodeName="ParamChoice[Color]" behaviour="4" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/colorize/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/colorize/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<Subtarget type="4" optionIndex="3" numChoices="9" name="Yellow"/>
+			<RawInputMessage key="126464440722789265" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673939657" paramNodeName="ParamRange" behaviour="8" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/1/transition/duration" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/1/transition/duration" translationType="1" allowedTranslationTypes="11"/>
+			<Subtarget type="5" optionIndex="-1"/>
+			<RawInputMessage key="198522034760717744" value="0" numSteps="128"/>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684095808269" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="APC40 mkII" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/selectedclip/video/effects/beatslicerx16/effect/trigger1" translationType="4" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedclip/video/effects/beatslicerx16/effect/trigger1" translationType="4" allowedTranslationTypes="7"/>
+			<RawInputMessage key="95627863071400080" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673934939" paramNodeName="ParamChoice[Color]" behaviour="4" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/threshold/effect/color1/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/threshold/effect/color1/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<Subtarget type="4" optionIndex="8" numChoices="9" name="White"/>
+			<RawInputMessage key="126464440722790289" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684095808278" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="APC40 mkII" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/selectedclip/video/effects/beatslicerx16/effect/trigger2" translationType="4" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedclip/video/effects/beatslicerx16/effect/trigger2" translationType="4" allowedTranslationTypes="7"/>
+			<RawInputMessage key="95627863071398032" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684095807873" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="DIN 2" outputDeviceName="DIN 2">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673399903611/video/effects/beatslicerx16/effect/trigger1" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673399903611/video/effects/beatslicerx16/effect/trigger1" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="91978036588593817" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684095807877" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="DIN 2" outputDeviceName="DIN 2">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673399903611/video/effects/beatslicerx16/effect/trigger2" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673399903611/video/effects/beatslicerx16/effect/trigger2" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="91978036588594073" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673934998" paramNodeName="RangedParam[bool]" behaviour="4" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/threshold/bypassed" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/threshold/bypassed" translationType="8" allowedTranslationTypes="11"/>
+			<RawInputMessage key="126464440722794384" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684095807913" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="DIN 2" outputDeviceName="DIN 2">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673399903611/video/effects/beatslicerx16/effect/trigger4" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673399903611/video/effects/beatslicerx16/effect/trigger4" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="91978036588593049" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657672911445" paramNodeName="ParamTrigger" behaviour="4" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/2/select" translationType="1" allowedTranslationTypes="3"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/2/select" translationType="1" allowedTranslationTypes="3"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/layers/2/selected" translationType="1" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/layers/2/selected" translationType="1" allowedTranslationTypes="-1"/>
+			<RawInputMessage key="126464440722795152" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1673590916374" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="MPD218" outputDeviceName="MPD218">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673399908133/video/source/beatsaber/trigger" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673399908133/video/source/beatsaber/trigger" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="140410871443629209" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684095808294" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="APC40 mkII" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/selectedclip/video/effects/beatslicerx16/effect/trigger6" translationType="4" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedclip/video/effects/beatslicerx16/effect/trigger6" translationType="4" allowedTranslationTypes="7"/>
+			<RawInputMessage key="95627863071396240" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684095806784" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673399908133/video/effects/beatslicerx16/effect/trigger8" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673399908133/video/effects/beatslicerx16/effect/trigger8" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037943705" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673939998" paramNodeName="ParamChoice[Color]" behaviour="4" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/edgedetection/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/edgedetection/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<Subtarget type="4" optionIndex="1" numChoices="9" name="Red"/>
+			<RawInputMessage key="126464440722788753" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684095806719" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673399908133/video/effects/beatslicerx16/effect/trigger2" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673399908133/video/effects/beatslicerx16/effect/trigger2" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037945241" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684095807895" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="DIN 2" outputDeviceName="DIN 2">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673399903611/video/effects/beatslicerx16/effect/trigger6" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673399903611/video/effects/beatslicerx16/effect/trigger6" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="91978036588593561" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684095806710" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673399908133/video/effects/beatslicerx16/effect/trigger1" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673399908133/video/effects/beatslicerx16/effect/trigger1" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037944985" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657672911532" paramNodeName="RangedParam[bool]" behaviour="3076" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/video/effects/strobe/bypassed" translationType="1" allowedTranslationTypes="1"/>
+			<ShortcutPath name="OutputPath" path="/composition/video/effects/strobe/bypassed" translationType="1" allowedTranslationTypes="1"/>
+			<RawInputMessage key="126464440722788497" value="1" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673940014" paramNodeName="ParamChoice[Color]" behaviour="4" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/edgedetection/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/edgedetection/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<Subtarget type="4" optionIndex="6" numChoices="9" name="Magenta"/>
+			<RawInputMessage key="126464440722789777" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673939661" paramNodeName="ParamRange" behaviour="8" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/3/transition/duration" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/3/transition/duration" translationType="1" allowedTranslationTypes="11"/>
+			<Subtarget type="5" optionIndex="-1"/>
+			<RawInputMessage key="198522034760717744" value="0" numSteps="128"/>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673940002" paramNodeName="ParamChoice[Color]" behaviour="4" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/edgedetection/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/edgedetection/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<Subtarget type="4" optionIndex="2" numChoices="9" name="Green"/>
+			<RawInputMessage key="126464440722789009" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673935003" paramNodeName="ParamRange" behaviour="8" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/huerotate/effect/huerotate" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/huerotate/effect/huerotate" translationType="8" allowedTranslationTypes="11"/>
+			<Subtarget type="5" optionIndex="-1"/>
+			<RawInputMessage key="198522034760716464" value="0.39370078740157482544" numSteps="128"/>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673934991" paramNodeName="RangedParam[bool]" behaviour="4" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/colorize/bypassed" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/colorize/bypassed" translationType="8" allowedTranslationTypes="11"/>
+			<RawInputMessage key="126464440722793872" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="1"/>
+				<Value first="On" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673934959" paramNodeName="ParamChoice[Color]" behaviour="4" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/colorize/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/colorize/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<Subtarget type="4" optionIndex="6" numChoices="9" name="Magenta"/>
+			<RawInputMessage key="126464440722789777" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684095806754" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673399908133/video/effects/beatslicerx16/effect/trigger5" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673399908133/video/effects/beatslicerx16/effect/trigger5" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037944473" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684095808305" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="DIN 3" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/selectedclip/video/effects/beatslicerx16/effect/trigger9" translationType="4" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedclip/video/effects/beatslicerx16/effect/trigger9" translationType="4" allowedTranslationTypes="7"/>
+			<RawInputMessage key="91978043886681754" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684095807903" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="DIN 2" outputDeviceName="DIN 2">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673399903611/video/effects/beatslicerx16/effect/trigger8" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673399903611/video/effects/beatslicerx16/effect/trigger8" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="91978036588592537" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684095808301" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="DIN 3" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/selectedclip/video/effects/beatslicerx16/effect/trigger8" translationType="4" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedclip/video/effects/beatslicerx16/effect/trigger8" translationType="4" allowedTranslationTypes="7"/>
+			<RawInputMessage key="91978043886681498" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684095806744" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673399908133/video/effects/beatslicerx16/effect/trigger4" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673399908133/video/effects/beatslicerx16/effect/trigger4" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037944217" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673934944" paramNodeName="ParamChoice[Color]" behaviour="4" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/colorize/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/colorize/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<Subtarget type="4" optionIndex="1" numChoices="9" name="Red"/>
+			<RawInputMessage key="126464440722788753" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684095807907" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="DIN 2" outputDeviceName="DIN 2">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673399903611/video/effects/beatslicerx16/effect/trigger9" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673399903611/video/effects/beatslicerx16/effect/trigger9" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="91978036588592793" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684095811936" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="DIN 2" outputDeviceName="DIN 2">
+			<ShortcutPath name="InputPath" path="/composition/selectedclip/video/effects/beatslicerx1/effect/trigger" translationType="4" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedclip/video/effects/beatslicerx1/effect/trigger" translationType="4" allowedTranslationTypes="7"/>
+			<RawInputMessage key="91978036588593817" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684095806764" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673399908133/video/effects/beatslicerx16/effect/trigger6" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673399908133/video/effects/beatslicerx16/effect/trigger6" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037944729" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684095807892" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="DIN 2" outputDeviceName="DIN 2">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673399903611/video/effects/beatslicerx16/effect/trigger5" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673399903611/video/effects/beatslicerx16/effect/trigger5" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="91978036588593305" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657672911442" paramNodeName="ParamTrigger" behaviour="4" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/1/select" translationType="1" allowedTranslationTypes="3"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/1/select" translationType="1" allowedTranslationTypes="3"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/layers/1/selected" translationType="1" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/layers/1/selected" translationType="1" allowedTranslationTypes="-1"/>
+			<RawInputMessage key="126464440722794896" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673934923" paramNodeName="ParamChoice[Color]" behaviour="4" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/threshold/effect/color1/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/threshold/effect/color1/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<Subtarget type="4" optionIndex="3" numChoices="9" name="Yellow"/>
+			<RawInputMessage key="126464440722789265" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673935009" paramNodeName="RangedParam[bool]" behaviour="4" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/mirror/effect/flipx" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/mirror/effect/flipx" translationType="8" allowedTranslationTypes="11"/>
+			<RawInputMessage key="126464440722792593" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684095807899" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="DIN 2" outputDeviceName="DIN 2">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673399903611/video/effects/beatslicerx16/effect/trigger7" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673399903611/video/effects/beatslicerx16/effect/trigger7" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="91978036588592281" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684095806734" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673399908133/video/effects/beatslicerx16/effect/trigger3" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673399908133/video/effects/beatslicerx16/effect/trigger3" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037945497" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673934919" paramNodeName="ParamChoice[Color]" behaviour="4" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/threshold/effect/color1/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/threshold/effect/color1/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<Subtarget type="4" optionIndex="2" numChoices="9" name="Green"/>
+			<RawInputMessage key="126464440722789009" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673939656" paramNodeName="ParamRange" behaviour="8" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/selectedclip/transport/position" translationType="4" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedclip/transport/position" translationType="4" allowedTranslationTypes="7"/>
+			<Subtarget type="5" optionIndex="-1"/>
+			<RawInputMessage key="198522034760717488" value="0.031496062992125983815" numSteps="128"/>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1682624367227" paramNodeName="ParamEvent" behaviour="1028">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673745221778/video/source/beatsaber/trigger" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673745221778/video/source/beatsaber/trigger" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037945241" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684095807882" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="DIN 2" outputDeviceName="DIN 2">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673399903611/video/effects/beatslicerx16/effect/trigger3" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673399903611/video/effects/beatslicerx16/effect/trigger3" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="91978036588594329" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684257050106" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673399897848/video/effects/beatslicerch12/effect/trigger16" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673399897848/video/effects/beatslicerch12/effect/trigger16" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037941145" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684257050081" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673399897848/video/effects/beatslicerch12/effect/trigger10" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673399897848/video/effects/beatslicerch12/effect/trigger10" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037939609" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684257050098" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673399897848/video/effects/beatslicerch12/effect/trigger14" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673399897848/video/effects/beatslicerch12/effect/trigger14" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037940633" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684257050088" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673399897848/video/effects/beatslicerch12/effect/trigger12" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673399897848/video/effects/beatslicerch12/effect/trigger12" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037940121" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684257050102" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673399897848/video/effects/beatslicerch12/effect/trigger15" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673399897848/video/effects/beatslicerch12/effect/trigger15" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037940889" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684257050094" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673399897848/video/effects/beatslicerch12/effect/trigger13" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673399897848/video/effects/beatslicerch12/effect/trigger13" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037940377" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684257050084" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673399897848/video/effects/beatslicerch12/effect/trigger11" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673399897848/video/effects/beatslicerch12/effect/trigger11" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037939865" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684257050052" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673399897848/video/effects/beatslicerch12/effect/trigger3" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673399897848/video/effects/beatslicerch12/effect/trigger3" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037937817" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684257050048" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673399897848/video/effects/beatslicerch12/effect/trigger2" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673399897848/video/effects/beatslicerch12/effect/trigger2" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037937561" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684257050056" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673399897848/video/effects/beatslicerch12/effect/trigger4" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673399897848/video/effects/beatslicerch12/effect/trigger4" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037938073" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684257050061" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673399897848/video/effects/beatslicerch12/effect/trigger5" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673399897848/video/effects/beatslicerch12/effect/trigger5" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037938329" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684257050040" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673399897848/video/effects/beatslicerch12/effect/trigger1" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673399897848/video/effects/beatslicerch12/effect/trigger1" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037937305" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684257050064" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673399897848/video/effects/beatslicerch12/effect/trigger6" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673399897848/video/effects/beatslicerch12/effect/trigger6" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037938585" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684257050068" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673399897848/video/effects/beatslicerch12/effect/trigger7" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673399897848/video/effects/beatslicerch12/effect/trigger7" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037938841" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684257050072" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673399897848/video/effects/beatslicerch12/effect/trigger8" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673399897848/video/effects/beatslicerch12/effect/trigger8" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037939097" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684257050076" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673399897848/video/effects/beatslicerch12/effect/trigger9" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673399897848/video/effects/beatslicerch12/effect/trigger9" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037939353" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684257049689" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673399897874/video/effects/beatslicerch11/effect/trigger3" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673399897874/video/effects/beatslicerch11/effect/trigger3" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037945498" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684257049685" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673399897874/video/effects/beatslicerch11/effect/trigger2" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673399897874/video/effects/beatslicerch11/effect/trigger2" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037945242" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684257049682" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673399897874/video/effects/beatslicerch11/effect/trigger1" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673399897874/video/effects/beatslicerch11/effect/trigger1" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037944986" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684257049697" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673399897874/video/effects/beatslicerch11/effect/trigger5" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673399897874/video/effects/beatslicerch11/effect/trigger5" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037944474" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684257049713" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673399897874/video/effects/beatslicerch11/effect/trigger9" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673399897874/video/effects/beatslicerch11/effect/trigger9" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037943962" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684257049693" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673399897874/video/effects/beatslicerch11/effect/trigger4" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673399897874/video/effects/beatslicerch11/effect/trigger4" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037944218" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684257049701" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673399897874/video/effects/beatslicerch11/effect/trigger6" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673399897874/video/effects/beatslicerch11/effect/trigger6" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037944730" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684257049709" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673399897874/video/effects/beatslicerch11/effect/trigger8" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673399897874/video/effects/beatslicerch11/effect/trigger8" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037943706" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684257049706" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673399897874/video/effects/beatslicerch11/effect/trigger7" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673399897874/video/effects/beatslicerch11/effect/trigger7" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037943450" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684257049067" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673399897670/video/effects/beatslicerch10/effect/trigger3" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673399897670/video/effects/beatslicerch10/effect/trigger3" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037945497" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684257049098" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1673399897670/video/effects/beatslicerch10/effect/trigger6" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1673399897670/video/effects/beatslicerch10/effect/trigger6" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037944729" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+	</ShortcutManager>
+</MidiShortcutPreset>
+

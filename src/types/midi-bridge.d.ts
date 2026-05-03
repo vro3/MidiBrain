@@ -22,6 +22,15 @@ export interface MidiMessagePayload {
   timestamp: number;
 }
 
+export interface ResolumeFileResult {
+  path: string;
+  text: string;
+}
+
+export interface ResolumeSaveResult {
+  path: string;
+}
+
 export interface MidiBridge {
   listDevices(): Promise<MidiDevices>;
   openInput(name: string): Promise<boolean>;
@@ -36,11 +45,19 @@ export interface MidiBridge {
   destroyVirtualInput(name: string): Promise<boolean>;
   destroyVirtualOutput(name: string): Promise<boolean>;
   onMessage(callback: (payload: MidiMessagePayload) => void): () => void;
+  openResolumeFile(): Promise<ResolumeFileResult | null>;
+  saveResolumeFile(path: string | null, text: string): Promise<ResolumeSaveResult | null>;
+  openExternal(url: string): Promise<void>;
+}
+
+export interface PlatformBridge {
+  os: 'darwin' | 'win32' | 'linux' | string;
 }
 
 declare global {
   interface Window {
     midi?: MidiBridge;
+    platform?: PlatformBridge;
   }
 }
 

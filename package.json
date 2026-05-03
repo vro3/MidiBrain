@@ -9,11 +9,14 @@
   "scripts": {
     "dev": "vite --port=3456 --host=0.0.0.0",
     "dev:electron": "concurrently \"vite --port=3456\" \"wait-on http://localhost:3456 && NODE_ENV=development ELECTRON_RUN_AS_NODE= electron .\"",
-    "build": "vite build",
-    "build:electron": "vite build && electron-builder --mac",
+    "build": "NODE_ENV=production vite build && node scripts/build-electron-cjs.js",
+    "build:electron": "npm run build && electron-builder --mac",
+    "build:electron:win": "npm run build && electron-builder --win",
+    "build:electron:all": "npm run build && electron-builder --mac --win",
     "preview": "vite preview",
-    "clean": "rm -rf dist release",
+    "clean": "rm -rf dist release electron-dist",
     "lint": "tsc --noEmit",
+    "test:resolume": "tsx scripts/test-resolume-roundtrip.mjs",
     "rebuild": "electron-rebuild -f -w midi"
   },
   "dependencies": {
@@ -21,6 +24,7 @@
     "@vitejs/plugin-react": "^5.0.4",
     "@xyflow/react": "^12.10.1",
     "easymidi": "^3.2.0",
+    "fast-xml-parser": "^5.7.2",
     "jspdf": "^4.2.0",
     "jspdf-autotable": "^5.0.7",
     "lucide-react": "^0.546.0",
@@ -38,17 +42,24 @@
     "autoprefixer": "^10.4.21",
     "concurrently": "^9.1.2",
     "electron": "^33.4.0",
-    "electron-builder": "^25.1.8",
+    "electron-builder": "^26.8.1",
+    "esbuild": "^0.28.0",
+    "javascript-obfuscator": "^5.4.2",
     "tailwindcss": "^4.1.14",
+    "terser": "^5.46.2",
     "tsx": "^4.21.0",
     "typescript": "~5.8.2",
     "vite": "^6.2.0",
+    "vite-plugin-javascript-obfuscator": "^3.1.0",
     "wait-on": "^8.0.3"
   },
   "build": {
     "appId": "com.midibrain.app",
     "productName": "MidiBrain",
     "copyright": "Copyright © 2026 Vince Romanelli",
+    "extraMetadata": {
+      "main": "electron-dist/main.cjs"
+    },
     "mac": {
       "category": "public.app-category.music",
       "target": [
@@ -65,6 +76,21 @@
       "entitlementsInherit": "entitlements.mac.plist",
       "notarize": false
     },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "deleteAppDataOnUninstall": false
+    },
     "dmg": {
       "title": "MidiBrain",
       "sign": false
@@ -75,7 +101,12 @@
     },
     "files": [
       "dist/**/*",
-      "electron/**/*"
+      "electron-dist/**/*",
+      "!electron/**/*"
+    ],
+    "asarUnpack": [
+      "**/node_modules/midi/**",
+      "**/node_modules/easymidi/**"
     ]
   }
 }

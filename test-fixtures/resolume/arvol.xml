@@ -1,0 +1,532 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MidiShortcutPreset name="arvol" presetId="1332928511">
+	<versionInfo name="Resolume Arena" majorVersion="7" minorVersion="22" microVersion="5" revision="45669"/>
+	<ShortcutManager name="MIDIShortcutManagerShortcuts">
+		<Shortcut name="Shortcut" uniqueId="1659190346571" paramNodeName="ParamEvent" behaviour="1032">
+			<ShortcutPath name="InputPath" path="/composition/disconnectall" translationType="1" allowedTranslationTypes="1"/>
+			<ShortcutPath name="OutputPath" path="/composition/disconnectall" translationType="1" allowedTranslationTypes="1"/>
+			<RawInputMessage key="144115188075876284" value="0" numSteps="128"/>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673934951" paramNodeName="ParamChoice[Color]" behaviour="4" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/colorize/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/colorize/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<Subtarget type="4" optionIndex="3" numChoices="9" name="Yellow"/>
+			<RawInputMessage key="126464440722789265" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657672911463" paramNodeName="ParamRange" behaviour="2056" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/2/video/opacity" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/2/video/opacity" translationType="1" allowedTranslationTypes="11"/>
+			<Subtarget type="5" optionIndex="-1"/>
+			<RawInputMessage key="144115188075856563" value="0" numSteps="128"/>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673935009" paramNodeName="RangedParam[bool]" behaviour="4" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/mirror/effect/flipx" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/mirror/effect/flipx" translationType="8" allowedTranslationTypes="11"/>
+			<RawInputMessage key="126464440722792593" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673934959" paramNodeName="ParamChoice[Color]" behaviour="4" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/colorize/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/colorize/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<Subtarget type="4" optionIndex="6" numChoices="9" name="Magenta"/>
+			<RawInputMessage key="126464440722789777" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673934923" paramNodeName="ParamChoice[Color]" behaviour="4" outputDeviceName="Traktor Kontrol F1 - 1 Output">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/threshold/effect/color1/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/threshold/effect/color1/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<Subtarget type="4" optionIndex="3" numChoices="10" name="Yellow"/>
+			<RawInputMessage key="72057594037929619" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657672911555" paramNodeName="ParamRange" behaviour="8" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/tempocontroller/tempo" translationType="1" allowedTranslationTypes="1"/>
+			<ShortcutPath name="OutputPath" path="/composition/tempocontroller/tempo" translationType="1" allowedTranslationTypes="1"/>
+			<Subtarget type="5" optionIndex="-1"/>
+			<RawInputMessage key="198522034760714933" value="0" numSteps="128"/>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673934955" paramNodeName="ParamChoice[Color]" behaviour="4" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/colorize/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/colorize/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<Subtarget type="4" optionIndex="5" numChoices="9" name="Blue"/>
+			<RawInputMessage key="126464440722789521" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673934935" paramNodeName="ParamChoice[Color]" behaviour="4" outputDeviceName="Traktor Kontrol F1 - 1 Output">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/threshold/effect/color1/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/threshold/effect/color1/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<Subtarget type="4" optionIndex="7" numChoices="10" name="Cyan"/>
+			<RawInputMessage key="72057594037930387" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673939648" paramNodeName="ParamRange" behaviour="8" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/application/ui/clipsscrollhorizontal" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/application/ui/clipsscrollhorizontal" translationType="1" allowedTranslationTypes="11"/>
+			<Subtarget type="5" optionIndex="-1"/>
+			<RawInputMessage key="144115188075858355" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673939656" paramNodeName="ParamRange" behaviour="8" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/selectedclip/transport/position" translationType="4" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedclip/transport/position" translationType="4" allowedTranslationTypes="7"/>
+			<Subtarget type="5" optionIndex="-1"/>
+			<RawInputMessage key="198522034760717488" value="0.031496062992125983815" numSteps="128"/>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673939669" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/forwards" translationType="1" allowedTranslationTypes="1"/>
+			<ShortcutPath name="OutputPath" path="/composition/forwards" translationType="1" allowedTranslationTypes="1"/>
+			<RawInputMessage key="72057594037951379" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673939659" paramNodeName="ParamRange" behaviour="2056" inputDeviceName="Traktor Kontrol F1 - 1 Input" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/2/transition/duration" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/2/transition/duration" translationType="1" allowedTranslationTypes="11"/>
+			<Subtarget type="5" optionIndex="-1"/>
+			<ValueRange min="0" max="0.14947422985781991245"/>
+			<RawInputMessage key="182871351571253427" value="0" numSteps="128"/>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673934998" paramNodeName="RangedParam[bool]" behaviour="4" inputDeviceName="Traktor Kontrol X1 MK2 - 1 Input" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/threshold/bypassed" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/threshold/bypassed" translationType="8" allowedTranslationTypes="11"/>
+			<RawInputMessage key="103458546749819027" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673939663" paramNodeName="ParamRange" behaviour="2056" inputDeviceName="Traktor Kontrol F1 - 1 Input" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/4/transition/duration" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/4/transition/duration" translationType="1" allowedTranslationTypes="11"/>
+			<Subtarget type="5" optionIndex="-1"/>
+			<ValueRange min="0" max="0.14950199940758293615"/>
+			<RawInputMessage key="182871351571253427" value="0" numSteps="128"/>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657672911442" paramNodeName="ParamTrigger" behaviour="4" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/1/select" translationType="1" allowedTranslationTypes="3"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/1/select" translationType="1" allowedTranslationTypes="3"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/layers/1/selected" translationType="1" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/layers/1/selected" translationType="1" allowedTranslationTypes="-1"/>
+			<RawInputMessage key="72057594037928083" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657672911532" paramNodeName="RangedParam[bool]" behaviour="3076" inputDeviceName="Traktor Kontrol X1 MK2 - 1 Input" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/video/effects/strobe/bypassed" translationType="1" allowedTranslationTypes="1"/>
+			<ShortcutPath name="OutputPath" path="/composition/video/effects/strobe/bypassed" translationType="1" allowedTranslationTypes="1"/>
+			<RawInputMessage key="103458546749819795" value="1" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673935012" paramNodeName="RangedParam[bool]" behaviour="4" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/mirror/effect/flipy" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/mirror/effect/flipy" translationType="8" allowedTranslationTypes="11"/>
+			<RawInputMessage key="126464440722792849" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673934947" paramNodeName="ParamChoice[Color]" behaviour="4" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/colorize/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/colorize/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<Subtarget type="4" optionIndex="2" numChoices="9" name="Green"/>
+			<RawInputMessage key="126464440722789009" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673934995" paramNodeName="RangedParam[bool]" behaviour="4" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/brightnesscontrast/bypassed" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/brightnesscontrast/bypassed" translationType="8" allowedTranslationTypes="11"/>
+			<RawInputMessage key="126464440722794128" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="1"/>
+				<Value first="On" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673934991" paramNodeName="RangedParam[bool]" behaviour="4" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/colorize/bypassed" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/colorize/bypassed" translationType="8" allowedTranslationTypes="11"/>
+			<RawInputMessage key="126464440722793872" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="1"/>
+				<Value first="On" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673940022" paramNodeName="ParamChoice[Color]" behaviour="4" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/edgedetection/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/edgedetection/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<Subtarget type="4" optionIndex="8" numChoices="9" name="White"/>
+			<RawInputMessage key="126464440722790289" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673934931" paramNodeName="ParamChoice[Color]" behaviour="4" outputDeviceName="Traktor Kontrol F1 - 1 Output">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/threshold/effect/color1/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/threshold/effect/color1/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<Subtarget type="4" optionIndex="6" numChoices="10" name="Magenta"/>
+			<RawInputMessage key="72057594037930131" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673939998" paramNodeName="ParamChoice[Color]" behaviour="4" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/edgedetection/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/edgedetection/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<Subtarget type="4" optionIndex="1" numChoices="9" name="Red"/>
+			<RawInputMessage key="126464440722788753" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673935003" paramNodeName="ParamRange" behaviour="8" inputDeviceName="Traktor Kontrol X1 MK2 - 1 Input" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/huerotate/effect/huerotate" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/huerotate/effect/huerotate" translationType="8" allowedTranslationTypes="11"/>
+			<Subtarget type="5" optionIndex="-1"/>
+			<RawInputMessage key="175516140787736499" value="1" numSteps="128"/>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673940002" paramNodeName="ParamChoice[Color]" behaviour="4" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/edgedetection/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/edgedetection/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<Subtarget type="4" optionIndex="2" numChoices="9" name="Green"/>
+			<RawInputMessage key="126464440722789009" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673935005" paramNodeName="RangedParam[bool]" behaviour="4" inputDeviceName="Traktor Kontrol X1 MK2 - 1 Input" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/mirror/bypassed" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/mirror/bypassed" translationType="8" allowedTranslationTypes="11"/>
+			<RawInputMessage key="103458546749820051" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673939661" paramNodeName="ParamRange" behaviour="2056" inputDeviceName="Traktor Kontrol F1 - 1 Input" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/3/transition/duration" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/3/transition/duration" translationType="1" allowedTranslationTypes="11"/>
+			<Subtarget type="5" optionIndex="-1"/>
+			<ValueRange min="0" max="0.14966861670616113389"/>
+			<RawInputMessage key="182871351571253427" value="0" numSteps="128"/>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657672911551" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/tempocontroller/resync" translationType="1" allowedTranslationTypes="1"/>
+			<ShortcutPath name="OutputPath" path="/composition/tempocontroller/resync" translationType="1" allowedTranslationTypes="1"/>
+			<RawInputMessage key="72057594037952147" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673934939" paramNodeName="ParamChoice[Color]" behaviour="4" outputDeviceName="Traktor Kontrol F1 - 1 Output">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/threshold/effect/color1/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/threshold/effect/color1/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<Subtarget type="4" optionIndex="8" numChoices="10" name="White"/>
+			<RawInputMessage key="72057594037930643" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657672911467" paramNodeName="ParamRange" behaviour="2056" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/4/video/opacity" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/4/video/opacity" translationType="1" allowedTranslationTypes="11"/>
+			<Subtarget type="5" optionIndex="-1"/>
+			<RawInputMessage key="144115188075857075" value="0" numSteps="128"/>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673934919" paramNodeName="ParamChoice[Color]" behaviour="4" outputDeviceName="Traktor Kontrol F1 - 1 Output">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/threshold/effect/color1/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/threshold/effect/color1/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<Subtarget type="4" optionIndex="2" numChoices="10" name="Green"/>
+			<RawInputMessage key="72057594037929363" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673940010" paramNodeName="ParamChoice[Color]" behaviour="4" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/edgedetection/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/edgedetection/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<Subtarget type="4" optionIndex="5" numChoices="9" name="Blue"/>
+			<RawInputMessage key="126464440722789521" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673940014" paramNodeName="ParamChoice[Color]" behaviour="4" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/edgedetection/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/edgedetection/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<Subtarget type="4" optionIndex="6" numChoices="9" name="Magenta"/>
+			<RawInputMessage key="126464440722789777" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673940018" paramNodeName="ParamChoice[Color]" behaviour="4" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/edgedetection/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/edgedetection/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<Subtarget type="4" optionIndex="7" numChoices="9" name="Cyan"/>
+			<RawInputMessage key="126464440722790033" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673939657" paramNodeName="ParamRange" behaviour="2056" inputDeviceName="Traktor Kontrol F1 - 1 Input" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/1/transition/duration" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/1/transition/duration" translationType="1" allowedTranslationTypes="11"/>
+			<Subtarget type="5" optionIndex="-1"/>
+			<ValueRange min="0" max="0.14983523400473933163"/>
+			<RawInputMessage key="182871351571253427" value="0" numSteps="128"/>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673940069" paramNodeName="RangedParam[bool]" behaviour="4" inputDeviceName="Traktor Kontrol X1 MK2 - 1 Input" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/edgedetection/bypassed" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/edgedetection/bypassed" translationType="8" allowedTranslationTypes="11"/>
+			<RawInputMessage key="103458546749819539" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673934967" paramNodeName="ParamChoice[Color]" behaviour="4" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/colorize/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/colorize/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<Subtarget type="4" optionIndex="8" numChoices="9" name="White"/>
+			<RawInputMessage key="126464440722790289" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673939665" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/backwards" translationType="1" allowedTranslationTypes="1"/>
+			<ShortcutPath name="OutputPath" path="/composition/backwards" translationType="1" allowedTranslationTypes="1"/>
+			<RawInputMessage key="72057594037950867" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673940006" paramNodeName="ParamChoice[Color]" behaviour="4" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/edgedetection/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/edgedetection/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<Subtarget type="4" optionIndex="3" numChoices="9" name="Yellow"/>
+			<RawInputMessage key="126464440722789265" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657672911465" paramNodeName="ParamRange" behaviour="2056" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/3/video/opacity" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/3/video/opacity" translationType="1" allowedTranslationTypes="11"/>
+			<Subtarget type="5" optionIndex="-1"/>
+			<RawInputMessage key="144115188075856819" value="0" numSteps="128"/>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1659151635625" paramNodeName="ParamChoice[Color]" behaviour="4" outputDeviceName="Traktor Kontrol F1 - 1 Output">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/threshold/effect/color1/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/threshold/effect/color1/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<Subtarget type="4" optionIndex="9" numChoices="10" name="0xffa50ff 2"/>
+			<RawInputMessage key="72057594037930899" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673934927" paramNodeName="ParamChoice[Color]" behaviour="4" outputDeviceName="Traktor Kontrol F1 - 1 Output">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/threshold/effect/color1/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/threshold/effect/color1/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<Subtarget type="4" optionIndex="5" numChoices="10" name="Blue"/>
+			<RawInputMessage key="72057594037929875" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657672911599" paramNodeName="ParamRange" behaviour="4" inputDeviceName="Traktor Kontrol X1 MK2 - 1 Input">
+			<ShortcutPath name="InputPath" path="/composition/video/effects/crop/opacity" translationType="1" allowedTranslationTypes="1"/>
+			<ShortcutPath name="OutputPath" path="/composition/video/effects/crop/opacity" translationType="1" allowedTranslationTypes="1"/>
+			<Subtarget type="5" optionIndex="-1"/>
+			<RawInputMessage key="103458546749824915" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="1"/>
+				<Value first="On" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1659151635478" paramNodeName="ParamChoice[Color]" behaviour="4" outputDeviceName="Traktor Kontrol F1 - 1 Output">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/threshold/effect/color1/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/threshold/effect/color1/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<Subtarget type="4" optionIndex="-8" numChoices="10"/>
+			<RawInputMessage key="72057594037930899" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657672911548" paramNodeName="ParamEvent" behaviour="1028">
+			<ShortcutPath name="InputPath" path="/composition/tempocontroller/tempotap" translationType="1" allowedTranslationTypes="1"/>
+			<ShortcutPath name="OutputPath" path="/composition/tempocontroller/tempotap" translationType="1" allowedTranslationTypes="1"/>
+			<RawInputMessage key="72057594037952403" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657672911449" paramNodeName="ParamTrigger" behaviour="4" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/3/select" translationType="1" allowedTranslationTypes="3"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/3/select" translationType="1" allowedTranslationTypes="3"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/layers/3/selected" translationType="1" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/layers/3/selected" translationType="1" allowedTranslationTypes="-1"/>
+			<RawInputMessage key="72057594037928595" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657672911543" paramNodeName="ParamRange" behaviour="8" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/video/effects/strobe/effect/frequency" translationType="1" allowedTranslationTypes="1"/>
+			<ShortcutPath name="OutputPath" path="/composition/video/effects/strobe/effect/frequency" translationType="1" allowedTranslationTypes="1"/>
+			<Subtarget type="5" optionIndex="-1"/>
+			<ValueRange min="0.69999999999999995559" max="0.99899999999999999911"/>
+			<RawInputMessage key="198522034760716208" value="0" numSteps="128"/>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657672911461" paramNodeName="ParamRange" behaviour="2056" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/1/video/opacity" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/1/video/opacity" translationType="1" allowedTranslationTypes="11"/>
+			<Subtarget type="5" optionIndex="-1"/>
+			<RawInputMessage key="144115188075856307" value="1" numSteps="128"/>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673934944" paramNodeName="ParamChoice[Color]" behaviour="4" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/colorize/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/colorize/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<Subtarget type="4" optionIndex="1" numChoices="9" name="Red"/>
+			<RawInputMessage key="126464440722788753" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657672911445" paramNodeName="ParamTrigger" behaviour="4" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/2/select" translationType="1" allowedTranslationTypes="3"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/2/select" translationType="1" allowedTranslationTypes="3"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/layers/2/selected" translationType="1" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/layers/2/selected" translationType="1" allowedTranslationTypes="-1"/>
+			<RawInputMessage key="72057594037928339" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657672911453" paramNodeName="ParamTrigger" behaviour="4" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/4/select" translationType="1" allowedTranslationTypes="3"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/4/select" translationType="1" allowedTranslationTypes="3"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/layers/4/selected" translationType="1" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/layers/4/selected" translationType="1" allowedTranslationTypes="-1"/>
+			<RawInputMessage key="72057594037928851" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673934963" paramNodeName="ParamChoice[Color]" behaviour="4" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/colorize/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/colorize/effect/color/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<Subtarget type="4" optionIndex="7" numChoices="9" name="Cyan"/>
+			<RawInputMessage key="126464440722790033" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1657673934912" paramNodeName="ParamChoice[Color]" behaviour="4" outputDeviceName="Traktor Kontrol F1 - 1 Output">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/threshold/effect/color1/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/threshold/effect/color1/palette/colors" translationType="8" allowedTranslationTypes="11"/>
+			<Subtarget type="4" optionIndex="1" numChoices="10" name="Red"/>
+			<RawInputMessage key="72057594037929107" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1659190346553" paramNodeName="ParamEvent" behaviour="1028">
+			<ShortcutPath name="InputPath" path="/composition/layers/1/clear" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/1/clear" translationType="1" allowedTranslationTypes="11"/>
+			<RawInputMessage key="72057594037933203" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1659190346565" paramNodeName="ParamEvent" behaviour="1028">
+			<ShortcutPath name="InputPath" path="/composition/layers/4/clear" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/4/clear" translationType="1" allowedTranslationTypes="11"/>
+			<RawInputMessage key="72057594037933971" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1659190346557" paramNodeName="ParamEvent" behaviour="1028">
+			<ShortcutPath name="InputPath" path="/composition/layers/2/clear" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/2/clear" translationType="1" allowedTranslationTypes="11"/>
+			<RawInputMessage key="72057594037933459" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1659190346561" paramNodeName="ParamEvent" behaviour="1028">
+			<ShortcutPath name="InputPath" path="/composition/layers/3/clear" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/3/clear" translationType="1" allowedTranslationTypes="11"/>
+			<RawInputMessage key="72057594037933715" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1659190346637" paramNodeName="RangedParam[bool]" behaviour="4">
+			<ShortcutPath name="InputPath" path="/composition/selectedlayer/video/effects/huerotate/bypassed" translationType="8" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedlayer/video/effects/huerotate/bypassed" translationType="8" allowedTranslationTypes="11"/>
+			<RawInputMessage key="72057594037954195" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+	</ShortcutManager>
+</MidiShortcutPreset>
+

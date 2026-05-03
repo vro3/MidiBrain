@@ -1,5 +1,6 @@
-const { app, BrowserWindow, ipcMain } = require('electron');
+const { app, BrowserWindow, ipcMain, dialog, shell } = require('electron');
 const path = require('path');
+const fs = require('fs/promises');
 const midiEngine = require('./midi-engine.cjs');
 
 // Main-process crash logging. Replace console with Sentry init for commercial
@@ -58,6 +59,38 @@ ipcMain.handle('midi:create-virtual-input', (_e, name) => midiEngine.createVirtu
 ipcMain.handle('midi:create-virtual-output', (_e, name) => midiEngine.createVirtualOutput(name));
 ipcMain.handle('midi:destroy-virtual-input', (_e, name) => midiEngine.destroyVirtualInput(name));
 ipcMain.handle('midi:destroy-virtual-output', (_e, name) => midiEngine.destroyVirtualOutput(name));
+
+ipcMain.handle('resolume:open-file', async () => {
+  const result = await dialog.showOpenDialog(mainWindow, {
+    title: 'Open Resolume Preset',
+    properties: ['openFile'],
+    filters: [
+      { name: 'Resolume MIDI Preset', extensions: ['xml'] },
+      { name: 'All Files', extensions: ['*'] },
+    ],
+  });
+  if (result.canceled || result.filePaths.length === 0) return null;
+  const filePath = result.filePaths[0];
+  const text = await fs.readFile(filePath, 'utf8');
+  return { path: filePath, text };
+});
+
+ipcMain.handle('resolume:save-file', async (_e, targetPath, text) => {
+  let outPath = targetPath;
+  if (!outPath) {
+    const result = await dialog.showSaveDialog(mainWindow, {
+      title: 'Save Resolume Preset',
+      defaultPath: 'preset.xml',
+      filters: [{ name: 'Resolume MIDI Preset', extensions: ['xml'] }],
+    });
+    if (result.canceled || !result.filePath) return null;
+    outPath = result.filePath;
+  }
+  await fs.writeFile(outPath, text, 'utf8');
+  return { path: outPath };
+});
+
+ipcMain.handle('shell:open-external', (_e, url) => shell.openExternal(url));
 
 app.whenReady().then(createWindow);
 

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MidiShortcutPreset name="X1" presetId="1294214886">
+	<versionInfo name="Resolume Arena" majorVersion="7" minorVersion="22" microVersion="5" revision="45669"/>
+	<ShortcutManager name="MIDIShortcutManagerShortcuts">
+		<Shortcut name="Shortcut" uniqueId="1646961181461" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/3/clear" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/3/clear" translationType="1" allowedTranslationTypes="11"/>
+			<RawInputMessage key="130399798644714384" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1646961181457" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/2/clear" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/2/clear" translationType="1" allowedTranslationTypes="11"/>
+			<RawInputMessage key="130399798644714128" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1646961181453" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/1/clear" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/1/clear" translationType="1" allowedTranslationTypes="11"/>
+			<RawInputMessage key="130399798644713872" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1614037591465" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="Conspiracy" outputDeviceName="vPC">
+			<ShortcutPath name="InputPath" path="/composition/disconnectall" translationType="1" allowedTranslationTypes="1"/>
+			<ShortcutPath name="OutputPath" path="/composition/disconnectall" translationType="1" allowedTranslationTypes="1"/>
+			<RawInputMessage key="130399798644713616" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1653073292206" paramNodeName="RangedParam[bool]" behaviour="3076">
+			<ShortcutPath name="InputPath" path="/composition/objects/1651540956958/video/effects/screenlayertransform/effect/slices/3/bypassed" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1651540956958/video/effects/screenlayertransform/effect/slices/3/bypassed" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037928601" value="1" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1653073292141" paramNodeName="RangedParam[bool]" behaviour="3076">
+			<ShortcutPath name="InputPath" path="/composition/objects/1651540956958/video/effects/screenlayertransform/effect/slices/1/bypassed" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1651540956958/video/effects/screenlayertransform/effect/slices/1/bypassed" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037928089" value="1" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1653073292228" paramNodeName="RangedParam[bool]" behaviour="3076">
+			<ShortcutPath name="InputPath" path="/composition/objects/1651540956958/video/effects/screenlayertransform/effect/slices/5/bypassed" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1651540956958/video/effects/screenlayertransform/effect/slices/5/bypassed" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037929113" value="1" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1653073292218" paramNodeName="RangedParam[bool]" behaviour="3076">
+			<ShortcutPath name="InputPath" path="/composition/objects/1651540956958/video/effects/screenlayertransform/effect/slices/4/bypassed" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1651540956958/video/effects/screenlayertransform/effect/slices/4/bypassed" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037928857" value="1" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1659146066022" paramNodeName="ParamRange" behaviour="2056">
+			<ShortcutPath name="InputPath" path="/composition/layers/4/video/opacity" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/4/video/opacity" translationType="1" allowedTranslationTypes="11"/>
+			<Subtarget type="5" optionIndex="-1"/>
+			<RawInputMessage key="144115188075857075" value="0" numSteps="128"/>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1614037591473" paramNodeName="ParamRange" behaviour="8" inputDeviceName="Conspiracy" outputDeviceName="vPC">
+			<ShortcutPath name="InputPath" path="/composition/master" translationType="1" allowedTranslationTypes="1"/>
+			<ShortcutPath name="OutputPath" path="/composition/master" translationType="1" allowedTranslationTypes="1"/>
+			<Subtarget type="5" optionIndex="-1"/>
+			<RawInputMessage key="202457392682635184" value="1" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1653073292168" paramNodeName="RangedParam[bool]" behaviour="3076">
+			<ShortcutPath name="InputPath" path="/composition/objects/1651540956958/video/effects/screenlayertransform/effect/slices/2/bypassed" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1651540956958/video/effects/screenlayertransform/effect/slices/2/bypassed" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037928345" value="1" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1659146066018" paramNodeName="ParamRange" behaviour="2056">
+			<ShortcutPath name="InputPath" path="/composition/layers/2/video/opacity" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/2/video/opacity" translationType="1" allowedTranslationTypes="11"/>
+			<Subtarget type="5" optionIndex="-1"/>
+			<RawInputMessage key="144115188075856563" value="0" numSteps="128"/>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1659146066109" paramNodeName="ParamEvent" behaviour="1028">
+			<ShortcutPath name="InputPath" path="/composition/tempocontroller/resync" translationType="1" allowedTranslationTypes="1"/>
+			<ShortcutPath name="OutputPath" path="/composition/tempocontroller/resync" translationType="1" allowedTranslationTypes="1"/>
+			<RawInputMessage key="72057594037952147" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1659146066097" paramNodeName="ParamRange" behaviour="2056">
+			<ShortcutPath name="InputPath" path="/composition/layers/1/video/opacity" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/1/video/opacity" translationType="1" allowedTranslationTypes="11"/>
+			<Subtarget type="5" optionIndex="-1"/>
+			<RawInputMessage key="144115188075856307" value="0" numSteps="128"/>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1659146066105" paramNodeName="ParamEvent" behaviour="1028">
+			<ShortcutPath name="InputPath" path="/composition/tempocontroller/tempotap" translationType="1" allowedTranslationTypes="1"/>
+			<ShortcutPath name="OutputPath" path="/composition/tempocontroller/tempotap" translationType="1" allowedTranslationTypes="1"/>
+			<RawInputMessage key="72057594037952403" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1659146066101" paramNodeName="ParamRange" behaviour="2056">
+			<ShortcutPath name="InputPath" path="/composition/layers/3/video/opacity" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/3/video/opacity" translationType="1" allowedTranslationTypes="11"/>
+			<Subtarget type="5" optionIndex="-1"/>
+			<RawInputMessage key="144115188075856819" value="0" numSteps="128"/>
+		</Shortcut>
+	</ShortcutManager>
+</MidiShortcutPreset>
+

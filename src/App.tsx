@@ -4,9 +4,11 @@
  */
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { ChevronRight, ChevronLeft } from 'lucide-react';
+import { ChevronRight, ChevronLeft, FileCode2 } from 'lucide-react';
 import MidiRouter from './components/MidiRouter';
 import LiveIOPanel from './components/LiveIOPanel';
+import ResolumePanel from './components/ResolumePanel';
+import LoopMidiPrompt from './components/LoopMidiPrompt';
 import type { MidiDevices } from './types/midi-bridge';
 import { migrateBackupRouterKeys } from './migrations';
 
@@ -59,6 +61,9 @@ function loadRouting(): RoutingMap {
 
 export default function App() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [resolumeOpen, setResolumeOpen] = useState(false);
+  const [virtualPortsBroken, setVirtualPortsBroken] = useState(false);
+  const isWindows = typeof window !== 'undefined' && window.platform?.os === 'win32';
   const [sidebarWidth, setSidebarWidth] = useState<number>(() => {
     const stored = typeof window !== 'undefined' ? window.localStorage.getItem(STORAGE_KEY) : null;
     const n = stored ? Number(stored) : NaN;
@@ -121,18 +126,40 @@ export default function App() {
 
   // Recreate persisted virtual ports on mount. Each name corresponds to both
   // a virtual input and virtual output with that name (a "device" to the user).
+  // On Windows, virtual port creation fails without loopMIDI installed; we
+  // surface that so the LoopMidiPrompt can fire.
   useEffect(() => {
     const bridge = typeof window !== 'undefined' ? window.midi : undefined;
     if (!bridge) return;
     let cancelled = false;
     (async () => {
+      let failed = false;
       for (const name of virtualPorts) {
         if (cancelled) return;
         try {
-          await bridge.createVirtualInput(name);
-          await bridge.createVirtualOutput(name);
-        } catch { /* noop */ }
+          const inOk = await bridge.createVirtualInput(name);
+          const outOk = await bridge.createVirtualOutput(name);
+          if (!inOk || !outOk) failed = true;
+        } catch {
+          failed = true;
+        }
       }
+      // If the user has no persisted virtual ports, try a probe on Windows so
+      // we can surface the loopMIDI prompt before they ever click "+".
+      if (!cancelled && isWindows && virtualPorts.length === 0) {
+        try {
+          const probeName = '__midibrain_probe__';
+          const ok = await bridge.createVirtualOutput(probeName);
+          if (ok) {
+            await bridge.destroyVirtualOutput(probeName);
+          } else {
+            failed = true;
+          }
+        } catch {
+          failed = true;
+        }
+      }
+      if (!cancelled && failed) setVirtualPortsBroken(true);
       await refreshDevices();
     })();
     return () => { cancelled = true; };
@@ -343,6 +370,13 @@ export default function App() {
       </div>
 
       <div className="flex-1 min-w-0 relative">
+        <button
+          onClick={() => setResolumeOpen(true)}
+          className="absolute top-3 right-3 z-30 flex items-center gap-1.5 text-xs px-2.5 py-1.5 rounded bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-700"
+          title="Open Resolume Arena MIDI shortcut preset editor"
+        >
+          <FileCode2 size={14} /> Resolume Presets
+        </button>
         <MidiRouter
           aliases={aliases}
           setAliases={setAliases}
@@ -351,6 +385,10 @@ export default function App() {
           devices={devices}
         />
       </div>
+
+      {resolumeOpen && <ResolumePanel onClose={() => setResolumeOpen(false)} />}
+
+      <LoopMidiPrompt isWindows={isWindows} virtualPortsBroken={virtualPortsBroken} />
     </div>
   );
 }

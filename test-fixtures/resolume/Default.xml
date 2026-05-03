@@ -1,0 +1,846 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MidiShortcutPreset name="Default" presetId="581673509">
+	<versionInfo name="Resolume Arena" majorVersion="7" minorVersion="22" microVersion="5" revision="45669"/>
+	<ShortcutManager name="MIDIShortcutManagerShortcuts">
+		<Shortcut name="Shortcut" uniqueId="1676743894566" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="IAC">
+			<ShortcutPath name="InputPath" path="/composition/objects/1676743893121/video/effects/beatsaberv3/effect/6" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1676743893121/video/effects/beatsaberv3/effect/6" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="116640120014125456" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1716845924961" paramNodeName="RangedParam[bool]" behaviour="3076">
+			<ShortcutPath name="InputPath" path="/composition/objects/1716845917812/video/effects/screenlayertransform/effect/slices/29/bypassed" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1716845917812/video/effects/screenlayertransform/effect/slices/29/bypassed" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037935248" value="1" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1683844340213" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="IAC">
+			<ShortcutPath name="InputPath" path="/composition/objects/1683927448001/video/effects/beatslicerx16/effect/trigger15" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1683927448001/video/effects/beatslicerx16/effect/trigger15" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037940889" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1653073292218" paramNodeName="RangedParam[bool]" behaviour="3076">
+			<ShortcutPath name="InputPath" path="/composition/objects/1651540956958/video/effects/screenlayertransform/effect/slices/4/bypassed" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1651540956958/video/effects/screenlayertransform/effect/slices/4/bypassed" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037928857" value="1" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1755890444205" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="IAC" outputDeviceName="IAC">
+			<ShortcutPath name="InputPath" path="/composition/columns/6/connect" translationType="1" allowedTranslationTypes="35"/>
+			<ShortcutPath name="OutputPath" path="/composition/columns/6/connect" translationType="1" allowedTranslationTypes="35"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/columns/6/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/columns/6/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<RawInputMessage key="116640120014112144" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Connected" second="1"/>
+				<Value first="Disconnected" second="0.5"/>
+				<Value first="Empty" second="0"/>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1690864611871" paramNodeName="ParamRange" behaviour="8" inputDeviceName="IAC" outputDeviceName="IAC">
+			<ShortcutPath name="InputPath" path="/composition/layers/1/video/opacity" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/1/video/opacity" translationType="1" allowedTranslationTypes="11"/>
+			<Subtarget type="5" optionIndex="-1"/>
+			<RawInputMessage key="188697714052039344" value="0.80314960629921261503" numSteps="128"/>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1716845924949" paramNodeName="RangedParam[bool]" behaviour="3076">
+			<ShortcutPath name="InputPath" path="/composition/objects/1716845917812/video/effects/screenlayertransform/effect/slices/32/bypassed" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1716845917812/video/effects/screenlayertransform/effect/slices/32/bypassed" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037934480" value="1" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1755890456928" paramNodeName="ParamRange" behaviour="8" inputDeviceName="IAC" outputDeviceName="IAC">
+			<ShortcutPath name="InputPath" path="/composition/layers/2/video/effects/gridcloner/opacity" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/2/video/effects/gridcloner/opacity" translationType="1" allowedTranslationTypes="11"/>
+			<Subtarget type="5" optionIndex="-1"/>
+			<RawInputMessage key="188697714052039871" value="0" numSteps="128"/>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1670358951842" paramNodeName="ParamEvent" behaviour="1028">
+			<ShortcutPath name="InputPath" path="/composition/objects/1669755604649/video/source/beatsabercenteredlaser/trigger" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1669755604649/video/source/beatsabercenteredlaser/trigger" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037937305" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1669509409508" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="MPD218 Port A" outputDeviceName="MPD218 Port A">
+			<ShortcutPath name="InputPath" path="/composition/objects/1669509408344/video/source/beatsaber/trigger" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1669509408344/video/source/beatsaber/trigger" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="86477674909804185" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1669509409500" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="MPD218 Port A" outputDeviceName="MPD218 Port A">
+			<ShortcutPath name="InputPath" path="/composition/objects/1669755604545/video/source/beatsaber/trigger" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1669755604545/video/source/beatsaber/trigger" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="86477674909803673" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1676743894882" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="IAC">
+			<ShortcutPath name="InputPath" path="/composition/objects/1676743894611/video/effects/beatsaberv3/effect/1" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1676743894611/video/effects/beatsaberv3/effect/1" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="116640120014128528" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1716845924953" paramNodeName="RangedParam[bool]" behaviour="3076">
+			<ShortcutPath name="InputPath" path="/composition/objects/1716845917812/video/effects/screenlayertransform/effect/slices/31/bypassed" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1716845917812/video/effects/screenlayertransform/effect/slices/31/bypassed" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037934736" value="1" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1755890444190" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="IAC" outputDeviceName="IAC">
+			<ShortcutPath name="InputPath" path="/composition/columns/2/connect" translationType="1" allowedTranslationTypes="35"/>
+			<ShortcutPath name="OutputPath" path="/composition/columns/2/connect" translationType="1" allowedTranslationTypes="35"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/columns/2/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/columns/2/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<RawInputMessage key="116640120014111120" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Connected" second="1"/>
+				<Value first="Disconnected" second="0.5"/>
+				<Value first="Empty" second="0"/>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1755890444209" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="IAC" outputDeviceName="IAC">
+			<ShortcutPath name="InputPath" path="/composition/columns/7/connect" translationType="1" allowedTranslationTypes="35"/>
+			<ShortcutPath name="OutputPath" path="/composition/columns/7/connect" translationType="1" allowedTranslationTypes="35"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/columns/7/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/columns/7/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<RawInputMessage key="116640120014112400" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Connected" second="1"/>
+				<Value first="Disconnected" second="0.5"/>
+				<Value first="Empty" second="0"/>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1752710574921" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="IAC" outputDeviceName="IAC">
+			<ShortcutPath name="InputPath" path="/composition/objects/1752710574393/video/effects/screenshake/effect/shake!" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1752710574393/video/effects/screenshake/effect/shake!" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="116640120014110879" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1653073292206" paramNodeName="RangedParam[bool]" behaviour="3076">
+			<ShortcutPath name="InputPath" path="/composition/objects/1651540956958/video/effects/screenlayertransform/effect/slices/3/bypassed" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1651540956958/video/effects/screenlayertransform/effect/slices/3/bypassed" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037928601" value="1" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1669755626097" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="MPD218 Port A" outputDeviceName="MPD218 Port A">
+			<ShortcutPath name="InputPath" path="/composition/objects/1669755623737/video/source/beatsaber/trigger" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1669755623737/video/source/beatsaber/trigger" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="86477674909804185" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1668989947351" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="IAC" outputDeviceName="IAC">
+			<ShortcutPath name="InputPath" path="/composition/objects/1668996524858/video/source/beatsaber/trigger" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1668996524858/video/source/beatsaber/trigger" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="116640120014111632" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1716845924985" paramNodeName="RangedParam[bool]" behaviour="3076">
+			<ShortcutPath name="InputPath" path="/composition/objects/1716845917812/video/effects/screenlayertransform/effect/slices/23/bypassed" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1716845917812/video/effects/screenlayertransform/effect/slices/23/bypassed" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037936784" value="1" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1676743886536" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="IAC">
+			<ShortcutPath name="InputPath" path="/composition/objects/1676743893121/video/effects/beatsaberv3/effect/4" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1676743893121/video/effects/beatsaberv3/effect/4" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="116640120014124432" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1676743894888" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="IAC">
+			<ShortcutPath name="InputPath" path="/composition/objects/1676743894611/video/effects/beatsaberv3/effect/2" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1676743894611/video/effects/beatsaberv3/effect/2" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="116640120014129040" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1683844339066" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="IAC">
+			<ShortcutPath name="InputPath" path="/composition/objects/1683927448001/video/effects/beatslicerx16/effect/trigger6" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1683927448001/video/effects/beatslicerx16/effect/trigger6" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037938585" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1683927456828" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1683927447767/video/effects/beatslicerx16/effect/trigger8" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1683927447767/video/effects/beatslicerx16/effect/trigger8" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037939097" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1755456197037" paramNodeName="ParamRange" behaviour="8" inputDeviceName="IAC" outputDeviceName="IAC">
+			<ShortcutPath name="InputPath" path="/composition/crossfader/phase" translationType="1" allowedTranslationTypes="1"/>
+			<ShortcutPath name="OutputPath" path="/composition/crossfader/phase" translationType="1" allowedTranslationTypes="1"/>
+			<Subtarget type="5" optionIndex="-1"/>
+			<RawInputMessage key="188697714052039602" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1683844339175" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="IAC">
+			<ShortcutPath name="InputPath" path="/composition/objects/1683927448001/video/effects/beatslicerx16/effect/trigger12" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1683927448001/video/effects/beatslicerx16/effect/trigger12" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037940121" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1755890444193" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="IAC" outputDeviceName="IAC">
+			<ShortcutPath name="InputPath" path="/composition/columns/3/connect" translationType="1" allowedTranslationTypes="35"/>
+			<ShortcutPath name="OutputPath" path="/composition/columns/3/connect" translationType="1" allowedTranslationTypes="35"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/columns/3/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/columns/3/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<RawInputMessage key="116640120014111376" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Connected" second="1"/>
+				<Value first="Disconnected" second="0.5"/>
+				<Value first="Empty" second="0"/>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1676743895656" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="IAC">
+			<ShortcutPath name="InputPath" path="/composition/objects/1676743893121/video/effects/beatsaberv3/effect/10" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1676743893121/video/effects/beatsaberv3/effect/10" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="116640120014127248" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1755890456650" paramNodeName="ParamRange" behaviour="8" inputDeviceName="IAC" outputDeviceName="IAC">
+			<ShortcutPath name="InputPath" path="/composition/groups/2/video/effects/advancedmirror/opacity" translationType="1" allowedTranslationTypes="19"/>
+			<ShortcutPath name="OutputPath" path="/composition/groups/2/video/effects/advancedmirror/opacity" translationType="1" allowedTranslationTypes="19"/>
+			<Subtarget type="5" optionIndex="-1"/>
+			<RawInputMessage key="188697714052039103" value="0" numSteps="128"/>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1741187409939" paramNodeName="RangedParam[bool]" behaviour="4" inputDeviceName="IAC" outputDeviceName="IAC">
+			<ShortcutPath name="InputPath" path="/composition/objects/1741146808515/video/effects/colorize/bypassed" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1741146808515/video/effects/colorize/bypassed" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="116640120014143376" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1754170655778" paramNodeName="ParamRange" behaviour="8" inputDeviceName="IAC" outputDeviceName="IAC">
+			<ShortcutPath name="InputPath" path="/composition/layers/3/video/opacity" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/3/video/opacity" translationType="1" allowedTranslationTypes="11"/>
+			<Subtarget type="5" optionIndex="-1"/>
+			<RawInputMessage key="188697714052043952" value="0.59842519685039374799" numSteps="128"/>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1669084703797" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="MPD218 Port A" outputDeviceName="MPD218 Port A">
+			<ShortcutPath name="InputPath" path="/composition/objects/1669084699231/video/source/beatsaber/trigger" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1669084699231/video/source/beatsaber/trigger" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="86477674909803673" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1676743895668" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="IAC">
+			<ShortcutPath name="InputPath" path="/composition/objects/1676743893121/video/effects/beatsaberv3/effect/12" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1676743893121/video/effects/beatsaberv3/effect/12" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="116640120014128016" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1659146066105" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="APC mini mk2 Control" outputDeviceName="APC mini mk2 Control">
+			<ShortcutPath name="InputPath" path="/composition/tempocontroller/tempotap" translationType="1" allowedTranslationTypes="1"/>
+			<ShortcutPath name="OutputPath" path="/composition/tempocontroller/tempotap" translationType="1" allowedTranslationTypes="1"/>
+			<RawInputMessage key="138323105943677840" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1756141650241" paramNodeName="RangedParam[bool]" behaviour="4" inputDeviceName="IAC" outputDeviceName="IAC">
+			<ShortcutPath name="InputPath" path="/composition/layers/6/bypassed" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/6/bypassed" translationType="1" allowedTranslationTypes="11"/>
+			<RawInputMessage key="116640120014143390" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1676743895651" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="IAC">
+			<ShortcutPath name="InputPath" path="/composition/objects/1676743893121/video/effects/beatsaberv3/effect/9" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1676743893121/video/effects/beatsaberv3/effect/9" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="116640120014126736" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1683844339058" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="IAC">
+			<ShortcutPath name="InputPath" path="/composition/objects/1683927448001/video/effects/beatslicerx16/effect/trigger4" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1683927448001/video/effects/beatslicerx16/effect/trigger4" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037938073" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1684345717549" paramNodeName="ParamEvent" behaviour="1028">
+			<ShortcutPath name="InputPath" path="/composition/objects/1684345711979/connect" translationType="2" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1684345711979/connect" translationType="2" allowedTranslationTypes="11"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/objects/1684345711979/connected" translationType="2" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/objects/1684345711979/connected" translationType="2" allowedTranslationTypes="-1"/>
+			<RawInputMessage key="72057594037943440" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Connected" second="0.75"/>
+				<Value first="Connected &amp; previewing" second="1"/>
+				<Value first="Disconnected" second="0.25"/>
+				<Value first="Empty" second="0"/>
+				<Value first="Off" second="0"/>
+				<Value first="Previewing" second="0.5"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1755890454919" paramNodeName="ParamRange" behaviour="8" inputDeviceName="IAC" outputDeviceName="IAC">
+			<ShortcutPath name="InputPath" path="/composition/groups/2/video/effects/invertrgb/opacity" translationType="1" allowedTranslationTypes="19"/>
+			<ShortcutPath name="OutputPath" path="/composition/groups/2/video/effects/invertrgb/opacity" translationType="1" allowedTranslationTypes="19"/>
+			<Subtarget type="5" optionIndex="-1"/>
+			<RawInputMessage key="188697714052039359" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1755890444201" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="IAC" outputDeviceName="IAC">
+			<ShortcutPath name="InputPath" path="/composition/columns/5/connect" translationType="1" allowedTranslationTypes="35"/>
+			<ShortcutPath name="OutputPath" path="/composition/columns/5/connect" translationType="1" allowedTranslationTypes="35"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/columns/5/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/columns/5/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<RawInputMessage key="116640120014111888" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Connected" second="1"/>
+				<Value first="Disconnected" second="0.5"/>
+				<Value first="Empty" second="0"/>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1755890444197" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="IAC" outputDeviceName="IAC">
+			<ShortcutPath name="InputPath" path="/composition/columns/4/connect" translationType="1" allowedTranslationTypes="35"/>
+			<ShortcutPath name="OutputPath" path="/composition/columns/4/connect" translationType="1" allowedTranslationTypes="35"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/columns/4/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/columns/4/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<RawInputMessage key="116640120014111632" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Connected" second="1"/>
+				<Value first="Disconnected" second="0.5"/>
+				<Value first="Empty" second="0"/>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1755890456966" paramNodeName="ParamRange" behaviour="8" inputDeviceName="IAC" outputDeviceName="IAC">
+			<ShortcutPath name="InputPath" path="/composition/layers/2/video/effects/automask/opacity" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/2/video/effects/automask/opacity" translationType="1" allowedTranslationTypes="11"/>
+			<Subtarget type="5" optionIndex="-1"/>
+			<RawInputMessage key="188697714052039871" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1683844339054" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1683927447767/video/effects/beatslicerx16/effect/trigger3" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1683927447767/video/effects/beatslicerx16/effect/trigger3" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037937817" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1716845924977" paramNodeName="RangedParam[bool]" behaviour="3076">
+			<ShortcutPath name="InputPath" path="/composition/objects/1716845917812/video/effects/screenlayertransform/effect/slices/25/bypassed" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1716845917812/video/effects/screenlayertransform/effect/slices/25/bypassed" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037936272" value="1" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1683844339050" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="IAC">
+			<ShortcutPath name="InputPath" path="/composition/objects/1683927448001/video/effects/beatslicerx16/effect/trigger2" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1683927448001/video/effects/beatslicerx16/effect/trigger2" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037937561" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1683927456841" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1683927447767/video/effects/beatslicerx16/effect/trigger9" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1683927447767/video/effects/beatslicerx16/effect/trigger9" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037939353" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1683844339062" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="IAC">
+			<ShortcutPath name="InputPath" path="/composition/objects/1683927448001/video/effects/beatslicerx16/effect/trigger5" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1683927448001/video/effects/beatslicerx16/effect/trigger5" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037938329" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1716845924946" paramNodeName="RangedParam[bool]" behaviour="3076">
+			<ShortcutPath name="InputPath" path="/composition/objects/1716845917812/video/effects/screenlayertransform/effect/slices/33/bypassed" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1716845917812/video/effects/screenlayertransform/effect/slices/33/bypassed" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037934224" value="1" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1683927456911" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1683927447767/video/effects/beatslicerx16/effect/trigger11" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1683927447767/video/effects/beatslicerx16/effect/trigger11" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037939865" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1683927456957" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1683927447767/video/effects/beatslicerx16/effect/trigger15" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1683927447767/video/effects/beatslicerx16/effect/trigger15" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037940889" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1683927456900" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1683927447767/video/effects/beatslicerx16/effect/trigger10" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1683927447767/video/effects/beatslicerx16/effect/trigger10" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037939609" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1683927456799" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1683927447767/video/effects/beatslicerx16/effect/trigger4" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1683927447767/video/effects/beatslicerx16/effect/trigger4" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037938073" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1676743894894" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="IAC">
+			<ShortcutPath name="InputPath" path="/composition/objects/1676743894611/video/effects/beatsaberv3/effect/3" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1676743894611/video/effects/beatsaberv3/effect/3" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="116640120014129296" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1669084703816" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="MPD218 Port A" outputDeviceName="MPD218 Port A">
+			<ShortcutPath name="InputPath" path="/composition/objects/1669084702653/video/source/beatsaber/trigger" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1669084702653/video/source/beatsaber/trigger" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="86477674909804185" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1676743894578" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="IAC">
+			<ShortcutPath name="InputPath" path="/composition/objects/1676743893121/video/effects/beatsaberv3/effect/8" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1676743893121/video/effects/beatsaberv3/effect/8" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="116640120014126224" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1683844339167" paramNodeName="ParamEvent" behaviour="1028">
+			<ShortcutPath name="InputPath" path="/composition/objects/1683927448001/video/effects/beatslicerx16/effect/trigger10" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1683927448001/video/effects/beatslicerx16/effect/trigger10" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037939609" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1669755626055" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="MPD218 Port A" outputDeviceName="MPD218 Port A">
+			<ShortcutPath name="InputPath" path="/composition/objects/1669755622591/video/source/beatsaber/trigger" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1669755622591/video/source/beatsaber/trigger" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="86477674909803929" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1676743894560" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="IAC">
+			<ShortcutPath name="InputPath" path="/composition/objects/1676743893121/video/effects/beatsaberv3/effect/5" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1676743893121/video/effects/beatsaberv3/effect/5" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="116640120014124944" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1716845924957" paramNodeName="RangedParam[bool]" behaviour="3076">
+			<ShortcutPath name="InputPath" path="/composition/objects/1716845917812/video/effects/screenlayertransform/effect/slices/30/bypassed" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1716845917812/video/effects/screenlayertransform/effect/slices/30/bypassed" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037934992" value="1" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1756141650745" paramNodeName="ParamRange" behaviour="8" inputDeviceName="IAC" outputDeviceName="IAC">
+			<ShortcutPath name="InputPath" path="/composition/layers/6/video/opacity" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/6/video/opacity" translationType="1" allowedTranslationTypes="11"/>
+			<Subtarget type="5" optionIndex="-1"/>
+			<RawInputMessage key="188697714052064959" value="0" numSteps="128"/>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1683844339163" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="IAC">
+			<ShortcutPath name="InputPath" path="/composition/objects/1683927448001/video/effects/beatslicerx16/effect/trigger9" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1683927448001/video/effects/beatslicerx16/effect/trigger9" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037939353" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1683860097300" paramNodeName="ParamEvent" behaviour="1028">
+			<ShortcutPath name="InputPath" path="/composition/objects/1683927448001/video/effects/beatslicerx16/effect/trigger1" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1683927448001/video/effects/beatslicerx16/effect/trigger1" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037937305" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1683927456770" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1683927447767/video/effects/beatslicerx16/effect/trigger2" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1683927447767/video/effects/beatslicerx16/effect/trigger2" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037937561" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1716845924965" paramNodeName="RangedParam[bool]" behaviour="3076">
+			<ShortcutPath name="InputPath" path="/composition/objects/1716845917812/video/effects/screenlayertransform/effect/slices/28/bypassed" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1716845917812/video/effects/screenlayertransform/effect/slices/28/bypassed" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037935504" value="1" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1683844339070" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="IAC">
+			<ShortcutPath name="InputPath" path="/composition/objects/1683927448001/video/effects/beatslicerx16/effect/trigger7" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1683927448001/video/effects/beatslicerx16/effect/trigger7" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037938841" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1683927456920" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1683927447767/video/effects/beatslicerx16/effect/trigger12" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1683927447767/video/effects/beatslicerx16/effect/trigger12" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037940121" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1683927456802" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1683927447767/video/effects/beatslicerx16/effect/trigger5" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1683927447767/video/effects/beatslicerx16/effect/trigger5" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037938329" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1755890457598" paramNodeName="ParamRange" behaviour="8" inputDeviceName="IAC" outputDeviceName="IAC">
+			<ShortcutPath name="InputPath" path="/composition/groups/2/video/effects/transform2/opacity" translationType="1" allowedTranslationTypes="19"/>
+			<ShortcutPath name="OutputPath" path="/composition/groups/2/video/effects/transform2/opacity" translationType="1" allowedTranslationTypes="19"/>
+			<Subtarget type="5" optionIndex="-1"/>
+			<RawInputMessage key="188697714052040639" value="0" numSteps="128"/>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1683927456969" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1683927447767/video/effects/beatslicerx16/effect/trigger16" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1683927447767/video/effects/beatslicerx16/effect/trigger16" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037941145" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1716845924969" paramNodeName="RangedParam[bool]" behaviour="3076">
+			<ShortcutPath name="InputPath" path="/composition/objects/1716845917812/video/effects/screenlayertransform/effect/slices/27/bypassed" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1716845917812/video/effects/screenlayertransform/effect/slices/27/bypassed" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037935760" value="1" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1716845924973" paramNodeName="RangedParam[bool]" behaviour="3076">
+			<ShortcutPath name="InputPath" path="/composition/objects/1716845917812/video/effects/screenlayertransform/effect/slices/26/bypassed" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1716845917812/video/effects/screenlayertransform/effect/slices/26/bypassed" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037936016" value="1" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1676743895662" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="IAC">
+			<ShortcutPath name="InputPath" path="/composition/objects/1676743893121/video/effects/beatsaberv3/effect/11" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1676743893121/video/effects/beatsaberv3/effect/11" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="116640120014127504" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1669084703808" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="MPD218 Port A" outputDeviceName="MPD218 Port A">
+			<ShortcutPath name="InputPath" path="/composition/objects/1669084701509/video/source/beatsaber/trigger" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1669084701509/video/source/beatsaber/trigger" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="86477674909803929" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1676743886528" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="IAC">
+			<ShortcutPath name="InputPath" path="/composition/objects/1676743893121/video/effects/beatsaberv3/effect/2" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1676743893121/video/effects/beatsaberv3/effect/2" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="116640120014123664" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1755890458105" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="IAC" outputDeviceName="IAC">
+			<ShortcutPath name="InputPath" path="/composition/columns/1/connect" translationType="1" allowedTranslationTypes="35"/>
+			<ShortcutPath name="OutputPath" path="/composition/columns/1/connect" translationType="1" allowedTranslationTypes="35"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/columns/1/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/columns/1/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<RawInputMessage key="116640120014110864" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Connected" second="1"/>
+				<Value first="Disconnected" second="0.5"/>
+				<Value first="Empty" second="0"/>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1755890444213" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="IAC" outputDeviceName="IAC">
+			<ShortcutPath name="InputPath" path="/composition/columns/8/connect" translationType="1" allowedTranslationTypes="35"/>
+			<ShortcutPath name="OutputPath" path="/composition/columns/8/connect" translationType="1" allowedTranslationTypes="35"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/columns/8/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/columns/8/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<RawInputMessage key="116640120014112656" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Connected" second="1"/>
+				<Value first="Disconnected" second="0.5"/>
+				<Value first="Empty" second="0"/>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1659146066109" paramNodeName="ParamEvent" behaviour="1028">
+			<ShortcutPath name="InputPath" path="/composition/tempocontroller/resync" translationType="1" allowedTranslationTypes="1"/>
+			<ShortcutPath name="OutputPath" path="/composition/tempocontroller/resync" translationType="1" allowedTranslationTypes="1"/>
+			<RawInputMessage key="72057594037952147" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1683844340232" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="IAC">
+			<ShortcutPath name="InputPath" path="/composition/objects/1683927448001/video/effects/beatslicerx16/effect/trigger16" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1683927448001/video/effects/beatslicerx16/effect/trigger16" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037941145" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1676743886525" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="IAC">
+			<ShortcutPath name="InputPath" path="/composition/objects/1676743893121/video/effects/beatsaberv3/effect/1" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1676743893121/video/effects/beatsaberv3/effect/1" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="116640120014123152" value="1" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1690864611874" paramNodeName="ParamRange" behaviour="8" inputDeviceName="IAC" outputDeviceName="IAC">
+			<ShortcutPath name="InputPath" path="/composition/layers/2/video/opacity" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/2/video/opacity" translationType="1" allowedTranslationTypes="11"/>
+			<Subtarget type="5" optionIndex="-1"/>
+			<RawInputMessage key="188697714052039344" value="0.80314960629921261503" numSteps="128"/>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1716845924981" paramNodeName="RangedParam[bool]" behaviour="3076">
+			<ShortcutPath name="InputPath" path="/composition/objects/1716845917812/video/effects/screenlayertransform/effect/slices/24/bypassed" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1716845917812/video/effects/screenlayertransform/effect/slices/24/bypassed" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037936528" value="1" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1683927456946" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1683927447767/video/effects/beatslicerx16/effect/trigger14" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1683927447767/video/effects/beatslicerx16/effect/trigger14" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037940633" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1683844339183" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="IAC">
+			<ShortcutPath name="InputPath" path="/composition/objects/1683927448001/video/effects/beatslicerx16/effect/trigger14" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1683927448001/video/effects/beatslicerx16/effect/trigger14" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037940633" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1683927456766" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1683927447767/video/effects/beatslicerx16/effect/trigger1" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1683927447767/video/effects/beatslicerx16/effect/trigger1" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037937305" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1653073292141" paramNodeName="RangedParam[bool]" behaviour="3076">
+			<ShortcutPath name="InputPath" path="/composition/objects/1651540956958/video/effects/screenlayertransform/effect/slices/1/bypassed" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1651540956958/video/effects/screenlayertransform/effect/slices/1/bypassed" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037928089" value="1" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1614037591473" paramNodeName="ParamRange" behaviour="8" inputDeviceName="Conspiracy" outputDeviceName="vPC">
+			<ShortcutPath name="InputPath" path="/composition/master" translationType="1" allowedTranslationTypes="1"/>
+			<ShortcutPath name="OutputPath" path="/composition/master" translationType="1" allowedTranslationTypes="1"/>
+			<Subtarget type="5" optionIndex="-1"/>
+			<RawInputMessage key="202457392682635184" value="1" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1653073292168" paramNodeName="RangedParam[bool]" behaviour="3076">
+			<ShortcutPath name="InputPath" path="/composition/objects/1651540956958/video/effects/screenlayertransform/effect/slices/2/bypassed" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1651540956958/video/effects/screenlayertransform/effect/slices/2/bypassed" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037928345" value="1" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1683844339171" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="IAC">
+			<ShortcutPath name="InputPath" path="/composition/objects/1683927448001/video/effects/beatslicerx16/effect/trigger11" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1683927448001/video/effects/beatslicerx16/effect/trigger11" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037939865" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1653073292228" paramNodeName="RangedParam[bool]" behaviour="3076">
+			<ShortcutPath name="InputPath" path="/composition/objects/1651540956958/video/effects/screenlayertransform/effect/slices/5/bypassed" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1651540956958/video/effects/screenlayertransform/effect/slices/5/bypassed" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037929113" value="1" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1683844339074" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="IAC">
+			<ShortcutPath name="InputPath" path="/composition/objects/1683927448001/video/effects/beatslicerx16/effect/trigger8" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1683927448001/video/effects/beatslicerx16/effect/trigger8" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037939097" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1683844339179" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="IAC">
+			<ShortcutPath name="InputPath" path="/composition/objects/1683927448001/video/effects/beatslicerx16/effect/trigger13" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1683927448001/video/effects/beatslicerx16/effect/trigger13" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037940377" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1676743894573" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="IAC">
+			<ShortcutPath name="InputPath" path="/composition/objects/1676743893121/video/effects/beatsaberv3/effect/7" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1676743893121/video/effects/beatsaberv3/effect/7" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="116640120014125968" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1676743886532" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="IAC">
+			<ShortcutPath name="InputPath" path="/composition/objects/1676743893121/video/effects/beatsaberv3/effect/3" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1676743893121/video/effects/beatsaberv3/effect/3" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="116640120014124176" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+				<Value first="On" second="1"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1683927456935" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/objects/1683927447767/video/effects/beatslicerx16/effect/trigger13" translationType="2" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1683927447767/video/effects/beatslicerx16/effect/trigger13" translationType="2" allowedTranslationTypes="7"/>
+			<RawInputMessage key="72057594037940377" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+	</ShortcutManager>
+</MidiShortcutPreset>
+

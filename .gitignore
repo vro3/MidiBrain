@@ -2,6 +2,7 @@ node_modules/
 build/
 dist/
 dist-electron/
+electron-dist/
 release/
 coverage/
 .DS_Store

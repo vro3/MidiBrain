@@ -1,0 +1,726 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MidiShortcutPreset name="DJ Drums MIDI" presetId="41984727">
+	<versionInfo name="Resolume Arena" majorVersion="7" minorVersion="22" microVersion="5" revision="45669"/>
+	<ShortcutManager name="MIDIShortcutManagerShortcuts">
+		<Shortcut name="Shortcut" uniqueId="1619296453718" paramNodeName="ParamRange" behaviour="8" inputDeviceName="DJ Drums" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/video/effects/colorize/opacity" translationType="1" allowedTranslationTypes="1"/>
+			<ShortcutPath name="OutputPath" path="/composition/video/effects/colorize/opacity" translationType="1" allowedTranslationTypes="1"/>
+			<Subtarget type="5" optionIndex="-1"/>
+			<RawInputMessage name="RawInputMessage" key="158702189362021299" value="0" numSteps="128"/>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1619537628052" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="DJ Drums" outputDeviceName="DJ Drums">
+			<ShortcutPath name="InputPath" path="/composition/layers/4/clips/1/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/4/clips/1/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/layers/4/clips/1/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/layers/4/clips/1/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<RawInputMessage name="RawInputMessage" key="86644595324096403" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Connected" second="0.75"/>
+				<Value first="Connected &amp; previewing" second="1"/>
+				<Value first="Disconnected" second="0.25"/>
+				<Value first="Empty" second="0"/>
+				<Value first="Previewing" second="0.5"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1619454922956" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="DJ Drums" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/1/clips/10/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/1/clips/10/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/layers/1/clips/10/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/layers/1/clips/10/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<RawInputMessage name="RawInputMessage" key="86644595324094867" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Connected" second="0.75"/>
+				<Value first="Connected &amp; previewing" second="1"/>
+				<Value first="Disconnected" second="0.25"/>
+				<Value first="Empty" second="0"/>
+				<Value first="Previewing" second="0.5"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1619454923185" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="DJ Drums" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/5/clips/3/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/5/clips/3/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/layers/5/clips/3/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/layers/5/clips/3/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<RawInputMessage name="RawInputMessage" key="86644595324098195" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Connected" second="0.75"/>
+				<Value first="Connected &amp; previewing" second="1"/>
+				<Value first="Disconnected" second="0.25"/>
+				<Value first="Empty" second="0"/>
+				<Value first="Previewing" second="0.5"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1619454922978" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/objects/1619296455240/connect" translationType="2" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1619296455240/connect" translationType="2" allowedTranslationTypes="11"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/objects/1619296455240/connected" translationType="2" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/objects/1619296455240/connected" translationType="2" allowedTranslationTypes="-1"/>
+			<RawInputMessage name="RawInputMessage" key="138834608379668368" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Connected" second="0.75"/>
+				<Value first="Connected &amp; previewing" second="1"/>
+				<Value first="Disconnected" second="0.25"/>
+				<Value first="Empty" second="0"/>
+				<Value first="Previewing" second="0.5"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1619454922988" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/objects/1619403845918/connect" translationType="2" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1619403845918/connect" translationType="2" allowedTranslationTypes="11"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/objects/1619403845918/connected" translationType="2" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/objects/1619403845918/connected" translationType="2" allowedTranslationTypes="-1"/>
+			<RawInputMessage name="RawInputMessage" key="138834608379669648" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Connected" second="0.75"/>
+				<Value first="Connected &amp; previewing" second="1"/>
+				<Value first="Disconnected" second="0.25"/>
+				<Value first="Empty" second="0"/>
+				<Value first="Previewing" second="0.5"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1619454922984" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/objects/1619403845586/connect" translationType="2" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1619403845586/connect" translationType="2" allowedTranslationTypes="11"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/objects/1619403845586/connected" translationType="2" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/objects/1619403845586/connected" translationType="2" allowedTranslationTypes="-1"/>
+			<RawInputMessage name="RawInputMessage" key="138834608379669136" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Connected" second="0.75"/>
+				<Value first="Connected &amp; previewing" second="1"/>
+				<Value first="Disconnected" second="0.25"/>
+				<Value first="Empty" second="0"/>
+				<Value first="Previewing" second="0.5"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1619296452832" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="DJ Drums" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/tempocontroller/tempotap" translationType="1" allowedTranslationTypes="1"/>
+			<ShortcutPath name="OutputPath" path="/composition/tempocontroller/tempotap" translationType="1" allowedTranslationTypes="1"/>
+			<RawInputMessage name="RawInputMessage" key="86644595324125075" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1619454923176" paramNodeName="ParamRange" behaviour="8" inputDeviceName="DJ Drums" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/video/effects/shiftrgb/opacity" translationType="1" allowedTranslationTypes="1"/>
+			<ShortcutPath name="OutputPath" path="/composition/video/effects/shiftrgb/opacity" translationType="1" allowedTranslationTypes="1"/>
+			<Subtarget type="5" optionIndex="-1"/>
+			<RawInputMessage name="RawInputMessage" key="158702189362021043" value="1" numSteps="128"/>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1619296452808" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="DJ Drums" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/2/clips/3/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/2/clips/3/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/layers/2/clips/3/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/layers/2/clips/3/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<RawInputMessage name="RawInputMessage" key="86644595324095379" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Connected" second="0.75"/>
+				<Value first="Connected &amp; previewing" second="1"/>
+				<Value first="Disconnected" second="0.25"/>
+				<Value first="Empty" second="0"/>
+				<Value first="Previewing" second="0.5"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1619454923187" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="DJ Drums" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/5/clips/4/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/5/clips/4/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/layers/5/clips/4/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/layers/5/clips/4/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<RawInputMessage name="RawInputMessage" key="86644595324098451" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Connected" second="0.75"/>
+				<Value first="Connected &amp; previewing" second="1"/>
+				<Value first="Disconnected" second="0.25"/>
+				<Value first="Empty" second="0"/>
+				<Value first="Previewing" second="0.5"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1619454922937" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="DJ Drums" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/1/clips/5/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/1/clips/5/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/layers/1/clips/5/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/layers/1/clips/5/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<RawInputMessage name="RawInputMessage" key="86644595324093587" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Connected" second="0.75"/>
+				<Value first="Connected &amp; previewing" second="1"/>
+				<Value first="Disconnected" second="0.25"/>
+				<Value first="Empty" second="0"/>
+				<Value first="Previewing" second="0.5"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1619454922933" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="DJ Drums" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/1/clips/3/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/1/clips/3/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/layers/1/clips/3/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/layers/1/clips/3/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<RawInputMessage name="RawInputMessage" key="86644595324093075" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Connected" second="0.75"/>
+				<Value first="Connected &amp; previewing" second="1"/>
+				<Value first="Disconnected" second="0.25"/>
+				<Value first="Empty" second="0"/>
+				<Value first="Previewing" second="0.5"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1619296455167" paramNodeName="ParamRange" behaviour="8" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/groups/1/video/effects/colorize/opacity" translationType="1" allowedTranslationTypes="19"/>
+			<ShortcutPath name="OutputPath" path="/composition/groups/1/video/effects/colorize/opacity" translationType="1" allowedTranslationTypes="19"/>
+			<Subtarget type="5" optionIndex="-1"/>
+			<RawInputMessage name="RawInputMessage" key="198522034760712624" value="0" numSteps="128"/>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1619454922941" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/1/clips/7/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/1/clips/7/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/layers/1/clips/7/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/layers/1/clips/7/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<RawInputMessage name="RawInputMessage" key="126464440722785939" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Connected" second="0.75"/>
+				<Value first="Connected &amp; previewing" second="1"/>
+				<Value first="Disconnected" second="0.25"/>
+				<Value first="Empty" second="0"/>
+				<Value first="Previewing" second="0.5"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1619296456566" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/8/clips/5/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/8/clips/5/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/layers/8/clips/5/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/layers/8/clips/5/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<RawInputMessage name="RawInputMessage" key="126464440722794896" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Connected" second="0.75"/>
+				<Value first="Connected &amp; previewing" second="1"/>
+				<Value first="Disconnected" second="0.25"/>
+				<Value first="Empty" second="0"/>
+				<Value first="Previewing" second="0.5"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1619296452810" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="DJ Drums" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/2/clips/4/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/2/clips/4/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/layers/2/clips/4/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/layers/2/clips/4/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<RawInputMessage name="RawInputMessage" key="86644595324095635" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Connected" second="0.75"/>
+				<Value first="Connected &amp; previewing" second="1"/>
+				<Value first="Disconnected" second="0.25"/>
+				<Value first="Empty" second="0"/>
+				<Value first="Previewing" second="0.5"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1619454922929" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="DJ Drums" outputDeviceName="DJ Drums">
+			<ShortcutPath name="InputPath" path="/composition/layers/1/clips/1/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/1/clips/1/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/layers/1/clips/1/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/layers/1/clips/1/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<RawInputMessage name="RawInputMessage" key="86644595324092563" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Connected" second="0.75"/>
+				<Value first="Connected &amp; previewing" second="1"/>
+				<Value first="Disconnected" second="0.25"/>
+				<Value first="Empty" second="0"/>
+				<Value first="Previewing" second="0.5"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1619537628339" paramNodeName="Parameter[int]" behaviour="8" inputDeviceName="VMidi 4" outputDeviceName="VMidi 4">
+			<ShortcutPath name="InputPath" path="/composition/layers/1/connectspecificclip" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/1/connectspecificclip" translationType="1" allowedTranslationTypes="11"/>
+			<RawInputMessage name="RawInputMessage" key="210892224311855795" value="0" numSteps="128"/>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1621534514992" paramNodeName="RangedParam[bool]" behaviour="3076" inputDeviceName="HST 3" outputDeviceName="mioXM HST">
+			<ShortcutPath name="InputPath" path="/composition/selectedclip/video/effects/screenlayertransform/effect/slices/1/bypassed" translationType="4" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedclip/video/effects/screenlayertransform/effect/slices/1/bypassed" translationType="4" allowedTranslationTypes="7"/>
+			<RawInputMessage name="RawInputMessage" key="111314536006418585" value="1" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1619454922943" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/1/clips/8/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/1/clips/8/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/layers/1/clips/8/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/layers/1/clips/8/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<RawInputMessage name="RawInputMessage" key="126464440722786195" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Connected" second="0.75"/>
+				<Value first="Connected &amp; previewing" second="1"/>
+				<Value first="Disconnected" second="0.25"/>
+				<Value first="Empty" second="0"/>
+				<Value first="Previewing" second="0.5"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1619454922982" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/objects/1619403845575/connect" translationType="2" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1619403845575/connect" translationType="2" allowedTranslationTypes="11"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/objects/1619403845575/connected" translationType="2" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/objects/1619403845575/connected" translationType="2" allowedTranslationTypes="-1"/>
+			<RawInputMessage name="RawInputMessage" key="138834608379668880" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Connected" second="0.75"/>
+				<Value first="Connected &amp; previewing" second="1"/>
+				<Value first="Disconnected" second="0.25"/>
+				<Value first="Empty" second="0"/>
+				<Value first="Previewing" second="0.5"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1619454922974" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/objects/1619229000732/connect" translationType="2" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1619229000732/connect" translationType="2" allowedTranslationTypes="11"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/objects/1619229000732/connected" translationType="2" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/objects/1619229000732/connected" translationType="2" allowedTranslationTypes="-1"/>
+			<RawInputMessage name="RawInputMessage" key="138834608379667856" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Connected" second="0.75"/>
+				<Value first="Connected &amp; previewing" second="1"/>
+				<Value first="Disconnected" second="0.25"/>
+				<Value first="Empty" second="0"/>
+				<Value first="Previewing" second="0.5"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1619296452806" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="DJ Drums" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/2/clips/2/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/2/clips/2/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/layers/2/clips/2/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/layers/2/clips/2/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<RawInputMessage name="RawInputMessage" key="86644595324095123" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Connected" second="0.75"/>
+				<Value first="Connected &amp; previewing" second="1"/>
+				<Value first="Disconnected" second="0.25"/>
+				<Value first="Empty" second="0"/>
+				<Value first="Previewing" second="0.5"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1619296456568" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/8/clips/6/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/8/clips/6/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/layers/8/clips/6/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/layers/8/clips/6/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<RawInputMessage name="RawInputMessage" key="126464440722795152" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Connected" second="0.75"/>
+				<Value first="Connected &amp; previewing" second="1"/>
+				<Value first="Disconnected" second="0.25"/>
+				<Value first="Empty" second="0"/>
+				<Value first="Previewing" second="0.5"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1619296456564" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/8/clips/4/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/8/clips/4/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/layers/8/clips/4/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/layers/8/clips/4/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<RawInputMessage name="RawInputMessage" key="126464440722794640" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Connected" second="0.75"/>
+				<Value first="Connected &amp; previewing" second="1"/>
+				<Value first="Disconnected" second="0.25"/>
+				<Value first="Empty" second="0"/>
+				<Value first="Previewing" second="0.5"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1619296456562" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/8/clips/3/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/8/clips/3/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/layers/8/clips/3/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/layers/8/clips/3/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<RawInputMessage name="RawInputMessage" key="126464440722794384" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Connected" second="0.75"/>
+				<Value first="Connected &amp; previewing" second="1"/>
+				<Value first="Disconnected" second="0.25"/>
+				<Value first="Empty" second="0"/>
+				<Value first="Previewing" second="0.5"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1619296452812" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="DJ Drums" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/2/clips/5/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/2/clips/5/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/layers/2/clips/5/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/layers/2/clips/5/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<RawInputMessage name="RawInputMessage" key="86644595324095891" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Connected" second="0.75"/>
+				<Value first="Connected &amp; previewing" second="1"/>
+				<Value first="Disconnected" second="0.25"/>
+				<Value first="Empty" second="0"/>
+				<Value first="Previewing" second="0.5"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1621534515007" paramNodeName="RangedParam[bool]" behaviour="3076" inputDeviceName="mioXM HST" outputDeviceName="mioXM HST">
+			<ShortcutPath name="InputPath" path="/composition/selectedclip/video/effects/screenlayertransform/effect/slices/5/bypassed" translationType="4" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedclip/video/effects/screenlayertransform/effect/slices/5/bypassed" translationType="4" allowedTranslationTypes="7"/>
+			<RawInputMessage name="RawInputMessage" key="85932358984795289" value="1" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1619537628544" paramNodeName="Parameter[int]" behaviour="8" inputDeviceName="VMidi 4" outputDeviceName="VMidi 4">
+			<ShortcutPath name="InputPath" path="/composition/layers/2/connectspecificclip" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/2/connectspecificclip" translationType="1" allowedTranslationTypes="11"/>
+			<RawInputMessage name="RawInputMessage" key="210892224311855539" value="0" numSteps="128"/>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1619296452834" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="DJ Drums" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/tempocontroller/resync" translationType="1" allowedTranslationTypes="1"/>
+			<ShortcutPath name="OutputPath" path="/composition/tempocontroller/resync" translationType="1" allowedTranslationTypes="1"/>
+			<RawInputMessage name="RawInputMessage" key="86644595324124819" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1621534515003" paramNodeName="RangedParam[bool]" behaviour="3076" inputDeviceName="HST 3" outputDeviceName="mioXM HST">
+			<ShortcutPath name="InputPath" path="/composition/selectedclip/video/effects/screenlayertransform/effect/slices/4/bypassed" translationType="4" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedclip/video/effects/screenlayertransform/effect/slices/4/bypassed" translationType="4" allowedTranslationTypes="7"/>
+			<RawInputMessage name="RawInputMessage" key="111314536006419097" value="1" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1619454922980" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/objects/1619296455295/connect" translationType="2" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1619296455295/connect" translationType="2" allowedTranslationTypes="11"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/objects/1619296455295/connected" translationType="2" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/objects/1619296455295/connected" translationType="2" allowedTranslationTypes="-1"/>
+			<RawInputMessage name="RawInputMessage" key="138834608379668624" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Connected" second="0.75"/>
+				<Value first="Connected &amp; previewing" second="1"/>
+				<Value first="Disconnected" second="0.25"/>
+				<Value first="Empty" second="0"/>
+				<Value first="Previewing" second="0.5"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1619296452816" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="DJ Drums" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/2/clips/7/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/2/clips/7/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/layers/2/clips/7/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/layers/2/clips/7/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<RawInputMessage name="RawInputMessage" key="86644595324096403" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Connected" second="0.75"/>
+				<Value first="Connected &amp; previewing" second="1"/>
+				<Value first="Disconnected" second="0.25"/>
+				<Value first="Empty" second="0"/>
+				<Value first="Previewing" second="0.5"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1619454923165" paramNodeName="ParamRange" behaviour="8" inputDeviceName="DJ Drums" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/groups/1/video/effects/tiler/opacity" translationType="1" allowedTranslationTypes="19"/>
+			<ShortcutPath name="OutputPath" path="/composition/groups/1/video/effects/tiler/opacity" translationType="1" allowedTranslationTypes="19"/>
+			<Subtarget type="5" optionIndex="-1"/>
+			<RawInputMessage name="RawInputMessage" key="158702189362020787" value="0" numSteps="128"/>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1621534514996" paramNodeName="RangedParam[bool]" behaviour="3076" inputDeviceName="HST 3" outputDeviceName="mioXM HST">
+			<ShortcutPath name="InputPath" path="/composition/selectedclip/video/effects/screenlayertransform/effect/slices/2/bypassed" translationType="4" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedclip/video/effects/screenlayertransform/effect/slices/2/bypassed" translationType="4" allowedTranslationTypes="7"/>
+			<RawInputMessage name="RawInputMessage" key="111314536006418841" value="1" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1619296455170" paramNodeName="ParamRange" behaviour="8" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/groups/1/video/effects/colorize/effect/color/hue/behaviour/speed" translationType="1" allowedTranslationTypes="19"/>
+			<ShortcutPath name="OutputPath" path="/composition/groups/1/video/effects/colorize/effect/color/hue/behaviour/speed" translationType="1" allowedTranslationTypes="19"/>
+			<Subtarget type="5" optionIndex="-1"/>
+			<RawInputMessage name="RawInputMessage" key="198522034760713648" value="0.57480314960629919074" numSteps="128"/>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1621534514978" paramNodeName="RangedParam[bool]" behaviour="3076" inputDeviceName="HST 3" outputDeviceName="mioXM HST">
+			<ShortcutPath name="InputPath" path="/composition/selectedclip/video/effects/screenlayertransform/effect/slices/3/bypassed" translationType="4" allowedTranslationTypes="7"/>
+			<ShortcutPath name="OutputPath" path="/composition/selectedclip/video/effects/screenlayertransform/effect/slices/3/bypassed" translationType="4" allowedTranslationTypes="7"/>
+			<RawInputMessage name="RawInputMessage" key="111314536006418841" value="1" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1619454923196" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="DJ Drums" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/5/clips/5/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/5/clips/5/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/layers/5/clips/5/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/layers/5/clips/5/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<RawInputMessage name="RawInputMessage" key="86644595324098707" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Connected" second="0.75"/>
+				<Value first="Connected &amp; previewing" second="1"/>
+				<Value first="Disconnected" second="0.25"/>
+				<Value first="Empty" second="0"/>
+				<Value first="Previewing" second="0.5"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1619296452814" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="DJ Drums" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/2/clips/6/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/2/clips/6/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/layers/2/clips/6/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/layers/2/clips/6/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<RawInputMessage name="RawInputMessage" key="86644595324096147" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Connected" second="0.75"/>
+				<Value first="Connected &amp; previewing" second="1"/>
+				<Value first="Disconnected" second="0.25"/>
+				<Value first="Empty" second="0"/>
+				<Value first="Previewing" second="0.5"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1619296452820" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="DJ Drums" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/2/clips/9/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/2/clips/9/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/layers/2/clips/9/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/layers/2/clips/9/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<RawInputMessage name="RawInputMessage" key="86644595324096915" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Connected" second="0.75"/>
+				<Value first="Connected &amp; previewing" second="1"/>
+				<Value first="Disconnected" second="0.25"/>
+				<Value first="Empty" second="0"/>
+				<Value first="Previewing" second="0.5"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1619454922931" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="DJ Drums" outputDeviceName="No Output">
+			<ShortcutPath name="InputPath" path="/composition/layers/1/clips/2/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/1/clips/2/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/layers/1/clips/2/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/layers/1/clips/2/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<RawInputMessage name="RawInputMessage" key="86644595324092819" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Connected" second="0.75"/>
+				<Value first="Connected &amp; previewing" second="1"/>
+				<Value first="Disconnected" second="0.25"/>
+				<Value first="Empty" second="0"/>
+				<Value first="Previewing" second="0.5"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1619454923039" paramNodeName="ParamRange" behaviour="8" inputDeviceName="DJ Drums" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/video/effects/huerotate/opacity" translationType="1" allowedTranslationTypes="1"/>
+			<ShortcutPath name="OutputPath" path="/composition/video/effects/huerotate/opacity" translationType="1" allowedTranslationTypes="1"/>
+			<Subtarget type="5" optionIndex="-1"/>
+			<RawInputMessage name="RawInputMessage" key="158702189362021299" value="0" numSteps="128"/>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1620499013414" paramNodeName="ParamRange" behaviour="8" inputDeviceName="VMidi 4" outputDeviceName="VMidi 4">
+			<ShortcutPath name="InputPath" path="/composition/master" translationType="1" allowedTranslationTypes="1"/>
+			<ShortcutPath name="OutputPath" path="/composition/master" translationType="1" allowedTranslationTypes="1"/>
+			<Subtarget type="5" optionIndex="-1"/>
+			<RawInputMessage name="RawInputMessage" key="210892224311855283" value="0" numSteps="128"/>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1619296456558" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/8/clips/1/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/8/clips/1/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/layers/8/clips/1/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/layers/8/clips/1/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<RawInputMessage name="RawInputMessage" key="126464440722794640" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Connected" second="0.75"/>
+				<Value first="Connected &amp; previewing" second="1"/>
+				<Value first="Disconnected" second="0.25"/>
+				<Value first="Empty" second="0"/>
+				<Value first="Previewing" second="0.5"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1619454923181" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="DJ Drums" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/5/clips/1/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/5/clips/1/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/layers/5/clips/1/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/layers/5/clips/1/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<RawInputMessage name="RawInputMessage" key="86644595324097683" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Connected" second="0.75"/>
+				<Value first="Connected &amp; previewing" second="1"/>
+				<Value first="Disconnected" second="0.25"/>
+				<Value first="Empty" second="0"/>
+				<Value first="Previewing" second="0.5"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1619296456570" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/8/clips/7/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/8/clips/7/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/layers/8/clips/7/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/layers/8/clips/7/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<RawInputMessage name="RawInputMessage" key="126464440722795408" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Connected" second="0.75"/>
+				<Value first="Connected &amp; previewing" second="1"/>
+				<Value first="Disconnected" second="0.25"/>
+				<Value first="Empty" second="0"/>
+				<Value first="Previewing" second="0.5"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1619296452438" paramNodeName="ParamRange" behaviour="8" inputDeviceName="DJ Drums" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/1/video/opacity" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/1/video/opacity" translationType="1" allowedTranslationTypes="11"/>
+			<Subtarget type="5" optionIndex="-1"/>
+			<RawInputMessage name="RawInputMessage" key="158702189362020531" value="1" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1619454922935" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="DJ Drums" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/1/clips/4/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/1/clips/4/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/layers/1/clips/4/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/layers/1/clips/4/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<RawInputMessage name="RawInputMessage" key="86644595324093331" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Connected" second="0.75"/>
+				<Value first="Connected &amp; previewing" second="1"/>
+				<Value first="Disconnected" second="0.25"/>
+				<Value first="Empty" second="0"/>
+				<Value first="Previewing" second="0.5"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1619454923183" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="DJ Drums" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/5/clips/2/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/5/clips/2/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/layers/5/clips/2/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/layers/5/clips/2/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<RawInputMessage name="RawInputMessage" key="86644595324097939" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Connected" second="0.75"/>
+				<Value first="Connected &amp; previewing" second="1"/>
+				<Value first="Disconnected" second="0.25"/>
+				<Value first="Empty" second="0"/>
+				<Value first="Previewing" second="0.5"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1619296455189" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/8/clear" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/8/clear" translationType="1" allowedTranslationTypes="11"/>
+			<RawInputMessage name="RawInputMessage" key="126464440722795664" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Off" second="0"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1619454922976" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/objects/1619296455203/connect" translationType="2" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1619296455203/connect" translationType="2" allowedTranslationTypes="11"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/objects/1619296455203/connected" translationType="2" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/objects/1619296455203/connected" translationType="2" allowedTranslationTypes="-1"/>
+			<RawInputMessage name="RawInputMessage" key="138834608379668112" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Connected" second="0.75"/>
+				<Value first="Connected &amp; previewing" second="1"/>
+				<Value first="Disconnected" second="0.25"/>
+				<Value first="Empty" second="0"/>
+				<Value first="Previewing" second="0.5"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1619296452822" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="DJ Drums" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/2/clips/10/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/2/clips/10/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/layers/2/clips/10/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/layers/2/clips/10/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<RawInputMessage name="RawInputMessage" key="86644595324097171" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Connected" second="0.75"/>
+				<Value first="Connected &amp; previewing" second="1"/>
+				<Value first="Disconnected" second="0.25"/>
+				<Value first="Empty" second="0"/>
+				<Value first="Previewing" second="0.5"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1619454922939" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="DJ Drums" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/1/clips/6/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/1/clips/6/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/layers/1/clips/6/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/layers/1/clips/6/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<RawInputMessage name="RawInputMessage" key="86644595324093843" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Connected" second="0.75"/>
+				<Value first="Connected &amp; previewing" second="1"/>
+				<Value first="Disconnected" second="0.25"/>
+				<Value first="Empty" second="0"/>
+				<Value first="Previewing" second="0.5"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1619296456560" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/8/clips/2/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/8/clips/2/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/layers/8/clips/2/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/layers/8/clips/2/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<RawInputMessage name="RawInputMessage" key="126464440722794128" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Connected" second="0.75"/>
+				<Value first="Connected &amp; previewing" second="1"/>
+				<Value first="Disconnected" second="0.25"/>
+				<Value first="Empty" second="0"/>
+				<Value first="Previewing" second="0.5"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1619454922986" paramNodeName="ParamEvent" behaviour="1028" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/objects/1619403845551/connect" translationType="2" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/objects/1619403845551/connect" translationType="2" allowedTranslationTypes="11"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/objects/1619403845551/connected" translationType="2" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/objects/1619403845551/connected" translationType="2" allowedTranslationTypes="-1"/>
+			<RawInputMessage name="RawInputMessage" key="138834608379669392" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Connected" second="0.75"/>
+				<Value first="Connected &amp; previewing" second="1"/>
+				<Value first="Disconnected" second="0.25"/>
+				<Value first="Empty" second="0"/>
+				<Value first="Previewing" second="0.5"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1619296452818" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="DJ Drums" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/2/clips/8/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/2/clips/8/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/layers/2/clips/8/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/layers/2/clips/8/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<RawInputMessage name="RawInputMessage" key="86644595324096659" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Connected" second="0.75"/>
+				<Value first="Connected &amp; previewing" second="1"/>
+				<Value first="Disconnected" second="0.25"/>
+				<Value first="Empty" second="0"/>
+				<Value first="Previewing" second="0.5"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1619296456572" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/8/clips/8/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/8/clips/8/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/layers/8/clips/8/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/layers/8/clips/8/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<RawInputMessage name="RawInputMessage" key="126464440722795664" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Connected" second="0.75"/>
+				<Value first="Connected &amp; previewing" second="1"/>
+				<Value first="Disconnected" second="0.25"/>
+				<Value first="Empty" second="0"/>
+				<Value first="Previewing" second="0.5"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1619296455175" paramNodeName="ParamRange" behaviour="8" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/video/effects/screenlayertransform/opacity" translationType="1" allowedTranslationTypes="1"/>
+			<ShortcutPath name="OutputPath" path="/composition/video/effects/screenlayertransform/opacity" translationType="1" allowedTranslationTypes="1"/>
+			<Subtarget type="5" optionIndex="-1"/>
+			<RawInputMessage name="RawInputMessage" key="198522034760714928" value="0" numSteps="128"/>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1619296452824" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="Conspiracy" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/2/clips/11/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/2/clips/11/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/layers/2/clips/11/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/layers/2/clips/11/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<RawInputMessage name="RawInputMessage" key="126464440722789267" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Connected" second="0.75"/>
+				<Value first="Connected &amp; previewing" second="1"/>
+				<Value first="Disconnected" second="0.25"/>
+				<Value first="Empty" second="0"/>
+				<Value first="Previewing" second="0.5"/>
+			</NamedValues>
+		</Shortcut>
+		<Shortcut name="Shortcut" uniqueId="1619454922945" paramNodeName="ParamEvent" behaviour="1028" inputDeviceName="DJ Drums" outputDeviceName="Conspiracy">
+			<ShortcutPath name="InputPath" path="/composition/layers/1/clips/9/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="OutputPath" path="/composition/layers/1/clips/9/connect" translationType="1" allowedTranslationTypes="11"/>
+			<ShortcutPath name="InputSiblingPath" path="/composition/layers/1/clips/9/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<ShortcutPath name="OutputSiblingPath" path="/composition/layers/1/clips/9/connected" translationType="1" allowedTranslationTypes="-1"/>
+			<RawInputMessage name="RawInputMessage" key="86644595324094611" value="0" numSteps="128"/>
+			<NamedValues>
+				<Value first="Connected" second="0.75"/>
+				<Value first="Connected &amp; previewing" second="1"/>
+				<Value first="Disconnected" second="0.25"/>
+				<Value first="Empty" second="0"/>
+				<Value first="Previewing" second="0.5"/>
+			</NamedValues>
+		</Shortcut>
+	</ShortcutManager>
+</MidiShortcutPreset>
+

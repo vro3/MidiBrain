@@ -560,6 +560,41 @@ export default function MidiRouter({
     bumpOutputActivity(outputName);
   };
 
+  // Fire a matrix cell by mouse click — sends the corresponding MIDI message
+  // to every selected output so users can audition mappings without touching
+  // the hardware controller. Falls back to all detected outputs if nothing is
+  // selected (so a fresh session still does the right thing).
+  const fireCell = (type: 'note' | 'cc' | 'pc', num: number, channel: number) => {
+    if (!bridge) return;
+    const targets = selectedOutputs.size > 0
+      ? Array.from(selectedOutputs)
+      : (devices?.outputs ?? []);
+    if (targets.length === 0) return;
+    const ch = (channel - 1) & 0x0f;
+    if (type === 'note') {
+      const status = 0x90 | ch;
+      for (const name of targets) {
+        sendToOutput(name, [status, num & 0x7f, 100]);
+      }
+      window.setTimeout(() => {
+        const off = 0x80 | ch;
+        for (const name of targets) {
+          sendToOutput(name, [off, num & 0x7f, 0]);
+        }
+      }, 150);
+    } else if (type === 'cc') {
+      const status = 0xb0 | ch;
+      for (const name of targets) {
+        sendToOutput(name, [status, num & 0x7f, 127]);
+      }
+    } else {
+      const status = 0xc0 | ch;
+      for (const name of targets) {
+        sendToOutput(name, [status, num & 0x7f]);
+      }
+    }
+  };
+
   // MIDI Panic: silence every output immediately. Sends All Sound Off (CC 120),
   // All Notes Off (CC 123), and Reset All Controllers (CC 121) on all 16
   // channels to every open output. Standard pro-audio rescue from stuck notes.
@@ -1243,7 +1278,17 @@ export default function MidiRouter({
                                       value={matrix[type][num]?.[channel] || ''}
                                       onChange={(e) => updateCell(type, num, channel, e.target.value)}
                                     />
-                                    <div className="absolute top-1 right-1 opacity-0 group-hover:opacity-100" style={{ color: chColor }}>
+                                    <div className="absolute top-1 right-1 flex items-center gap-1 opacity-0 group-hover:opacity-100" style={{ color: chColor }}>
+                                      {isActive && (
+                                        <button
+                                          type="button"
+                                          onMouseDown={(e) => { e.preventDefault(); e.stopPropagation(); fireCell(type, num, channel); }}
+                                          className="hover:scale-125 transition-transform"
+                                          title={`Fire ${type.toUpperCase()} ${num} ch${channel}`}
+                                        >
+                                          <Play size={10} fill="currentColor" />
+                                        </button>
+                                      )}
                                       {isActive ? <Edit2 size={10} /> : <Plus size={10} className="text-zinc-700" />}
                                     </div>
                                   </div>

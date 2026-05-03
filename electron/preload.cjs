@@ -1,5 +1,9 @@
 const { contextBridge, ipcRenderer } = require('electron');
 
+contextBridge.exposeInMainWorld('platform', {
+  os: process.platform, // 'darwin' | 'win32' | 'linux'
+});
+
 contextBridge.exposeInMainWorld('midi', {
   listDevices: () => ipcRenderer.invoke('midi:list-devices'),
   openInput: (name) => ipcRenderer.invoke('midi:open-input', name),
@@ -18,4 +22,7 @@ contextBridge.exposeInMainWorld('midi', {
     ipcRenderer.on('midi:message', listener);
     return () => ipcRenderer.removeListener('midi:message', listener);
   },
+  openResolumeFile: () => ipcRenderer.invoke('resolume:open-file'),
+  saveResolumeFile: (path, text) => ipcRenderer.invoke('resolume:save-file', path, text),
+  openExternal: (url) => ipcRenderer.invoke('shell:open-external', url),
 });
