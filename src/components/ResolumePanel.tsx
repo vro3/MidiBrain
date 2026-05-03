@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useCallback, useMemo, useState } from 'react';
-import { X, FileUp, Save, FilePlus2 } from 'lucide-react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { X, FileUp, Save, FilePlus2, Plus, Trash2 } from 'lucide-react';
 import { parsePreset, serializePreset } from '../resolume/preset-io';
 import {
   decodeRawInputKey,
@@ -14,10 +14,14 @@ import {
   describeKey,
   type MidiMessageType,
 } from '../resolume/raw-input-key';
+import { describeBehaviour, COMMON_BEHAVIOURS } from '../resolume/behaviour';
 import type { ResolumePreset, ResolumeShortcut } from '../resolume/types';
 
 interface Props {
   onClose: () => void;
+  /** When set, fires the corresponding action on next render and resets via onAutoCommandConsumed. */
+  autoCommand?: 'open' | 'save' | 'save-as' | null;
+  onAutoCommandConsumed?: () => void;
 }
 
 const MESSAGE_TYPES: MidiMessageType[] = [
@@ -44,12 +48,13 @@ function mutateShortcutKey(s: ResolumeShortcut, patch: { type?: MidiMessageType;
   };
 }
 
-export default function ResolumePanel({ onClose }: Props) {
+export default function ResolumePanel({ onClose, autoCommand, onAutoCommandConsumed }: Props) {
   const [preset, setPreset] = useState<ResolumePreset | null>(null);
   const [filePath, setFilePath] = useState<string | null>(null);
   const [dirty, setDirty] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [filter, setFilter] = useState('');
+  const handlersRef = useRef<{ open: () => void; save: (saveAs: boolean) => void } | null>(null);
 
   const open = useCallback(async () => {
     const bridge = window.midi;
@@ -81,6 +86,20 @@ export default function ResolumePanel({ onClose }: Props) {
     }
   }, [preset, filePath]);
 
+  // Keep imperative handles fresh so menu commands (autoCommand) hit the
+  // latest closure even if the panel renders multiple times.
+  handlersRef.current = { open, save };
+
+  useEffect(() => {
+    if (!autoCommand) return;
+    const h = handlersRef.current;
+    if (!h) return;
+    if (autoCommand === 'open') h.open();
+    else if (autoCommand === 'save') h.save(false);
+    else if (autoCommand === 'save-as') h.save(true);
+    onAutoCommandConsumed?.();
+  }, [autoCommand, onAutoCommandConsumed]);
+
   const updateShortcut = useCallback((id: string, mutate: (s: ResolumeShortcut) => ResolumeShortcut) => {
     setPreset((prev) => {
       if (!prev) return prev;
@@ -88,6 +107,43 @@ export default function ResolumePanel({ onClose }: Props) {
         ...prev,
         shortcuts: prev.shortcuts.map((s) => (s.uniqueId === id ? mutate(s) : s)),
       };
+    });
+    setDirty(true);
+  }, []);
+
+  const deleteShortcut = useCallback((id: string) => {
+    setPreset((prev) => {
+      if (!prev) return prev;
+      return { ...prev, shortcuts: prev.shortcuts.filter((s) => s.uniqueId !== id) };
+    });
+    setDirty(true);
+  }, []);
+
+  const addShortcut = useCallback(() => {
+    setPreset((prev) => {
+      if (!prev) return prev;
+      // Default values mirror what Resolume itself emits for a new note-on
+      // toggle binding. The user can edit any field after adding.
+      const newShortcut: ResolumeShortcut = {
+        uniqueId: String(Date.now()),
+        paramNodeName: 'ParamEvent',
+        behaviour: 1028,
+        paths: [
+          { name: 'InputPath', path: '', translationType: 2, allowedTranslationTypes: 7 },
+          { name: 'OutputPath', path: '', translationType: 2, allowedTranslationTypes: 7 },
+        ],
+        rawInput: {
+          // topByte=1, deviceHash=0, data1=0, status=0x90 (Note On ch1)
+          keyRaw: encodeRawInputKey({ topByte: 1, deviceHash: 0n, data1: 0, status: 0x90 }).toString(),
+          value: 0,
+          numSteps: 128,
+        },
+        namedValues: [
+          { first: 'Off', second: '0' },
+          { first: 'On', second: '1' },
+        ],
+      };
+      return { ...prev, shortcuts: [newShortcut, ...prev.shortcuts] };
     });
     setDirty(true);
   }, []);
@@ -183,12 +239,19 @@ export default function ResolumePanel({ onClose }: Props) {
               <span className="font-medium text-zinc-200">{preset.name}</span>
               <span className="ml-2 text-zinc-500">({preset.shortcuts.length} shortcuts)</span>
             </span>
+            <button
+              onClick={addShortcut}
+              className="ml-auto flex items-center gap-1 px-2.5 py-1 rounded bg-cyan-600 hover:bg-cyan-500 text-white border border-cyan-500"
+              title="Add a new shortcut binding"
+            >
+              <Plus size={12} /> Add Shortcut
+            </button>
             <input
               type="text"
               value={filter}
               onChange={(e) => setFilter(e.target.value)}
               placeholder="Filter by path or message…"
-              className="ml-auto px-2 py-1 bg-zinc-900 border border-zinc-700 rounded text-zinc-100 text-xs w-72"
+              className="px-2 py-1 bg-zinc-900 border border-zinc-700 rounded text-zinc-100 text-xs w-72"
             />
           </div>
 
@@ -202,6 +265,7 @@ export default function ResolumePanel({ onClose }: Props) {
                   <th className="px-3 py-2 font-medium">Behaviour</th>
                   <th className="px-3 py-2 font-medium">Param Node</th>
                   <th className="px-3 py-2 font-medium">Input Path</th>
+                  <th className="px-3 py-2 font-medium w-8"></th>
                 </tr>
               </thead>
               <tbody>
@@ -240,10 +304,48 @@ export default function ResolumePanel({ onClose }: Props) {
                           />
                         ) : <span className="text-zinc-600">—</span>}
                       </td>
-                      <td className="px-3 py-1 text-zinc-400">{s.behaviour}</td>
+                      <td className="px-3 py-1">
+                        <select
+                          value={COMMON_BEHAVIOURS.some(b => b.value === s.behaviour) ? String(s.behaviour) : 'custom'}
+                          onChange={(e) => {
+                            const v = e.target.value === 'custom' ? s.behaviour : Number(e.target.value);
+                            updateShortcut(s.uniqueId, (s2) => ({ ...s2, behaviour: v }));
+                          }}
+                          className="bg-zinc-900 border border-zinc-700 rounded px-1 py-0.5 text-xs"
+                          title={describeBehaviour(s.behaviour) + ` (${s.behaviour})`}
+                        >
+                          {COMMON_BEHAVIOURS.map(b => (
+                            <option key={b.value} value={b.value}>{b.label}</option>
+                          ))}
+                          {!COMMON_BEHAVIOURS.some(b => b.value === s.behaviour) && (
+                            <option value="custom">{describeBehaviour(s.behaviour)}</option>
+                          )}
+                        </select>
+                      </td>
                       <td className="px-3 py-1 text-zinc-400">{s.paramNodeName}</td>
-                      <td className="px-3 py-1 text-zinc-500 font-mono text-[10px] truncate max-w-md" title={inputPath}>
-                        {inputPath}
+                      <td className="px-3 py-1">
+                        <input
+                          type="text"
+                          value={inputPath}
+                          onChange={(e) => {
+                            const newPath = e.target.value;
+                            updateShortcut(s.uniqueId, (s2) => ({
+                              ...s2,
+                              paths: s2.paths.map(p => p.name === 'InputPath' ? { ...p, path: newPath } : p),
+                            }));
+                          }}
+                          className="w-full bg-zinc-900 border border-zinc-700 rounded px-2 py-0.5 text-[10px] font-mono text-zinc-300"
+                          placeholder="/composition/objects/…"
+                        />
+                      </td>
+                      <td className="px-1 py-1">
+                        <button
+                          onClick={() => deleteShortcut(s.uniqueId)}
+                          className="text-zinc-600 hover:text-red-400"
+                          title="Delete shortcut"
+                        >
+                          <Trash2 size={12} />
+                        </button>
                       </td>
                     </tr>
                   );

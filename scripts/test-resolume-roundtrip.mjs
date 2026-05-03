@@ -66,11 +66,49 @@ for (const file of files) {
   }
 }
 
+// Synthetic test: emulate the "Add Shortcut" flow — create a new shortcut
+// from scratch, append it, serialize, re-parse, and verify it survives.
+{
+  const seedFile = readdirSync(fixturesDir).find(f => f.endsWith('.xml'));
+  const seed = parsePreset(readFileSync(join(fixturesDir, seedFile), 'utf8'));
+  const synthetic = {
+    uniqueId: '9999999999',
+    paramNodeName: 'ParamEvent',
+    behaviour: 1028,
+    paths: [
+      { name: 'InputPath', path: '/composition/synthetic/test', translationType: 2, allowedTranslationTypes: 7 },
+      { name: 'OutputPath', path: '/composition/synthetic/test', translationType: 2, allowedTranslationTypes: 7 },
+    ],
+    rawInput: {
+      keyRaw: encodeRawInputKey({ topByte: 1, deviceHash: 0n, data1: 42, status: 0x90 }).toString(),
+      value: 0,
+      numSteps: 128,
+    },
+    namedValues: [{ first: 'Off', second: '0' }, { first: 'On', second: '1' }],
+  };
+  const augmented = { ...seed, shortcuts: [synthetic, ...seed.shortcuts] };
+  const xml = serializePreset(augmented);
+  const reparsed = parsePreset(xml);
+  const found = reparsed.shortcuts.find(s => s.uniqueId === synthetic.uniqueId);
+  if (!found) {
+    console.log('  FAIL  add-shortcut synthetic — uniqueId not found after re-parse');
+    failures++;
+  } else if (found.rawInput?.keyRaw !== synthetic.rawInput.keyRaw) {
+    console.log('  FAIL  add-shortcut synthetic — keyRaw differs after re-parse');
+    failures++;
+  } else if (found.paths.find(p => p.name === 'InputPath')?.path !== '/composition/synthetic/test') {
+    console.log('  FAIL  add-shortcut synthetic — InputPath differs after re-parse');
+    failures++;
+  } else {
+    console.log('  PASS  add-shortcut synthetic  (uniqueId, keyRaw, InputPath survive round-trip)');
+  }
+}
+
 console.log();
 if (failures === 0) {
-  console.log(`OK  ${files.length}/${files.length} presets round-tripped cleanly.`);
+  console.log(`OK  all checks passed.`);
   process.exit(0);
 } else {
-  console.log(`FAIL  ${failures}/${files.length} presets failed.`);
+  console.log(`FAIL  ${failures} checks failed.`);
   process.exit(1);
 }

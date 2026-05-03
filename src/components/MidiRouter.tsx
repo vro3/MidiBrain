@@ -1044,27 +1044,14 @@ export default function MidiRouter({
         {/* Left: spacer (I/O tab removed — Live Routing sidebar handles device selection) */}
         <div />
 
-        {/* Center: MIDI Map, Router, Remap, Matrix */}
+        {/* Center: Router, Matrix */}
         <div className="flex gap-4 items-center">
-          <button
-            className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-colors ${isLearning ? 'bg-amber-500 text-zinc-950' : 'bg-zinc-800 hover:bg-zinc-700'}`}
-            onClick={() => setIsLearning(!isLearning)}
-          >
-            <Target size={16} />
-            {isLearning ? 'Learning...' : 'MIDI Map'}
-          </button>
           <div className="flex gap-2 bg-zinc-900 p-1 rounded-md">
             <button
               className={`px-4 py-1.5 rounded-sm text-sm font-medium transition-colors ${activeTab === 'router' ? 'bg-zinc-800 text-white' : 'text-zinc-500 hover:text-zinc-300'}`}
               onClick={() => setActiveTab('router')}
             >
               Router
-            </button>
-            <button
-              className={`px-4 py-1.5 rounded-sm text-sm font-medium transition-colors ${activeTab === 'remap' ? 'bg-zinc-800 text-white' : 'text-zinc-500 hover:text-zinc-300'}`}
-              onClick={() => setActiveTab('remap')}
-            >
-              Remap
             </button>
             <button
               className={`px-4 py-1.5 rounded-sm text-sm font-medium transition-colors ${activeTab === 'matrix' ? 'bg-zinc-800 text-white' : 'text-zinc-500 hover:text-zinc-300'}`}
@@ -1303,136 +1290,6 @@ export default function MidiRouter({
                 })}
               </tbody>
             </table>
-          </div>
-        </div>
-      )}
-
-      {inputs.length + outputs.length > 0 && activeTab === 'remap' && (
-        <div className="max-w-6xl mx-auto py-8 px-4">
-          <div className="flex items-center justify-between mb-8">
-            <div>
-              <h2 className="text-xl font-bold font-sans tracking-tight text-white mb-1">Transformer Engine</h2>
-              <div className="text-zinc-500 text-[10px] uppercase tracking-widest font-display font-bold">MIDI Learned Mappings & Global Conversions</div>
-            </div>
-            <div className="flex gap-3">
-               {isLearning && (
-                 <div className="flex items-center gap-2 px-3 py-1 bg-amber-500/10 border border-amber-500/20 rounded text-amber-500 text-[10px] font-bold animate-pulse">
-                   <Zap size={10} />
-                   TRIGGER HARDWARE TO ADD TO LIST
-                 </div>
-               )}
-               <button 
-                onClick={() => { if(confirm('Reset all transformers?')) setRemappings({}); }}
-                className="px-4 py-1.5 bg-zinc-900 rounded border border-zinc-800 text-[10px] font-bold text-zinc-500 hover:text-red-400 hover:border-red-900/50 transition-all"
-               >
-                 CLEAR ALL
-               </button>
-            </div>
-          </div>
-
-          <div className="space-y-2">
-            {Object.keys(remappings).length === 0 ? (
-              <div className="h-64 flex flex-col items-center justify-center border-2 border-dashed border-zinc-900 rounded-2xl bg-zinc-900/20 text-zinc-700">
-                <Target size={40} className="mb-4 opacity-20" />
-                <p className="font-display font-bold text-sm">No Active Transformers</p>
-                <p className="text-[10px] uppercase tracking-widest mt-1">Enable 'MIDI Map' and play a note/CC to begin</p>
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 gap-2">
-                <div className="grid grid-cols-12 gap-4 px-6 py-2 text-[10px] font-bold text-zinc-600 uppercase tracking-widest bg-zinc-900/50 rounded-lg">
-                  <div className="col-span-1">Source</div>
-                  <div className="col-span-2">Input Trigger</div>
-                  <div className="col-span-1 text-center">→</div>
-                  <div className="col-span-2">Target Type</div>
-                  <div className="col-span-1">Channel</div>
-                  <div className="col-span-4">Value / Note</div>
-                  <div className="col-span-1 text-right">Action</div>
-                </div>
-                {Object.entries(remappings).map(([key, mapping]) => {
-                  const [mType, ch, mNum] = key.split(':');
-                  const targetMapping = mapping as Remapping;
-                  const isHighlighted = highlighted?.num === parseInt(mNum) && highlighted?.channel === parseInt(ch) && highlighted?.type === (mType as any);
-                  
-                  return (
-                    <div 
-                      key={key} 
-                      className={`grid grid-cols-12 gap-4 items-center px-6 py-3 bg-[#1a1c23] border ${isHighlighted ? 'border-cyan-500 shadow-[0_0_15px_rgba(6,182,212,0.1)]' : 'border-zinc-800'} rounded-xl transition-all group`}
-                    >
-                      <div className="col-span-1">
-                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${mType === 'note' ? 'bg-cyan-500/10 text-cyan-400' : 'bg-amber-500/10 text-amber-400'}`}>
-                          {mType === 'note' ? <Zap size={14} /> : <Settings size={14} />}
-                        </div>
-                      </div>
-                      
-                      <div className="col-span-2">
-                        <div className="text-[11px] font-bold text-zinc-300">{mType.toUpperCase()} {mNum}</div>
-                        <div className="text-[9px] text-zinc-600 font-mono">Channel {ch}</div>
-                      </div>
-
-                      <div className="col-span-1 text-center text-zinc-700">→</div>
-
-                      <div className="col-span-2">
-                        <select
-                          className="w-full bg-[#0a0a0a] text-[10px] p-2 rounded border border-zinc-800 outline-none text-zinc-400 focus:border-cyan-500/50 transition-colors"
-                          value={targetMapping.type}
-                          onChange={(e) => setRemappings(prev => ({ ...prev, [key]: { ...prev[key], type: e.target.value as any } }))}
-                        >
-                          <option value="note">NOTE</option>
-                          <option value="cc">CC</option>
-                          <option value="pc">PC</option>
-                        </select>
-                      </div>
-
-                      <div className="col-span-1">
-                        <input
-                          type="number"
-                          min="1"
-                          max="16"
-                          className="w-full bg-[#0a0a0a] text-[11px] p-2 rounded border border-zinc-800 outline-none text-zinc-300 font-mono text-center"
-                          value={targetMapping.channel}
-                          onChange={(e) => setRemappings(prev => ({ ...prev, [key]: { ...prev[key], channel: parseInt(e.target.value) || 1 } }))}
-                        />
-                      </div>
-
-                      <div className="col-span-4 flex items-center gap-3">
-                        <input
-                          type="range"
-                          min="0"
-                          max="127"
-                          className="flex-1 accent-cyan-500 h-1"
-                          value={targetMapping.value}
-                          onChange={(e) => setRemappings(prev => ({ ...prev, [key]: { ...prev[key], value: parseInt(e.target.value) } }))}
-                        />
-                        <div className="w-16 flex flex-col items-center">
-                          <input
-                            type="number"
-                            min="0"
-                            max="127"
-                            className="w-full bg-[#0a0a0a] text-[11px] p-1.5 rounded border border-zinc-800 outline-none text-cyan-400 font-mono text-center"
-                            value={targetMapping.value}
-                            onChange={(e) => setRemappings(prev => ({ ...prev, [key]: { ...prev[key], value: parseInt(e.target.value) || 0 } }))}
-                          />
-                          <span className="text-[8px] text-zinc-600 font-bold mt-0.5">{targetMapping.type === 'note' ? getNoteName(targetMapping.value) : `VAL ${targetMapping.value}`}</span>
-                        </div>
-                      </div>
-
-                      <div className="col-span-1 text-right">
-                        <button 
-                          onClick={() => setRemappings(prev => {
-                            const n = { ...prev };
-                            delete n[key];
-                            return n;
-                          })}
-                          className="p-2 text-zinc-700 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100"
-                        >
-                          <X size={14} />
-                        </button>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
           </div>
         </div>
       )}
@@ -1993,75 +1850,74 @@ export default function MidiRouter({
         </div>
       )}
 
-      {isMonitorOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-8 bg-black/40 backdrop-blur-sm">
-          <div className="w-full max-w-4xl h-[600px] bg-[#1a1c23] border border-zinc-800 rounded-2xl shadow-2xl flex flex-col overflow-hidden">
-            <div className="px-6 py-4 border-b border-zinc-800 flex justify-between items-center bg-[#13151a]">
-              <div className="flex items-center gap-3">
-                <div className="w-3 h-3 rounded-full bg-[#06b6d4] shadow-[0_0_8px_rgba(6,182,212,0.8)] animate-pulse"></div>
-                <h3 className="text-zinc-300 font-display font-semibold tracking-wider text-sm">MIDI STREAM MONITOR</h3>
-              </div>
-              <div className="flex items-center gap-4">
-                <span className="text-zinc-600 text-[10px] font-mono uppercase tracking-widest">Active Streams: {selectedInputs.size}</span>
-                <button 
-                  onClick={() => setIsMonitorOpen(false)}
-                  className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-zinc-800 text-zinc-500 hover:text-white transition-colors"
-                >
-                  <X size={18} />
-                </button>
-              </div>
-            </div>
-            
-            <div className="flex-1 overflow-y-auto px-6 py-4 font-mono text-[11px] space-y-1 bg-[#0f1115]">
-              <div className="grid grid-cols-5 gap-4 text-zinc-600 border-b border-zinc-800 pb-2 mb-4 sticky top-0 bg-[#0f1115]">
-                <span>TIMESTAMP</span>
-                <span>SOURCE</span>
-                <span>EVENT</span>
-                <span>CH</span>
-                <span>DATA</span>
-              </div>
-              {midiLog.length === 0 ? (
-                <div className="h-full flex flex-col items-center justify-center text-zinc-700 space-y-2 opacity-50">
-                  <Zap size={32} />
-                  <p className="font-display italic">Waiting for MIDI input...</p>
-                </div>
-              ) : (
-                midiLog.slice().reverse().map((log, index) => (
-                  <div key={index} className="grid grid-cols-5 gap-4 py-1.5 border-b border-zinc-800/30 hover:bg-zinc-800/20 transition-colors animate-in fade-in slide-in-from-left-2">
-                    <span className="text-zinc-500">{log.time}</span>
-                    <span className="text-[#06b6d4] truncate">{log.source}</span>
-                    <span className="text-zinc-300">{log.message}</span>
-                    <span className="text-zinc-400">{log.channel}</span>
-                    <span className="text-zinc-500">{log.data}</span>
-                  </div>
-                ))
-              )}
-            </div>
-
-            <div className="px-6 py-3 border-t border-zinc-800 bg-[#13151a] flex justify-between items-center">
-              <button 
-                onClick={() => setMidiLog([])}
-                className="px-3 py-1.5 bg-[#272a35] hover:bg-red-900/40 hover:text-red-200 transition-colors rounded text-[10px] text-zinc-400 font-display border border-zinc-700"
-              >
-                CLEAR LOG
-              </button>
-              <div className="flex items-center gap-4">
-                <div className="flex items-center gap-2">
-                   <div className="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)]"></div>
-                   <span className="text-zinc-500 text-[10px]">{midiLog.length} EVENTS</span>
-                </div>
-                <button
-                  onClick={downloadMonitorCSV}
-                  disabled={midiLog.length === 0}
-                  className="px-4 py-1.5 bg-[#06b6d4] hover:bg-[#0891b2] disabled:opacity-40 disabled:cursor-not-allowed transition-colors rounded text-[10px] text-white font-display font-semibold shadow-[0_0_15px_rgba(6,182,212,0.3)]"
-                >
-                  DOWNLOAD CSV
-                </button>
-              </div>
-            </div>
+      {/* Right-side Monitor pop-out — mirrors the Live Routing sidebar on
+          the left. Slides in from the right edge instead of a centered modal. */}
+      <div
+        className={`fixed top-0 right-0 bottom-0 z-40 bg-[#1a1c23] border-l border-zinc-800 shadow-2xl flex flex-col transition-transform duration-200 ${isMonitorOpen ? 'translate-x-0' : 'translate-x-full'}`}
+        style={{ width: 480 }}
+      >
+        <div className="px-4 py-3 border-b border-zinc-800 flex justify-between items-center bg-[#13151a]">
+          <div className="flex items-center gap-3">
+            <div className="w-3 h-3 rounded-full bg-[#06b6d4] shadow-[0_0_8px_rgba(6,182,212,0.8)] animate-pulse"></div>
+            <h3 className="text-zinc-300 font-display font-semibold tracking-wider text-sm">MIDI STREAM MONITOR</h3>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-zinc-600 text-[10px] font-mono uppercase tracking-widest">Streams: {selectedInputs.size}</span>
+            <button
+              onClick={() => setIsMonitorOpen(false)}
+              className="w-7 h-7 flex items-center justify-center rounded hover:bg-zinc-800 text-zinc-500 hover:text-white transition-colors"
+              title="Close monitor"
+            >
+              <X size={16} />
+            </button>
           </div>
         </div>
-      )}
+
+        <div className="flex-1 overflow-y-auto px-4 py-3 font-mono text-[11px] space-y-1 bg-[#0f1115]">
+          <div className="grid grid-cols-5 gap-2 text-zinc-600 border-b border-zinc-800 pb-2 mb-3 sticky top-0 bg-[#0f1115]">
+            <span>TIME</span>
+            <span>SRC</span>
+            <span>EVENT</span>
+            <span>CH</span>
+            <span>DATA</span>
+          </div>
+          {midiLog.length === 0 ? (
+            <div className="h-full flex flex-col items-center justify-center text-zinc-700 space-y-2 opacity-50">
+              <Zap size={32} />
+              <p className="font-display italic">Waiting for MIDI input...</p>
+            </div>
+          ) : (
+            midiLog.slice().reverse().map((log, index) => (
+              <div key={index} className="grid grid-cols-5 gap-2 py-1 border-b border-zinc-800/30 hover:bg-zinc-800/20">
+                <span className="text-zinc-500">{log.time}</span>
+                <span className="text-[#06b6d4] truncate">{log.source}</span>
+                <span className="text-zinc-300">{log.message}</span>
+                <span className="text-zinc-400">{log.channel}</span>
+                <span className="text-zinc-500">{log.data}</span>
+              </div>
+            ))
+          )}
+        </div>
+
+        <div className="px-4 py-2 border-t border-zinc-800 bg-[#13151a] flex justify-between items-center">
+          <button
+            onClick={() => setMidiLog([])}
+            className="px-3 py-1.5 bg-[#272a35] hover:bg-red-900/40 hover:text-red-200 transition-colors rounded text-[10px] text-zinc-400 font-display border border-zinc-700"
+          >
+            CLEAR LOG
+          </button>
+          <div className="flex items-center gap-3">
+            <span className="text-zinc-500 text-[10px]">{midiLog.length} events</span>
+            <button
+              onClick={downloadMonitorCSV}
+              disabled={midiLog.length === 0}
+              className="px-3 py-1.5 bg-[#06b6d4] hover:bg-[#0891b2] disabled:opacity-40 disabled:cursor-not-allowed transition-colors rounded text-[10px] text-white font-display font-semibold"
+            >
+              DOWNLOAD CSV
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

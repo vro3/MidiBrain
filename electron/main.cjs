@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, dialog, shell } = require('electron');
+const { app, BrowserWindow, Menu, ipcMain, dialog, shell } = require('electron');
 const path = require('path');
 const fs = require('fs/promises');
 const midiEngine = require('./midi-engine.cjs');
@@ -92,7 +92,64 @@ ipcMain.handle('resolume:save-file', async (_e, targetPath, text) => {
 
 ipcMain.handle('shell:open-external', (_e, url) => shell.openExternal(url));
 
-app.whenReady().then(createWindow);
+function buildMenu() {
+  const isMac = process.platform === 'darwin';
+  const sendToFocused = (channel) => {
+    const win = BrowserWindow.getFocusedWindow() ?? mainWindow;
+    if (win && !win.isDestroyed()) win.webContents.send(channel);
+  };
+
+  const template = [
+    ...(isMac ? [{ role: 'appMenu' }] : []),
+    {
+      label: 'File',
+      submenu: [
+        {
+          label: 'Open Resolume Preset…',
+          accelerator: 'CmdOrCtrl+O',
+          click: () => sendToFocused('menu:open-resolume'),
+        },
+        {
+          label: 'Save Resolume Preset',
+          accelerator: 'CmdOrCtrl+S',
+          click: () => sendToFocused('menu:save-resolume'),
+        },
+        {
+          label: 'Save Resolume Preset As…',
+          accelerator: 'CmdOrCtrl+Shift+S',
+          click: () => sendToFocused('menu:save-resolume-as'),
+        },
+        { type: 'separator' },
+        {
+          label: 'Close Resolume Editor',
+          accelerator: 'CmdOrCtrl+W',
+          click: () => sendToFocused('menu:close-resolume'),
+        },
+        { type: 'separator' },
+        isMac ? { role: 'close' } : { role: 'quit' },
+      ],
+    },
+    { role: 'editMenu' },
+    { role: 'viewMenu' },
+    { role: 'windowMenu' },
+    {
+      role: 'help',
+      submenu: [
+        {
+          label: 'loopMIDI (Windows virtual ports)',
+          click: () => shell.openExternal('https://www.tobias-erichsen.de/software/loopmidi.html'),
+        },
+      ],
+    },
+  ];
+
+  Menu.setApplicationMenu(Menu.buildFromTemplate(template));
+}
+
+app.whenReady().then(() => {
+  buildMenu();
+  createWindow();
+});
 
 app.on('window-all-closed', () => {
   midiEngine.shutdown();

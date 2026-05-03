@@ -25,4 +25,13 @@ contextBridge.exposeInMainWorld('midi', {
   openResolumeFile: () => ipcRenderer.invoke('resolume:open-file'),
   saveResolumeFile: (path, text) => ipcRenderer.invoke('resolume:save-file', path, text),
   openExternal: (url) => ipcRenderer.invoke('shell:open-external', url),
+  onMenuCommand: (callback) => {
+    const channels = ['menu:open-resolume', 'menu:save-resolume', 'menu:save-resolume-as', 'menu:close-resolume'];
+    const wrapped = channels.map((ch) => {
+      const listener = () => callback(ch);
+      ipcRenderer.on(ch, listener);
+      return [ch, listener];
+    });
+    return () => wrapped.forEach(([ch, l]) => ipcRenderer.removeListener(ch, l));
+  },
 });

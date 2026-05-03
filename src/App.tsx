@@ -62,6 +62,7 @@ function loadRouting(): RoutingMap {
 export default function App() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [resolumeOpen, setResolumeOpen] = useState(false);
+  const [resolumeAutoCommand, setResolumeAutoCommand] = useState<'open' | 'save' | 'save-as' | null>(null);
   const [virtualPortsBroken, setVirtualPortsBroken] = useState(false);
   const isWindows = typeof window !== 'undefined' && window.platform?.os === 'win32';
   const [sidebarWidth, setSidebarWidth] = useState<number>(() => {
@@ -82,6 +83,31 @@ export default function App() {
   useEffect(() => {
     window.localStorage.setItem(VIRTUAL_PORTS_KEY, JSON.stringify(virtualPorts));
   }, [virtualPorts]);
+
+  // macOS application menu commands. Open/Save/Save As… mirror the buttons in
+  // ResolumePanel so the app feels native.
+  useEffect(() => {
+    const bridge = typeof window !== 'undefined' ? window.midi : undefined;
+    if (!bridge?.onMenuCommand) return;
+    const off = bridge.onMenuCommand((channel) => {
+      if (channel === 'menu:open-resolume') {
+        setResolumeOpen(true);
+        setResolumeAutoCommand('open');
+      } else if (channel === 'menu:save-resolume') {
+        if (resolumeOpenRef.current) setResolumeAutoCommand('save');
+      } else if (channel === 'menu:save-resolume-as') {
+        if (resolumeOpenRef.current) setResolumeAutoCommand('save-as');
+      } else if (channel === 'menu:close-resolume') {
+        setResolumeOpen(false);
+      }
+    });
+    return off;
+  }, []);
+
+  // Track resolumeOpen in a ref so the menu listener (registered once on
+  // mount) can read the latest value without re-registering on every change.
+  const resolumeOpenRef = useRef(resolumeOpen);
+  useEffect(() => { resolumeOpenRef.current = resolumeOpen; }, [resolumeOpen]);
 
   const refreshDevices = useCallback(async () => {
     const bridge = typeof window !== 'undefined' ? window.midi : undefined;
@@ -386,7 +412,13 @@ export default function App() {
         />
       </div>
 
-      {resolumeOpen && <ResolumePanel onClose={() => setResolumeOpen(false)} />}
+      {resolumeOpen && (
+        <ResolumePanel
+          onClose={() => setResolumeOpen(false)}
+          autoCommand={resolumeAutoCommand}
+          onAutoCommandConsumed={() => setResolumeAutoCommand(null)}
+        />
+      )}
 
       <LoopMidiPrompt isWindows={isWindows} virtualPortsBroken={virtualPortsBroken} />
     </div>

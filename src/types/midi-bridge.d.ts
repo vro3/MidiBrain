@@ -48,6 +48,7 @@ export interface MidiBridge {
   openResolumeFile(): Promise<ResolumeFileResult | null>;
   saveResolumeFile(path: string | null, text: string): Promise<ResolumeSaveResult | null>;
   openExternal(url: string): Promise<void>;
+  onMenuCommand(callback: (channel: string) => void): () => void;
 }
 
 export interface PlatformBridge {

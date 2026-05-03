@@ -56,7 +56,7 @@
   "build": {
     "appId": "com.midibrain.app",
     "productName": "MidiBrain",
-    "copyright": "Copyright © 2026 Vince Romanelli",
+    "copyright": "Copyright \u00a9 2026 Vince Romanelli",
     "extraMetadata": {
       "main": "electron-dist/main.cjs"
     },
@@ -66,7 +66,7 @@
         {
           "target": "dmg",
           "arch": [
-            "universal"
+            "arm64"
           ]
         }
       ],
@@ -74,7 +74,8 @@
       "gatekeeperAssess": false,
       "entitlements": "entitlements.mac.plist",
       "entitlementsInherit": "entitlements.mac.plist",
-      "notarize": false
+      "notarize": false,
+      "identity": null
     },
     "win": {
       "target": [
