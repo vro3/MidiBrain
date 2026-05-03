@@ -1303,7 +1303,11 @@ export default function MidiRouter({
             </div>
             <div className="flex gap-4">
               <button 
-                onClick={() => { if(confirm('Clear all matrix connections?')) setMatrixRoutings([]); }}
+                onClick={() => {
+                  if (!confirm('Clear all matrix connections? This also clears Live Routing.')) return;
+                  setMatrixRoutings([]);
+                  if (setRoutingProp) setRoutingProp({});
+                }}
                 className="px-4 py-1.5 rounded-lg text-[10px] font-bold text-red-500 border border-red-900/30 hover:bg-red-950/20 transition-colors"
               >
                 CLEAR MATRIX
