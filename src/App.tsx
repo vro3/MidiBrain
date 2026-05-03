@@ -394,7 +394,7 @@ export default function App() {
         )}
       </div>
 
-      <div className="flex-1 min-w-0 relative">
+      <div className="flex-1 min-w-0 relative h-full overflow-y-auto">
         <button
           onClick={() => setResolumeOpen(true)}
           className="absolute top-3 right-3 z-30 flex items-center gap-1.5 text-xs px-2.5 py-1.5 rounded bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-700"
