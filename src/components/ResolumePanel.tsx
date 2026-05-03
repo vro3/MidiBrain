@@ -4,7 +4,7 @@
  */
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { X, FileUp, Save, FilePlus2, Plus, Trash2 } from 'lucide-react';
+import { X, FileUp, Save, FilePlus2, Plus, Trash2, Target } from 'lucide-react';
 import { parsePreset, serializePreset } from '../resolume/preset-io';
 import {
   decodeRawInputKey,
@@ -15,6 +15,7 @@ import {
   type MidiMessageType,
 } from '../resolume/raw-input-key';
 import { describeBehaviour, COMMON_BEHAVIOURS } from '../resolume/behaviour';
+import { KNOWN_RESOLUME_PATHS } from '../resolume/known-paths';
 import type { ResolumePreset, ResolumeShortcut } from '../resolume/types';
 
 interface Props {
@@ -55,6 +56,12 @@ export default function ResolumePanel({ onClose, autoCommand, onAutoCommandConsu
   const [error, setError] = useState<string | null>(null);
   const [filter, setFilter] = useState('');
   const handlersRef = useRef<{ open: () => void; save: (saveAs: boolean) => void } | null>(null);
+  // MIDI Learn target: when set, the next incoming MIDI message rewrites the
+  // matching shortcut row's keyRaw with the captured status + data1. Preserves
+  // the row's existing topByte and deviceHash so device binding stays intact.
+  const [learnTargetId, setLearnTargetId] = useState<string | null>(null);
+  const learnTargetRef = useRef<string | null>(null);
+  useEffect(() => { learnTargetRef.current = learnTargetId; }, [learnTargetId]);
 
   const open = useCallback(async () => {
     const bridge = window.midi;
@@ -99,6 +106,52 @@ export default function ResolumePanel({ onClose, autoCommand, onAutoCommandConsu
     else if (autoCommand === 'save-as') h.save(true);
     onAutoCommandConsumed?.();
   }, [autoCommand, onAutoCommandConsumed]);
+
+  // Subscribe to MIDI messages so a row can be MIDI-Learned. Single subscription
+  // for the whole panel — the learn target lives in a ref so we don't need to
+  // re-subscribe per row.
+  useEffect(() => {
+    const bridge = window.midi;
+    if (!bridge?.onMessage) return;
+    const off = bridge.onMessage((payload) => {
+      const targetId = learnTargetRef.current;
+      if (!targetId) return;
+      const bytes = payload.rawBytes;
+      if (!bytes || bytes.length < 1) return;
+      const status = bytes[0];
+      const data1 = bytes.length >= 2 ? bytes[1] : 0;
+      setPreset((prev) => {
+        if (!prev) return prev;
+        return {
+          ...prev,
+          shortcuts: prev.shortcuts.map((s) => {
+            if (s.uniqueId !== targetId) return s;
+            const decoded = s.rawInput
+              ? decodeRawInputKey(s.rawInput.keyRaw)
+              : { topByte: 1, deviceHash: 0n, data1: 0, status: 0x90 };
+            const nextKey = encodeRawInputKey({
+              topByte: decoded.topByte,
+              deviceHash: decoded.deviceHash,
+              data1,
+              status,
+            });
+            return {
+              ...s,
+              rawInput: {
+                keyRaw: nextKey.toString(),
+                value: s.rawInput?.value ?? 0,
+                numSteps: s.rawInput?.numSteps,
+                _extra: s.rawInput?._extra,
+              },
+            };
+          }),
+        };
+      });
+      setDirty(true);
+      setLearnTargetId(null); // one-shot: capture once and exit learn mode
+    });
+    return off;
+  }, []);
 
   const updateShortcut = useCallback((id: string, mutate: (s: ResolumeShortcut) => ResolumeShortcut) => {
     setPreset((prev) => {
@@ -147,6 +200,22 @@ export default function ResolumePanel({ onClose, autoCommand, onAutoCommandConsu
     });
     setDirty(true);
   }, []);
+
+  // Combine canonical Resolume baseline paths with paths from the currently-
+  // loaded preset. The preset gives effect/clip-specific addresses that the
+  // baseline doesn't know about; the baseline gives broad coverage for new
+  // shortcuts targeting layers/clips/composition controls.
+  const pathSuggestions = useMemo(() => {
+    const set = new Set<string>(KNOWN_RESOLUME_PATHS);
+    if (preset) {
+      for (const s of preset.shortcuts) {
+        for (const p of s.paths) {
+          if (p.path) set.add(p.path);
+        }
+      }
+    }
+    return Array.from(set).sort();
+  }, [preset]);
 
   const filtered = useMemo(() => {
     if (!preset) return [];
@@ -326,6 +395,7 @@ export default function ResolumePanel({ onClose, autoCommand, onAutoCommandConsu
                       <td className="px-3 py-1">
                         <input
                           type="text"
+                          list="resolume-paths"
                           value={inputPath}
                           onChange={(e) => {
                             const newPath = e.target.value;
@@ -335,17 +405,28 @@ export default function ResolumePanel({ onClose, autoCommand, onAutoCommandConsu
                             }));
                           }}
                           className="w-full bg-zinc-900 border border-zinc-700 rounded px-2 py-0.5 text-[10px] font-mono text-zinc-300"
-                          placeholder="/composition/objects/…"
+                          placeholder="/composition/layers/1/video/opacity"
                         />
                       </td>
                       <td className="px-1 py-1">
-                        <button
-                          onClick={() => deleteShortcut(s.uniqueId)}
-                          className="text-zinc-600 hover:text-red-400"
-                          title="Delete shortcut"
-                        >
-                          <Trash2 size={12} />
-                        </button>
+                        <div className="flex items-center gap-1">
+                          <button
+                            onClick={() => setLearnTargetId(learnTargetId === s.uniqueId ? null : s.uniqueId)}
+                            className={`px-2 py-0.5 rounded text-[10px] font-bold border transition-colors ${learnTargetId === s.uniqueId ? 'bg-amber-500 text-black border-amber-400 animate-pulse' : 'bg-zinc-900 text-zinc-400 border-zinc-700 hover:border-amber-500/50 hover:text-amber-300'}`}
+                            title={learnTargetId === s.uniqueId
+                              ? 'Listening… trigger a hardware control to assign it. Click to cancel.'
+                              : 'MIDI Learn — capture the next incoming MIDI message into this row.'}
+                          >
+                            <Target size={10} className="inline" />
+                          </button>
+                          <button
+                            onClick={() => deleteShortcut(s.uniqueId)}
+                            className="text-zinc-600 hover:text-red-400"
+                            title="Delete shortcut"
+                          >
+                            <Trash2 size={12} />
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   );
@@ -353,6 +434,9 @@ export default function ResolumePanel({ onClose, autoCommand, onAutoCommandConsu
               </tbody>
             </table>
           </div>
+          <datalist id="resolume-paths">
+            {pathSuggestions.map((p) => <option key={p} value={p} />)}
+          </datalist>
         </>
       )}
     </div>
