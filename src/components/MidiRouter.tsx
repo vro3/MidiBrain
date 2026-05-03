@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { Play, Square, Zap, Target, Download, Settings, Edit2, Plus, RefreshCw, X } from 'lucide-react';
+import { Play, Square, Zap, Target, Download, Settings, Edit2, Plus, RefreshCw, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import Papa from 'papaparse';
 import * as XLSX from 'xlsx';
 import jsPDF from 'jspdf';
@@ -177,12 +177,6 @@ interface RouteMatrix {
   pc: { [num: number]: { [channel: number]: string } };
 }
 
-interface Remapping {
-  type: 'note' | 'cc' | 'pc';
-  value: number;
-  channel: number;
-}
-
 interface MatrixRouting {
   id: string;
   inputId: string;
@@ -199,7 +193,6 @@ interface Preset {
   name: string;
   matrix: RouteMatrix;
   matrixRoutings: MatrixRouting[];
-  remappings: { [sourceKey: string]: Remapping };
   aliases?: { [portName: string]: string };
   liveRouting?: { [inputName: string]: string[] };
   timestamp: number;
@@ -339,6 +332,35 @@ export default function MidiRouter({
 
   const [midiLog, setMidiLog] = useState<Array<{ time: string, source: string, message: string, channel: number, data: string }>>([]);
   const [isMonitorOpen, setIsMonitorOpen] = useState(false);
+  const [monitorWidth, setMonitorWidth] = useState<number>(() => {
+    const saved = localStorage.getItem('midibrain.monitorWidth');
+    const n = saved ? Number(saved) : NaN;
+    return Number.isFinite(n) && n >= 320 && n <= 900 ? n : 480;
+  });
+  const monitorDraggingRef = useRef(false);
+  useEffect(() => {
+    localStorage.setItem('midibrain.monitorWidth', String(monitorWidth));
+  }, [monitorWidth]);
+  useEffect(() => {
+    const onMove = (e: MouseEvent) => {
+      if (!monitorDraggingRef.current) return;
+      // Sidebar is anchored to the right edge; width = viewport width - mouseX
+      const next = window.innerWidth - e.clientX;
+      setMonitorWidth(Math.max(320, Math.min(900, next)));
+    };
+    const onUp = () => {
+      if (!monitorDraggingRef.current) return;
+      monitorDraggingRef.current = false;
+      document.body.style.cursor = '';
+      document.body.style.userSelect = '';
+    };
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mouseup', onUp);
+    return () => {
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('mouseup', onUp);
+    };
+  }, []);
   const [isPresetManagerOpen, setIsPresetManagerOpen] = useState(false);
   const [renamingPresetId, setRenamingPresetId] = useState<string | null>(null);
   const [renameDraft, setRenameDraft] = useState('');
@@ -352,7 +374,7 @@ export default function MidiRouter({
     (r.channels && r.channels.length > 0) || r.noteMin != null || r.noteMax != null;
 
   const [activeTab, setActiveTab] = useState<'router' | 'remap' | 'matrix' | 'learning'>('matrix');
-  const [matrixView, setMatrixView] = useState<'crosspoint' | 'topography' | 'list'>('crosspoint');
+  const [matrixView, setMatrixView] = useState<'crosspoint' | 'topography'>('crosspoint');
   const [columnWidths, setColumnWidths] = useState<{ [key: string]: number }>({
     'note': 80,
     ...CHANNELS.reduce((acc, ch) => ({ ...acc, [ch]: 150 }), {})
@@ -365,10 +387,6 @@ export default function MidiRouter({
   useEffect(() => {
     localStorage.setItem('midibrain.rowHeights', JSON.stringify(rowHeights));
   }, [rowHeights]);
-  const [remappings, setRemappings] = useState<{ [sourceKey: string]: Remapping }>(() => {
-    const saved = localStorage.getItem('midibrain.remappings');
-    return saved ? JSON.parse(saved) : {};
-  });
   const [matrixRoutings, setMatrixRoutings] = useState<MatrixRouting[]>(() => {
     const saved = localStorage.getItem('midibrain.matrixRoutings');
     return saved ? JSON.parse(saved) : [];
@@ -403,10 +421,6 @@ export default function MidiRouter({
   }, [matrixRoutings]);
 
   useEffect(() => {
-    localStorage.setItem('midibrain.remappings', JSON.stringify(remappings));
-  }, [remappings]);
-
-  useEffect(() => {
     localStorage.setItem('midibrain.presets', JSON.stringify(presets));
   }, [presets]);
 
@@ -421,7 +435,6 @@ export default function MidiRouter({
       name: newPresetName.trim(),
       matrix,
       matrixRoutings,
-      remappings,
       aliases: aliasesProp ?? {},
       liveRouting: routingProp ?? {},
       timestamp: Date.now(),
@@ -436,7 +449,6 @@ export default function MidiRouter({
     if (!confirm(`Load preset "${preset.name}"? This will overwrite your current configuration.`)) return;
     setMatrix(preset.matrix);
     setMatrixRoutings(preset.matrixRoutings);
-    setRemappings(preset.remappings);
     if (preset.aliases && setAliasesProp) setAliasesProp(preset.aliases);
     if (preset.liveRouting && setRoutingProp) setRoutingProp(preset.liveRouting);
   };
@@ -521,7 +533,6 @@ export default function MidiRouter({
     activeTab,
     matrix,
     matrixRoutings,
-    remappings,
   });
   useEffect(() => {
     stateRef.current = {
@@ -532,9 +543,8 @@ export default function MidiRouter({
       activeTab,
       matrix,
       matrixRoutings,
-      remappings,
     };
-  }, [selectedInputs, selectedOutputs, isRunning, isLearning, activeTab, matrix, matrixRoutings, remappings]);
+  }, [selectedInputs, selectedOutputs, isRunning, isLearning, activeTab, matrix, matrixRoutings]);
 
   const bumpInputActivity = (name: string) => {
     setInputActivity((prev) => new Set(prev).add(name));
@@ -675,101 +685,43 @@ export default function MidiRouter({
       }
     }
 
-    // 3. Remap + grid router
+    // 3. Signal Map highlighting + Crosspoint Matrix dispatch
     const isNoteOn = type === 0x90 && data2 > 0;
     const isNoteOff = type === 0x80 || (type === 0x90 && data2 === 0);
     const isCC = type === 0xB0;
+    const isPC = type === 0xC0;
 
-    if (s.isLearning && s.activeTab === 'remap') {
-      if (isNoteOn || isCC) {
-        const sourceKey = isNoteOn ? `note:${channel}:${data1}` : `cc:${channel}:${data1}`;
-        if (!s.remappings[sourceKey]) {
-          setRemappings((prev) => ({
-            ...prev,
-            [sourceKey]: {
-              type: isNoteOn ? 'note' : 'cc',
-              value: data1,
-              channel: channel,
-            },
-          }));
-        }
-        setHighlighted({ type: isNoteOn ? 'note' : 'cc', num: data1, channel });
-        return;
-      }
+    if (isNoteOn) setLastMidiMessage({ note: data1, channel, velocity: data2 });
+
+    // Learn mode (Map button on the Signal Map): highlight + auto-focus the
+    // matching cell so the user can label what just got triggered. Skip
+    // dispatch while learning so a CC sweep doesn't fire its mapping too.
+    if (s.isLearning && (isNoteOn || isCC || isPC)) {
+      const cellType: 'note' | 'cc' | 'pc' = isNoteOn ? 'note' : isCC ? 'cc' : 'pc';
+      setHighlighted({ type: cellType, num: data1, channel });
+      scrollRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      setTimeout(() => {
+        inputRefs.current[`${cellType}-${data1}-${channel}`]?.focus();
+      }, 100);
+      return;
     }
 
-    let outputNote = data1;
-    let outputChannel = channel;
-    let outputType = type;
-    let skipRouter = false;
-
-    const sourceKey = isNoteOn || isNoteOff ? `note:${channel}:${data1}` : isCC ? `cc:${channel}:${data1}` : null;
-    if (sourceKey && s.remappings[sourceKey]) {
-      const mapping = s.remappings[sourceKey];
-      outputNote = mapping.value;
-      outputChannel = mapping.channel;
-
-      if (mapping.type === 'note') outputType = isNoteOff ? 0x80 : 0x90;
-      else if (mapping.type === 'cc') outputType = 0xB0;
-      else if (mapping.type === 'pc') outputType = 0xC0;
-
-      if (isCC && mapping.type === 'note') {
-        // fall through to router
-      } else if (isNoteOn && (mapping.type === 'cc' || mapping.type === 'pc')) {
-        skipRouter = true;
-      }
-    }
-
-    if ((isNoteOn || isNoteOff || (isCC && sourceKey && s.remappings[sourceKey]?.type === 'note')) && !skipRouter) {
-      const note = outputNote;
-      const velocity = data2;
-      const effectiveType = (isCC && s.remappings[sourceKey!]?.type === 'note') ? 0x90 : outputType;
-
-      if (effectiveType === 0x90) {
-        setLastMidiMessage({ note, channel: outputChannel, velocity });
-
-        if (s.isLearning && s.activeTab !== 'remap') {
-          setHighlighted({ type: 'note', num: note, channel: outputChannel });
-          scrollRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          setTimeout(() => {
-            inputRefs.current[`note-${note}-${outputChannel}`]?.focus();
-          }, 100);
-        } else if (s.isRunning) {
-          const action = s.matrix.note[note]?.[outputChannel];
-          if (action) {
-            const outputStatus = effectiveType | (outputChannel - 1);
-            s.selectedOutputs.forEach((outName) => {
-              sendToOutput(outName, [outputStatus, note, velocity]);
-            });
-          }
+    if (s.isRunning) {
+      if (isNoteOn || isNoteOff) {
+        const action = s.matrix.note[data1]?.[channel];
+        if (action) {
+          const status = (isNoteOn ? 0x90 : 0x80) | (channel - 1);
+          s.selectedOutputs.forEach((outName) => {
+            sendToOutput(outName, [status, data1, data2]);
+          });
         }
-      } else if (effectiveType === 0x80) {
-        if (s.isRunning) {
-          const action = s.matrix.note[note]?.[outputChannel];
-          if (action) {
-            const outputStatus = effectiveType | (outputChannel - 1);
-            s.selectedOutputs.forEach((outName) => {
-              sendToOutput(outName, [outputStatus, note, velocity]);
-            });
-          }
-        }
-      }
-    } else if (s.isRunning && sourceKey && s.remappings[sourceKey] && skipRouter) {
-      const finalStatus = outputType | (outputChannel - 1);
-      s.selectedOutputs.forEach((outName) => {
-        sendToOutput(outName, [finalStatus, outputNote, data2]);
-      });
-    }
-
-    // CC + PC direct routing (matrix grid)
-    if (s.isRunning && !skipRouter) {
-      if (type === 0xB0) {
+      } else if (isCC) {
         const action = s.matrix.cc[data1]?.[channel];
         if (action) {
           s.selectedOutputs.forEach((outName) => sendToOutput(outName, bytes));
         }
         setHighlighted({ type: 'cc', num: data1, channel });
-      } else if (type === 0xC0) {
+      } else if (isPC) {
         const action = s.matrix.pc[data1]?.[channel];
         if (action) {
           s.selectedOutputs.forEach((outName) => sendToOutput(outName, bytes));
@@ -787,14 +739,33 @@ export default function MidiRouter({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bridge]);
 
+  // Crosspoint dot click. App.routing (the per-input destination map shown in
+  // the Live Routing sidebar) is the source of truth; Crosspoint reflects it
+  // and writes back to it so the two views stay in sync. matrixRoutings is
+  // kept in lockstep so the engine's per-route filter dispatch (channels,
+  // noteMin/noteMax) keeps working.
   const toggleMatrixRouting = (inputId: string, outputId: string) => {
-    setMatrixRoutings(prev => {
-      const existing = prev.find(r => r.inputId === inputId && r.outputId === outputId);
+    const inputName = inputs.find((i) => i.id === inputId)?.name;
+    const outputName = outputs.find((o) => o.id === outputId)?.name;
+    if (!inputName || !outputName) return;
+
+    if (setRoutingProp) {
+      setRoutingProp((prev) => {
+        const current = prev[inputName] ?? [];
+        const exists = current.includes(outputName);
+        const next = exists
+          ? current.filter((o) => o !== outputName)
+          : [...current, outputName];
+        return { ...prev, [inputName]: next };
+      });
+    }
+
+    setMatrixRoutings((prev) => {
+      const existing = prev.find((r) => r.inputId === inputId && r.outputId === outputId);
       if (existing) {
-        return prev.filter(r => r.id !== existing.id);
-      } else {
-        return [...prev, { id: Date.now().toString(), inputId, outputId, enabled: true }];
+        return prev.filter((r) => r.id !== existing.id);
       }
+      return [...prev, { id: Date.now().toString(), inputId, outputId, enabled: true }];
     });
   };
 
@@ -1051,7 +1022,7 @@ export default function MidiRouter({
               className={`px-4 py-1.5 rounded-sm text-sm font-medium transition-colors ${activeTab === 'router' ? 'bg-zinc-800 text-white' : 'text-zinc-500 hover:text-zinc-300'}`}
               onClick={() => setActiveTab('router')}
             >
-              Router
+              Signal Map
             </button>
             <button
               className={`px-4 py-1.5 rounded-sm text-sm font-medium transition-colors ${activeTab === 'matrix' ? 'bg-zinc-800 text-white' : 'text-zinc-500 hover:text-zinc-300'}`}
@@ -1083,11 +1054,11 @@ export default function MidiRouter({
             className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-colors ${isRunning ? 'bg-emerald-900/50 text-emerald-200 hover:bg-emerald-900/70' : 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700'}`}
             onClick={() => setIsRunning(!isRunning)}
             title={isRunning
-              ? 'Transforms on — Matrix/Remap/Router are processing. Live Routing (sidebar) always passes through regardless.'
-              : 'Transforms off — only Live Routing (sidebar) is forwarding MIDI. Click to enable Matrix/Remap/Router.'}
+              ? 'Matrix on — Crosspoint Matrix mappings are processing incoming MIDI. Live Routing (sidebar) always passes through regardless.'
+              : 'Matrix off — only Live Routing (sidebar) is forwarding MIDI. Click to enable the Matrix.'}
           >
             {isRunning ? <Square size={16} /> : <Play size={16} />}
-            Transforms: {isRunning ? 'On' : 'Off'}
+            Matrix: {isRunning ? 'On' : 'Off'}
           </button>
           <div className="relative group">
             <button className="flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium bg-zinc-800 hover:bg-zinc-700 transition-colors">
@@ -1155,8 +1126,18 @@ export default function MidiRouter({
       {inputs.length + outputs.length > 0 && activeTab === 'router' && (
         <div className="space-y-8">
           <div className="flex items-center justify-between px-2 mb-4">
-             <div className="flex items-center gap-6">
-                <button 
+             <div className="flex items-center gap-3">
+                <button
+                  onClick={() => setIsLearning(!isLearning)}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all border ${isLearning ? 'bg-amber-500 text-black border-amber-400 animate-pulse' : 'bg-zinc-900 text-zinc-300 border-zinc-700 hover:border-amber-500/50'}`}
+                  title={isLearning
+                    ? 'Map mode on — wiggle a controller knob or press a pad and the matching cell will be focused for labeling. Click to stop.'
+                    : 'Map mode — click then trigger a hardware control to auto-focus its cell for labeling.'}
+                >
+                  <Target size={14} />
+                  {isLearning ? 'LISTENING…' : 'MAP'}
+                </button>
+                <button
                   onClick={() => setShowMappedOnly(!showMappedOnly)}
                   className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all border ${showMappedOnly ? 'bg-cyan-500 text-black border-cyan-400' : 'bg-zinc-900 text-zinc-500 border-zinc-800 hover:border-zinc-700'}`}
                 >
@@ -1165,11 +1146,11 @@ export default function MidiRouter({
                 </button>
              </div>
              <div className="text-[10px] text-zinc-600 font-mono uppercase tracking-[0.2em]">
-               Unified MIDI Router Grid
+               Signal Map
              </div>
           </div>
 
-          <div className="overflow-x-auto">
+          <div className="overflow-auto rounded-lg border border-zinc-800/50 bg-[#0f1115] shadow-inner custom-scrollbar max-h-[calc(100vh-220px)]">
             <table className="w-full border-collapse table-fixed">
               <thead>
                 <tr className="text-left text-xs text-zinc-500 uppercase tracking-wider">
@@ -1321,12 +1302,6 @@ export default function MidiRouter({
                 >
                   Topography
                 </button>
-                <button
-                  className={`px-4 py-1.5 rounded-sm text-xs font-medium transition-colors ${matrixView === 'list' ? 'bg-zinc-800 text-white' : 'text-zinc-500 hover:text-zinc-300'}`}
-                  onClick={() => setMatrixView('list')}
-                >
-                  List
-                </button>
               </div>
             </div>
           </div>
@@ -1367,7 +1342,9 @@ export default function MidiRouter({
                         </div>
                       </td>
                       {outputs.map(out => {
-                        const isActive = matrixRoutings.some(r => r.inputId === input.id && r.outputId === out.id && r.enabled);
+                        // Read the dot state directly from App.routing so the
+                        // Crosspoint reflects Live Routing chips in real time.
+                        const isActive = (routingProp?.[input.name] ?? []).includes(out.name);
                         return (
                           <td key={out.id} className="p-4 text-center border-b border-r border-zinc-800/30">
                             <button
@@ -1383,210 +1360,6 @@ export default function MidiRouter({
                   ))}
                 </tbody>
               </table>
-            </div>
-          )}
-          {activeTab === 'matrix' && matrixView === 'list' && (
-            <div className="max-w-4xl mx-auto space-y-4">
-              <div className="flex justify-between items-center mb-6 px-2">
-                 <div>
-                   <p className="text-[10px] text-zinc-600 uppercase tracking-[0.2em] font-bold">Device Routing List</p>
-                   <p className="text-[9px] text-zinc-800 uppercase tracking-tighter mt-1">Direct hardware-to-hardware mapping</p>
-                 </div>
-                 <button 
-                  onClick={() => {
-                    const firstInput = inputs[0]?.id;
-                    const firstOutput = outputs[0]?.id;
-                    if (firstInput && firstOutput) {
-                      const newId = `route-${Date.now()}`;
-                      setMatrixRoutings(prev => [...prev, {
-                        id: newId,
-                        inputId: firstInput,
-                        outputId: firstOutput,
-                        enabled: true
-                      }]);
-                    }
-                  }}
-                  className="px-4 py-2 bg-cyan-600 text-black rounded-lg text-[10px] font-black hover:bg-cyan-400 transition-all flex items-center gap-2 shadow-[0_0_15px_rgba(6,182,212,0.3)]"
-                 >
-                   <Plus size={14} strokeWidth={3} />
-                   ADD NEW ROUTE
-                 </button>
-              </div>
-              
-              <div className="space-y-2">
-                {matrixRoutings.length === 0 ? (
-                  <div className="py-24 text-center border-2 border-dashed border-zinc-900 rounded-3xl bg-zinc-950/30">
-                    <div className="w-16 h-16 bg-zinc-900/50 rounded-full flex items-center justify-center mx-auto mb-4 border border-zinc-800">
-                      <Zap size={24} className="text-zinc-800" />
-                    </div>
-                    <p className="font-display font-bold text-zinc-600">No active device routes</p>
-                    <p className="text-[9px] uppercase tracking-widest mt-2 text-zinc-800">Add a route above or use the Crosspoint Matrix</p>
-                  </div>
-                ) : (
-                  matrixRoutings.map((routing, idx) => {
-                    const filterOpen = expandedFilters.has(routing.id);
-                    const hasFilters = routingHasFilters(routing);
-                    return (
-                    <div key={routing.id} className="bg-[#1a1c23]/60 p-4 rounded-2xl border border-zinc-800/80 group hover:border-cyan-500/30 transition-all shadow-lg animate-in fade-in slide-in-from-bottom-2 duration-300">
-                      <div className="flex items-center gap-4">
-                      <div className="w-10 h-10 rounded-xl bg-zinc-900 border border-zinc-800 flex flex-col items-center justify-center">
-                        <span className="text-[8px] text-zinc-600 font-bold uppercase tracking-tighter leading-none mb-0.5">Pt</span>
-                        <span className="text-xs font-black text-cyan-500/60 leading-none">{idx + 1}</span>
-                      </div>
-
-                      <div className="flex-1 flex items-center gap-4">
-                        <div className="flex-1 relative">
-                          <label className="absolute -top-2 left-3 bg-[#1a1c23] px-1.5 text-[8px] font-black text-zinc-600 uppercase tracking-widest z-10">Source</label>
-                          <select
-                            className="w-full bg-zinc-950 text-xs px-4 py-3 rounded-xl border border-zinc-800 outline-none text-zinc-100 focus:border-cyan-500/50 transition-all cursor-pointer appearance-none shadow-inner"
-                            value={routing.inputId}
-                            onChange={(e) => {
-                              const val = e.target.value;
-                              setMatrixRoutings(prev => prev.map(r => r.id === routing.id ? { ...r, inputId: val } : r));
-                            }}
-                          >
-                            {inputs.map(i => (
-                              <option key={i.id} value={i.id}>{aliases[i.name] || i.name} {inputActivity.has(i.id) ? '●' : ''}</option>
-                            ))}
-                          </select>
-                        </div>
-
-                        <div className={`p-2 rounded-full border transition-all duration-500 ${inputActivity.has(routing.inputId) || outputActivity.has(routing.outputId) ? 'bg-cyan-500/10 border-cyan-500/30 text-cyan-400 scale-110 shadow-[0_0_10px_rgba(6,182,212,0.2)]' : 'bg-zinc-900/50 border-zinc-800 text-zinc-700'}`}>
-                          <Zap size={16} fill={inputActivity.has(routing.inputId) || outputActivity.has(routing.outputId) ? "currentColor" : "none"} />
-                        </div>
-
-                        <div className="flex-1 relative">
-                          <label className="absolute -top-2 left-3 bg-[#1a1c23] px-1.5 text-[8px] font-black text-zinc-600 uppercase tracking-widest z-10">Destination</label>
-                          <select
-                            className="w-full bg-zinc-950 text-xs px-4 py-3 rounded-xl border border-zinc-800 outline-none text-zinc-100 focus:border-cyan-500/50 transition-all cursor-pointer appearance-none shadow-inner"
-                            value={routing.outputId}
-                            onChange={(e) => {
-                              const val = e.target.value;
-                              setMatrixRoutings(prev => prev.map(r => r.id === routing.id ? { ...r, outputId: val } : r));
-                            }}
-                          >
-                            {outputs.map(o => (
-                              <option key={o.id} value={o.id}>{aliases[o.name] || o.name} {outputActivity.has(o.id) ? '●' : ''}</option>
-                            ))}
-                          </select>
-                        </div>
-                      </div>
-
-                      <button
-                        onClick={() => setExpandedFilters((prev) => {
-                          const next = new Set(prev);
-                          if (next.has(routing.id)) next.delete(routing.id);
-                          else next.add(routing.id);
-                          return next;
-                        })}
-                        className={`px-3 py-2 rounded-lg text-[10px] font-bold border transition-colors ${hasFilters ? 'bg-violet-900/30 text-violet-300 border-violet-700/50' : 'bg-zinc-900 text-zinc-500 border-zinc-800 hover:text-zinc-300'}`}
-                        title="Filters: limit which MIDI passes this route"
-                      >
-                        {hasFilters ? 'FILTERED' : 'FILTERS'}
-                      </button>
-
-                      <button
-                        onClick={() => {
-                          setMatrixRoutings(prev => prev.filter(r => r.id !== routing.id));
-                          setExpandedFilters((prev) => {
-                            const next = new Set(prev);
-                            next.delete(routing.id);
-                            return next;
-                          });
-                        }}
-                        className="w-12 h-12 flex items-center justify-center rounded-xl bg-red-950/10 text-red-500/40 hover:bg-red-500 hover:text-white transition-all opacity-0 group-hover:opacity-100 border border-transparent hover:border-red-400 shadow-lg"
-                      >
-                        <X size={20} />
-                      </button>
-                      </div>
-
-                      {filterOpen && (
-                        <div className="mt-4 pt-4 border-t border-zinc-800/60 space-y-3">
-                          <div>
-                            <div className="text-[9px] font-bold text-zinc-500 uppercase tracking-widest mb-2">Channels</div>
-                            <div className="flex flex-wrap gap-1">
-                              {CHANNELS.map((ch) => {
-                                const active = !routing.channels || routing.channels.length === 0 || routing.channels.includes(ch);
-                                return (
-                                  <button
-                                    key={ch}
-                                    onClick={() => {
-                                      const current = routing.channels && routing.channels.length > 0 ? routing.channels : [...CHANNELS];
-                                      const next = current.includes(ch)
-                                        ? current.filter((c) => c !== ch)
-                                        : [...current, ch].sort((a, b) => a - b);
-                                      updateRoutingFilter(routing.id, {
-                                        channels: next.length === 0 || next.length === 16 ? undefined : next,
-                                      });
-                                    }}
-                                    className={`w-8 h-7 rounded text-[10px] font-bold border transition-colors ${active ? 'bg-cyan-900/40 text-cyan-200 border-cyan-700/60' : 'bg-zinc-900 text-zinc-600 border-zinc-800'}`}
-                                    style={active ? { borderColor: CHANNEL_COLORS[ch], color: CHANNEL_COLORS[ch] } : undefined}
-                                  >
-                                    {ch}
-                                  </button>
-                                );
-                              })}
-                              <button
-                                onClick={() => updateRoutingFilter(routing.id, { channels: undefined })}
-                                className="px-2 h-7 rounded text-[10px] text-zinc-500 hover:text-zinc-200 border border-zinc-800 ml-2"
-                              >
-                                ALL
-                              </button>
-                            </div>
-                          </div>
-
-                          <div className="flex items-center gap-4">
-                            <div className="text-[9px] font-bold text-zinc-500 uppercase tracking-widest">Note Range</div>
-                            <div className="flex items-center gap-2">
-                              <input
-                                type="number"
-                                min={0}
-                                max={127}
-                                placeholder="0"
-                                value={routing.noteMin ?? ''}
-                                onChange={(e) => {
-                                  const v = e.target.value === '' ? undefined : Math.max(0, Math.min(127, parseInt(e.target.value) || 0));
-                                  updateRoutingFilter(routing.id, { noteMin: v });
-                                }}
-                                className="w-16 bg-zinc-950 border border-zinc-800 rounded px-2 py-1 text-[11px] text-zinc-200 text-center outline-none focus:border-cyan-500"
-                              />
-                              <span className="text-zinc-600 text-[10px]">
-                                {routing.noteMin != null ? getNoteName(routing.noteMin) : 'min'}
-                              </span>
-                              <span className="text-zinc-700">—</span>
-                              <input
-                                type="number"
-                                min={0}
-                                max={127}
-                                placeholder="127"
-                                value={routing.noteMax ?? ''}
-                                onChange={(e) => {
-                                  const v = e.target.value === '' ? undefined : Math.max(0, Math.min(127, parseInt(e.target.value) || 0));
-                                  updateRoutingFilter(routing.id, { noteMax: v });
-                                }}
-                                className="w-16 bg-zinc-950 border border-zinc-800 rounded px-2 py-1 text-[11px] text-zinc-200 text-center outline-none focus:border-cyan-500"
-                              />
-                              <span className="text-zinc-600 text-[10px]">
-                                {routing.noteMax != null ? getNoteName(routing.noteMax) : 'max'}
-                              </span>
-                              {(routing.noteMin != null || routing.noteMax != null) && (
-                                <button
-                                  onClick={() => updateRoutingFilter(routing.id, { noteMin: undefined, noteMax: undefined })}
-                                  className="text-zinc-600 hover:text-zinc-300 text-[10px] ml-2"
-                                >
-                                  clear
-                                </button>
-                              )}
-                            </div>
-                            <div className="text-[9px] text-zinc-700 ml-2">Applies to note on/off only</div>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                    );
-                  })
-                )}
-              </div>
             </div>
           )}
 
@@ -1850,12 +1623,36 @@ export default function MidiRouter({
         </div>
       )}
 
-      {/* Right-side Monitor pop-out — mirrors the Live Routing sidebar on
-          the left. Slides in from the right edge instead of a centered modal. */}
-      <div
-        className={`fixed top-0 right-0 bottom-0 z-40 bg-[#1a1c23] border-l border-zinc-800 shadow-2xl flex flex-col transition-transform duration-200 ${isMonitorOpen ? 'translate-x-0' : 'translate-x-full'}`}
-        style={{ width: 480 }}
+      {/* Right-side Monitor sidebar — mirrors the Live Routing sidebar on
+          the left. Resizable via the drag handle on its left edge; a persistent
+          chevron at the right screen edge toggles open/closed. */}
+      <button
+        onClick={() => setIsMonitorOpen((v) => !v)}
+        className="fixed top-4 z-50 w-8 h-16 bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 border-r-0 rounded-l flex items-center justify-center text-zinc-300"
+        style={{ right: isMonitorOpen ? monitorWidth : 0 }}
+        title={isMonitorOpen ? 'Hide MIDI Monitor' : 'Show MIDI Monitor'}
       >
+        {isMonitorOpen ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
+      </button>
+      <div
+        className={`fixed top-0 right-0 bottom-0 z-40 bg-[#1a1c23] border-l border-zinc-800 shadow-2xl flex flex-col ${isMonitorOpen ? '' : 'pointer-events-none'}`}
+        style={{ width: monitorWidth, transform: isMonitorOpen ? 'translateX(0)' : 'translateX(100%)', transition: monitorDraggingRef.current ? 'none' : 'transform 200ms' }}
+      >
+        {/* Left-edge drag handle for resize */}
+        {isMonitorOpen && (
+          <div
+            onMouseDown={(e) => {
+              e.preventDefault();
+              monitorDraggingRef.current = true;
+              document.body.style.cursor = 'col-resize';
+              document.body.style.userSelect = 'none';
+            }}
+            className="absolute top-0 -left-1 w-2 h-full cursor-col-resize z-40 group"
+            title="Drag to resize"
+          >
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-full bg-zinc-800 group-hover:bg-cyan-500 transition-colors" />
+          </div>
+        )}
         <div className="px-4 py-3 border-b border-zinc-800 flex justify-between items-center bg-[#13151a]">
           <div className="flex items-center gap-3">
             <div className="w-3 h-3 rounded-full bg-[#06b6d4] shadow-[0_0_8px_rgba(6,182,212,0.8)] animate-pulse"></div>

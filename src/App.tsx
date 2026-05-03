@@ -25,7 +25,6 @@ const VIRTUAL_PORTS_KEY = 'midibrain.virtualPorts';
 const MIDIROUTER_STORAGE_KEYS = [
   'midibrain.matrix',
   'midibrain.matrixRoutings',
-  'midibrain.remappings',
   'midibrain.presets',
   'midibrain.channelNames',
   'midibrain.rowHeights',
