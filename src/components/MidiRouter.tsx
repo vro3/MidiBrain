@@ -902,6 +902,16 @@ export default function MidiRouter({
 
     const rawSourceId = params.source.replace('in:', '');
     const rawTargetId = params.target.replace('out:', '');
+    const inputName = inputs.find((i) => i.id === rawSourceId)?.name;
+    const outputName = outputs.find((o) => o.id === rawTargetId)?.name;
+
+    if (inputName && outputName && setRoutingProp) {
+      setRoutingProp((prev) => {
+        const current = prev[inputName] ?? [];
+        if (current.includes(outputName)) return prev;
+        return { ...prev, [inputName]: [...current, outputName] };
+      });
+    }
 
     setMatrixRoutings((prev: MatrixRouting[]) => {
       const exists = prev.some(r => r.inputId === rawSourceId && r.outputId === rawTargetId);
@@ -913,7 +923,7 @@ export default function MidiRouter({
         enabled: true
       }];
     });
-  }, [setMatrixRoutings]);
+  }, [setMatrixRoutings, inputs, outputs, setRoutingProp]);
 
   useEffect(() => {
     const newNodes: Node[] = [];
@@ -947,25 +957,34 @@ export default function MidiRouter({
     setNodes(newNodes);
   }, [inputs, outputs, selectedInputs, selectedOutputs, inputActivity, outputActivity, aliases]);
 
+  // Derive Topography edges from App.routing (the same source the Crosspoint
+  // Matrix dots and Live Routing chips read from). Keeps the three views in
+  // lockstep — pick a destination chip on the left, see the line appear here.
   useEffect(() => {
     const newEdges: Edge[] = [];
-    matrixRoutings.forEach(routing => {
-      if (routing.enabled) {
-        newEdges.push({
-          id: routing.id,
-          source: `in:${routing.inputId}`,
-          target: `out:${routing.outputId}`,
-          sourceHandle: 'source',
-          targetHandle: 'target',
-          markerEnd: { type: MarkerType.ArrowClosed, color: '#06b6d4', width: 22, height: 22 },
-          style: { stroke: '#06b6d4', strokeWidth: 3 },
-          animated: true,
-          type: 'proaudio',
-        });
+    if (routingProp) {
+      for (const inputName of Object.keys(routingProp)) {
+        const input = inputs.find((i) => i.name === inputName);
+        if (!input) continue;
+        for (const outputName of routingProp[inputName]) {
+          const output = outputs.find((o) => o.name === outputName);
+          if (!output) continue;
+          newEdges.push({
+            id: `live-${input.id}->${output.id}`,
+            source: `in:${input.id}`,
+            target: `out:${output.id}`,
+            sourceHandle: 'source',
+            targetHandle: 'target',
+            markerEnd: { type: MarkerType.ArrowClosed, color: '#06b6d4', width: 22, height: 22 },
+            style: { stroke: '#06b6d4', strokeWidth: 3 },
+            animated: true,
+            type: 'proaudio',
+          });
+        }
       }
-    });
+    }
     setEdges(newEdges);
-  }, [matrixRoutings]);
+  }, [routingProp, inputs, outputs]);
 
   const ResizeHandle = ({ onResize }: { onResize: (delta: number) => void }) => (
     <div
